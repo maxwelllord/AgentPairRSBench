@@ -1,0 +1,47 @@
+[15:50:36] run E:\runebench\runs\20261019-155036-1x-opencode-attempt2
+[15:50:36] team tffl5mna | backend opencode | model openrouter/deepseek/deepseek-v4.1-flash | 10 min
+[15:50:44] tffl5mna ready at 3222,3222
+[15:50:44] live view: E:\runebench\runs\20261019-155036-1x-opencode-attempt2\live.html
+[15:50:44] start; deadline 2026-10-19T16:00:44.721Z
+[15:50:44] tffl5mna launch #1
+[15:54:48] kill: tffl5mna -> man3 (lvl 2, hp 7, ttk 75 ticks)
+[15:55:18] kill: tffl5mna -> man3 (lvl 2, hp 7, ttk 95 ticks)
+[15:55:26] kill: tffl5mna -> man3 (lvl 2, hp 7, ttk 71 ticks)
+[15:55:36] kill: tffl5mna -> rat (lvl 1, hp 2, ttk 20 ticks)
+[15:55:42] kill: tffl5mna -> man3 (lvl 2, hp 7, ttk 68 ticks)
+[15:55:50] kill: tffl5mna -> man3 (lvl 2, hp 7, ttk 52 ticks)
+[15:56:00] kill: tffl5mna -> man3 (lvl 2, hp 7, ttk 75 ticks)
+[15:56:11] kill: tffl5mna -> man3 (lvl 2, hp 7, ttk 71 ticks)
+[15:57:10] kill: tffl5mna -> man3 (lvl 2, hp 7, ttk 35 ticks)
+[15:57:18] kill: tffl5mna -> man3 (lvl 2, hp 7, ttk 20 ticks)
+[15:57:24] kill: tffl5mna -> man3 (lvl 2, hp 7, ttk 23 ticks)
+[15:57:32] kill: tffl5mna -> man3 (lvl 2, hp 7, ttk 28 ticks)
+[15:57:38] kill: tffl5mna -> man3 (lvl 2, hp 7, ttk 27 ticks)
+[15:57:44] kill: tffl5mna -> man3 (lvl 2, hp 7, ttk 12 ticks)
+[15:57:52] kill: tffl5mna -> man3 (lvl 2, hp 7, ttk 12 ticks)
+[15:57:58] kill: tffl5mna -> rat (lvl 1, hp 2, ttk 5 ticks)
+[15:58:00] kill: tffl5mna -> rat (lvl 1, hp 2, ttk 12 ticks)
+[15:58:08] kill: tffl5mna -> rat (lvl 1, hp 2, ttk 4 ticks)
+[15:58:12] kill: tffl5mna -> giantrat (lvl 3, hp 5, ttk 20 ticks)
+[15:58:20] kill: tffl5mna -> giantrat (lvl 3, hp 5, ttk 24 ticks)
+[15:58:26] kill: tffl5mna -> giantrat (lvl 3, hp 5, ttk 8 ticks)
+[15:58:32] kill: tffl5mna -> giantrat (lvl 3, hp 5, ttk 12 ticks)
+[15:58:40] kill: tffl5mna -> giantrat (lvl 3, hp 5, ttk 16 ticks)
+[15:58:48] kill: tffl5mna -> giantrat (lvl 3, hp 5, ttk 21 ticks)
+[15:58:54] kill: tffl5mna -> giantrat (lvl 3, hp 5, ttk 8 ticks)
+[15:59:00] kill: tffl5mna -> giantrat (lvl 3, hp 5, ttk 15 ticks)
+[15:59:08] kill: tffl5mna -> giantrat (lvl 3, hp 5, ttk 24 ticks)
+[15:59:14] kill: tffl5mna -> giantrat (lvl 3, hp 5, ttk 4 ticks)
+[15:59:16] kill: tffl5mna -> giantrat (lvl 3, hp 5, ttk 8 ticks)
+[15:59:16] kill: tffl5mna -> giantrat (lvl 3, hp 5, ttk 44 ticks)
+[15:59:22] kill: tffl5mna -> giantrat (lvl 3, hp 5, ttk 4 ticks)
+[15:59:24] kill: tffl5mna -> giantrat (lvl 3, hp 5, ttk 5 ticks)
+[15:59:31] kill: tffl5mna -> giantrat (lvl 3, hp 5, ttk 4 ticks)
+[15:59:32] kill: tffl5mna -> giantrat (lvl 3, hp 5, ttk 8 ticks)
+[15:59:40] kill: tffl5mna -> giantrat (lvl 3, hp 5, ttk 18 ticks)
+[15:59:46] kill: tffl5mna -> giantrat (lvl 3, hp 5, ttk 5 ticks)
+[15:59:48] kill: tffl5mna -> giantrat (lvl 3, hp 5, ttk 8 ticks)
+[15:59:54] kill: tffl5mna -> giantrat (lvl 3, hp 5, ttk 8 ticks)
+[16:00:44] tffl5mna exited after 600s (code 1)
+[16:00:49] timelapse: E:\runebench\runs\20261019-155036-1x-opencode-attempt2\timelapse-tffl5mna.mp4
+[16:00:49] SCORE 2.03 | best giantrat (lvl 3, hp 5, ttk 2.4s, 2.08 dps) by tffl5mna | kills 38 | cost $0.0311

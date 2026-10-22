@@ -1,0 +1,351 @@
+{
+  "runDir": "E:\\runebench\\runs\\20261021-193918-r039-2x-opencode-unique-ds-repeat",
+  "mode": "unique",
+  "backend": "opencode",
+  "model": "openrouter/deepseek/deepseek-v4.1-flash",
+  "nAgents": 2,
+  "minutes": 15,
+  "team": [
+    "Alpha",
+    "Bravo"
+  ],
+  "startedAt": "2026-10-21T19:39:51.948Z",
+  "endedAt": "2026-10-21T19:54:51.948Z",
+  "score": 29.407647221377378,
+  "levelSum": 115,
+  "enemies": [
+    {
+      "name": "Bear",
+      "level": 21,
+      "value": 3.091042453358316,
+      "kills": 2,
+      "firstAt": "2026-10-21T19:52:24.635Z",
+      "firstBy": "Alpha",
+      "byAgent": {
+        "Alpha": 2
+      }
+    },
+    {
+      "name": "Dark wizard",
+      "level": 20,
+      "value": 3.044522437723423,
+      "kills": 1,
+      "firstAt": "2026-10-21T19:53:47.386Z",
+      "firstBy": "Alpha",
+      "byAgent": {
+        "Alpha": 1
+      }
+    },
+    {
+      "name": "Thief",
+      "level": 16,
+      "value": 2.833213344056216,
+      "kills": 1,
+      "firstAt": "2026-10-21T19:48:03.950Z",
+      "firstBy": "Alpha",
+      "byAgent": {
+        "Alpha": 1
+      }
+    },
+    {
+      "name": "Unicorn",
+      "level": 15,
+      "value": 2.772588722239781,
+      "kills": 1,
+      "firstAt": "2026-10-21T19:52:58.037Z",
+      "firstBy": "Alpha",
+      "byAgent": {
+        "Alpha": 1
+      }
+    },
+    {
+      "name": "Barbarian woman",
+      "level": 8,
+      "value": 2.1972245773362196,
+      "kills": 1,
+      "firstAt": "2026-10-21T19:48:09.236Z",
+      "firstBy": "Alpha",
+      "byAgent": {
+        "Alpha": 1
+      }
+    },
+    {
+      "name": "Farmer",
+      "level": 7,
+      "value": 2.0794415416798357,
+      "kills": 1,
+      "firstAt": "2026-10-21T19:46:04.558Z",
+      "firstBy": "Bravo",
+      "byAgent": {
+        "Bravo": 1
+      }
+    },
+    {
+      "name": "Mugger",
+      "level": 6,
+      "value": 1.9459101490553132,
+      "kills": 2,
+      "firstAt": "2026-10-21T19:46:28.807Z",
+      "firstBy": "Bravo",
+      "byAgent": {
+        "Bravo": 1,
+        "Alpha": 1
+      }
+    },
+    {
+      "name": "Goblin",
+      "level": 5,
+      "value": 1.791759469228055,
+      "kills": 23,
+      "firstAt": "2026-10-21T19:45:01.608Z",
+      "firstBy": "Bravo",
+      "byAgent": {
+        "Bravo": 22,
+        "Alpha": 1
+      }
+    },
+    {
+      "name": "Giant rat",
+      "level": 3,
+      "value": 1.3862943611198906,
+      "kills": 2,
+      "firstAt": "2026-10-21T19:41:35.420Z",
+      "firstBy": "Bravo",
+      "byAgent": {
+        "Bravo": 2
+      }
+    },
+    {
+      "name": "Man",
+      "level": 2,
+      "value": 1.0986122886681098,
+      "kills": 7,
+      "firstAt": "2026-10-21T19:41:05.371Z",
+      "firstBy": "Alpha",
+      "byAgent": {
+        "Alpha": 7
+      }
+    },
+    {
+      "name": "Cow",
+      "level": 2,
+      "value": 1.0986122886681098,
+      "kills": 26,
+      "firstAt": "2026-10-21T19:43:03.957Z",
+      "firstBy": "Alpha",
+      "byAgent": {
+        "Alpha": 22,
+        "Bravo": 4
+      }
+    },
+    {
+      "name": "Giant spider",
+      "level": 2,
+      "value": 1.0986122886681098,
+      "kills": 2,
+      "firstAt": "2026-10-21T19:44:56.456Z",
+      "firstBy": "Bravo",
+      "byAgent": {
+        "Bravo": 1,
+        "Alpha": 1
+      }
+    },
+    {
+      "name": "Jonny the beard",
+      "level": 2,
+      "value": 1.0986122886681098,
+      "kills": 1,
+      "firstAt": "2026-10-21T19:48:07.237Z",
+      "firstBy": "Alpha",
+      "byAgent": {
+        "Alpha": 1
+      }
+    },
+    {
+      "name": "Woman",
+      "level": 2,
+      "value": 1.0986122886681098,
+      "kills": 1,
+      "firstAt": "2026-10-21T19:48:10.886Z",
+      "firstBy": "Alpha",
+      "byAgent": {
+        "Alpha": 1
+      }
+    },
+    {
+      "name": "Rat",
+      "level": 1,
+      "value": 0.6931471805599453,
+      "kills": 8,
+      "firstAt": "2026-10-21T19:40:38.572Z",
+      "firstBy": "Alpha",
+      "byAgent": {
+        "Alpha": 8
+      }
+    },
+    {
+      "name": "Duck",
+      "level": 1,
+      "value": 0.6931471805599453,
+      "kills": 2,
+      "firstAt": "2026-10-21T19:42:35.971Z",
+      "firstBy": "Alpha",
+      "byAgent": {
+        "Alpha": 2
+      }
+    },
+    {
+      "name": "Chicken",
+      "level": 1,
+      "value": 0.6931471805599453,
+      "kills": 35,
+      "firstAt": "2026-10-21T19:43:50.458Z",
+      "firstBy": "Alpha",
+      "byAgent": {
+        "Alpha": 35
+      }
+    },
+    {
+      "name": "Spider",
+      "level": 1,
+      "value": 0.6931471805599453,
+      "kills": 2,
+      "firstAt": "2026-10-21T19:44:52.256Z",
+      "firstBy": "Bravo",
+      "byAgent": {
+        "Bravo": 1,
+        "Alpha": 1
+      }
+    }
+  ],
+  "totalKills": 118,
+  "killsByAgent": {
+    "Alpha": 86,
+    "Bravo": 32
+  },
+  "uniqueByAgent": {
+    "Alpha": 16,
+    "Bravo": 7
+  },
+  "overlap": [
+    "Mugger",
+    "Goblin",
+    "Cow",
+    "Giant spider",
+    "Spider"
+  ],
+  "nonScoringKills": 99,
+  "scoreOverTime": [
+    {
+      "minute": 1,
+      "score": 0.6931471805599453
+    },
+    {
+      "minute": 2,
+      "score": 3.1780538303479453
+    },
+    {
+      "minute": 3,
+      "score": 3.8712010109078907
+    },
+    {
+      "minute": 4,
+      "score": 5.662960480135946
+    },
+    {
+      "minute": 5,
+      "score": 5.662960480135946
+    },
+    {
+      "minute": 6,
+      "score": 8.55333223803211
+    },
+    {
+      "minute": 7,
+      "score": 12.57868392876726
+    },
+    {
+      "minute": 8,
+      "score": 13.271831109327206
+    },
+    {
+      "minute": 9,
+      "score": 20.49949360805586
+    },
+    {
+      "minute": 10,
+      "score": 20.49949360805586
+    },
+    {
+      "minute": 11,
+      "score": 20.49949360805586
+    },
+    {
+      "minute": 12,
+      "score": 20.49949360805586
+    },
+    {
+      "minute": 13,
+      "score": 23.590536061414177
+    },
+    {
+      "minute": 14,
+      "score": 29.40764722137738
+    },
+    {
+      "minute": 15,
+      "score": 29.40764722137738
+    }
+  ],
+  "finalScoreAt": "2026-10-21T19:53:47.386Z",
+  "costUsd": 0.06613350600000001,
+  "budgetUsd": 2,
+  "budgetStoppedAt": null,
+  "agents": [
+    {
+      "name": "Alpha",
+      "launches": 1,
+      "costUsd": 0.027806076,
+      "inputTokens": 56814,
+      "cachedTokens": 958592,
+      "outputTokens": 27347,
+      "steps": 20
+    },
+    {
+      "name": "Bravo",
+      "launches": 1,
+      "costUsd": 0.03832743,
+      "inputTokens": 90321,
+      "cachedTokens": 975360,
+      "outputTokens": 36422,
+      "steps": 23
+    }
+  ],
+  "timing": {
+    "agents": [
+      {
+        "agent": "Alpha",
+        "turns": 20,
+        "gameCalls": 10,
+        "modelSeconds": 226.1,
+        "toolSeconds": 576.3,
+        "gameToolSeconds": 494.1,
+        "medianModelSecondsPerTurn": 9.9,
+        "gameCallsPerMinute": 0.67
+      },
+      {
+        "agent": "Bravo",
+        "turns": 23,
+        "gameCalls": 14,
+        "modelSeconds": 290.4,
+        "toolSeconds": 556.1,
+        "gameToolSeconds": 553.1,
+        "medianModelSecondsPerTurn": 12.6,
+        "gameCallsPerMinute": 0.93
+      }
+    ],
+    "modelShare": 0.313,
+    "medianModelSecondsPerTurn": 11.9,
+    "gameCallsPerMinute": 1.6
+  }
+}

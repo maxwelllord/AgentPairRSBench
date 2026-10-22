@@ -1,0 +1,69 @@
+
+================ Alpha ================
+[0-5m] cb 3->31 | deaths 0 | notes writes 0 | pos 3222,3222 -> 3258,3258
+   kills: cow(L2)x36, man3(L2)x2
+   chat/dm: 'Team: I will develop combat/magic and investigate strong low-defence targets. Bravo/Charlie please choose support gold/runes or complementa || 'Bravo','XP is boosted ~25x. One man melee kill got Attack 7. Mage cast 237xp. Please get gold/rune supplies; I can train melee rapidly othe || 'Charlie','XP boosted ~25x. Suggest train melee/range rapidly then team Black demons lvl172 Edge dungeon. I am training melee now unless run
+   > I’ll coordinate roles with Bravo and Charlie, then build Alpha’s damage output and look for targets we can kill repeatedly at a strong score.
+[5-10m] cb 3->52 | deaths 0 | notes writes 0 | pos 3254,3259 -> 3050,3489
+   kills: guard1(L21)x18, cow(L2)x5
+   chat/dm: 'Alpha here swordshop, ready to receive gold. Strength48 attack37 def35. Need mithril sword845 gp then food.' || 'Thanks Charlie! Please source food/armor next. Kebabs Al Kharid1gp heal variable or fishing. Training nearby guards, then higher targets.' || 'Bravo I am swordshop 3203 3398 right NOW. Please come trade armor and food if any. I have18hp46max. Need food, then train Defence on guards
+   > Alpha is now combat level 52 with a mithril sword and armor supplied by the team. I’m building Defence and securing food before moving on to stronger targets.
+[10-15m] cb 5->61 | deaths 0 | notes writes 0 | pos 3050,3489 -> 3086,9955
+   kills: monk(L5)x31
+   chat/dm: 'Thank you. Training strength to60 here then Edgeville black demons. Please source better weapon adamant sword2080gp Varrock, or rune sword 
+[15-20m] cb 22->62 | deaths 0 | notes writes 0 | pos 3261,3261 -> 3096,3468
+   kills: cow(L2)x21
+   chat/dm: 'Alpha cow pen SOUTH 3261 3261. Please trade food here. Going lesser demons Karamja then black demons once stronger. Charlie adamant sword n || 'Thanks Charlie, addy equipped. I can return mith sword if useful. Bravo where are you? Please FOOD to south cow pen3261 3261 NOW. Need figh || 'Bravo trade me now, I am stationary3253 3280 accepting. Last trade timedout20sec and next no response30sec.'
+[20-25m] cb 63->67 | deaths 1 | notes writes 0 | pos 3219,3218 -> 3112,3161
+   kills: summonedimp(L3)x15, wizard_grayzag(L41)x14
+[25-30m] cb 26->74 | deaths 0 | notes writes 0 | pos 3109,3161 -> 3110,3163
+   kills: wizard_grayzag(L41)x29, summonedimp(L3)x16
+   chat/dm: 'Alpha Wizard Tower LEVEL2; mage19 but no runes, need delivery staffair mind/fire please. Have killed Grayzag41 eight times for baseline. At || 'Charlie I have no air staff, only10air, magic19. Need spare air + mind, fire for firestrike. You should kill3lessers first solo forscore. C || 'Charlie FIRST demon was hit20:09 by me, so timerbad. Need THREE fresh kills after first! I will kill Grayzag to keep you safe. Have enough5
+   > Charlie has completed several lesser-demon kills using magic through the cage. I’m keeping Wizard Grayzag off him while Bravo delivers more runes for the final scoring attempts.
+
+================ Bravo ================
+[0-5m] cb 3->5 | deaths 0 | notes writes 0 | pos 3222,3222 -> 3272,3181
+   kills: -
+   chat/dm: 'Alpha','I can support resources. What is your plan? Suggest main mage fire strike on high-level low-magic NPC; I can supply money/runes.' || 'Charlie','I can support resources. What role are you taking? Main mage fire strike best early DPS; I can supply runes/money.' || 'Alpha','Thieving XP appears 100x: reached 29 in 45sec. I will thieve Al Kharid warriors (18gp
+   > I’ll coordinate with Alpha and Charlie, then focus Bravo on support resources so the team can build a strong damage dealer quickly.
+[5-10m] cb 3->52 | deaths 1 | notes writes 0 | pos 3290,3172 -> 3175,3427
+   kills: -
+   chat/dm: 'Alpha','Have 1478gp and thieving57. Need delivery location/request. Can buy mind/fire runes Varrock or bring cash.' || 'Charlie','I have 1478gp from warriors, thieving57. What are you doing? Can we pool resources soon?' || 'Alpha','Heading Varrock rune shop with 1468gp; will purchase useful runes or trade you. Please reply location.'
+   > Bravo has reached Thieving 73 and gathered 2,640 gp. Alpha is progressing quickly in melee, so I’m shifting toward armor and food support while Charlie pursues higher-value thieving.
+[10-15m] cb 5->57 | deaths 0 | notes writes 0 | pos 3274,3181 -> 3109,3432
+   kills: -
+   chat/dm: 'Alpha have25 kebabs. Coming monastery (3050,3490 || 'Alpha at monastery now with25 kebabs; trade Bravo. Then I will develop fishing/cooking better food.' || '25 kebabs delivered. Developing fishing/cooking now for reliable higher-heal food.'
+[15-20m] cb 5->62 | deaths 0 | notes writes 0 | pos 3078,3440 -> 2956,3143
+   kills: cow(L2)x33
+   chat/dm: 'Alpha: now Fishing49 Cooking48, have9 trout+5salmon (7/9hp || 'Alpha: at monastery food delivery now, 13trout5salmon+shrimp. Please trade Bravo.' || 'Alpha carrying13trout5salmon and smallfood now at cows to deliver. Please trade Bravo.'
+[20-25m] cb 26->26 | deaths 0 | notes writes 0 | pos 2924,3178 -> 3078,3444
+   kills: -
+[25-30m] cb 26->73 | deaths 0 | notes writes 0 | pos 3109,3164 -> 3104,3161
+   kills: -
+   chat/dm: 'Alpha food here8swordfish14heal9tuna10heal. Trade Bravo.' || 'Charlie I will get more death runes via Falador guards then Betty shop, return ~2min. Keep demon kills going.' || 'Charlie36deathrunes here. Trade Bravo NOW. Budget limited,36 is all I could afford.'
+   > The team has fresh lesser-demon kills underway. Bravo delivered the armor, multiple food batches, and 53 additional death runes; the final 17 reached Charlie with about 45 seconds left.
+[30-35m] cb 26->74 | deaths 0 | notes writes 0 | pos 3104,3161 -> 3104,3161
+   kills: -
+
+================ Charlie ================
+[0-5m] cb 3->5 | deaths 1 | notes writes 0 | pos 3222,3222 -> 3270,3412
+   kills: -
+   chat/dm: 'Alpha','Charlie ready. Suggest magic DPS / safespotted high-level monsters. I can fund runes through thieving or independently train magic; || 'Bravo','Charlie ready. What strategy are you pursuing? I can fund runes or train magic for high-level safespot kills.' || 'Alpha','I will generate gold and supply you runes; concentrating magic on you most efficient. Starting thieving; also can transfer initial 
+   > I’ll coordinate with Alpha and Bravo, then build Charlie toward fast, repeatable kills before the deadline.
+[5-10m] cb 3->46 | deaths 0 | notes writes 0 | pos 3270,3412 -> 2748,3236
+   kills: -
+   chat/dm: 'Alpha','Funding at Varrock east: tea stall free food + guard pickpocket30gp. Thieving45. Should have staff money soon. Where shall deliver? || 'Alpha','Have1290gp. Are you receiving DMs? Please reply location/needs via notes. I can buy runes now from Aubury.' || 'Bravo: tea stall here steal op2, wait8ticks, heals3. Guards30gp/pick. Delivering1290gp Alpha swordshop now.'
+   > Charlie has delivered 1,290 gp to Alpha for a weapon upgrade. I’m building a larger supply fund so Alpha can keep training and move on to stronger targets.
+[10-15m] cb 3->55 | deaths 2 | notes writes 0 | pos 3221,3219 -> 3255,3258
+   kills: chicken(L1)x20, cow(L2)x17, monk(L5)x1
+[15-20m] cb 32->62 | deaths 0 | notes writes 0 | pos 3270,3412 -> 3270,3412
+   kills: -
+[20-25m] cb 32->37 | deaths 0 | notes writes 0 | pos 3276,3422 -> 3276,3421
+   kills: cow(L2)x30
+[25-30m] cb 26->73 | deaths 0 | notes writes 0 | pos 3109,3163 -> 3110,3161
+   kills: lesser_demon(L82)x7
+   chat/dm: 'Charlie here magic43 with55death runes windblast air staff, will blast demon. Alpha can use33mind runes I carry if you have air staff.' || 'Used55death runes; Magic61 now, estimate4+lesser kills incl first pretagged. Demon currently44HP; need more death ASAP. Fireblast unlocked5 || 'Bravo please prioritize death runes, ~60 enough3morekills. No fire needed if time pressure. My air staff infinite air. Alpha spare coins ca
+   > Charlie is now Magic 43 with an air staff and death runes. I’ve reached the caged level-82 lesser demon and landed Wind Blast; I’m working on three repeat kills for the team’s score.
+[30-35m] cb 26->74 | deaths 0 | notes writes 0 | pos 3110,3161 -> 3110,3161
+   kills: -
+   chat/dm: '17death spent: finished old demon + another fresh kill, now fresh71HP. Multiple fresh lesser kills secured, Magic69. No runes left. Holding

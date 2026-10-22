@@ -1,0 +1,223 @@
+{
+  "runDir": "E:\\runebench\\runs\\20261019-160415-1x-opencode-solo30",
+  "backend": "opencode",
+  "model": "openrouter/deepseek/deepseek-v4.1-flash",
+  "nAgents": 1,
+  "minutes": 30,
+  "team": [
+    "tfg2ptta"
+  ],
+  "startedAt": "2026-10-19T16:04:23.207Z",
+  "endedAt": "2026-10-19T16:34:11.586Z",
+  "score": 14.538461538461538,
+  "bestKill": {
+    "ts": "2026-10-19T16:29:26.212Z",
+    "tick": 69689,
+    "npcId": 105,
+    "npcName": "brownbear",
+    "combatLevel": 21,
+    "maxHp": 27,
+    "ttkTicks": 20,
+    "killer": "tfg2ptta",
+    "contributors": [
+      {
+        "username": "tfg2ptta",
+        "damage": 27
+      }
+    ],
+    "x": 3177,
+    "z": 3222,
+    "level": 0,
+    "value": 14.538461538461538,
+    "ttkSeconds": 12,
+    "dps": 2.25,
+    "minutesIn": 25.050083333333333
+  },
+  "altScores": {
+    "combatLevel": 21,
+    "levelPlusHalfHp": 34.5,
+    "levelTimeOnly": 17.5
+  },
+  "totalKills": 100,
+  "killsByAgent": {
+    "tfg2ptta": 100
+  },
+  "distinctNpcs": [
+    {
+      "npcName": "brownbear",
+      "combatLevel": 21,
+      "maxHp": 27,
+      "count": 23,
+      "fastestTtkSeconds": 12
+    },
+    {
+      "npcName": "man3",
+      "combatLevel": 2,
+      "maxHp": 7,
+      "count": 6,
+      "fastestTtkSeconds": 7.199999999999999
+    },
+    {
+      "npcName": "man",
+      "combatLevel": 2,
+      "maxHp": 7,
+      "count": 12,
+      "fastestTtkSeconds": 4.8
+    },
+    {
+      "npcName": "man2",
+      "combatLevel": 2,
+      "maxHp": 7,
+      "count": 2,
+      "fastestTtkSeconds": 12
+    },
+    {
+      "npcName": "woman",
+      "combatLevel": 2,
+      "maxHp": 7,
+      "count": 1,
+      "fastestTtkSeconds": 24
+    },
+    {
+      "npcName": "cow",
+      "combatLevel": 2,
+      "maxHp": 8,
+      "count": 56,
+      "fastestTtkSeconds": 4.8
+    }
+  ],
+  "bestOverTime": [
+    {
+      "minute": 1,
+      "best": 0
+    },
+    {
+      "minute": 2,
+      "best": 0
+    },
+    {
+      "minute": 3,
+      "best": 0
+    },
+    {
+      "minute": 4,
+      "best": 0
+    },
+    {
+      "minute": 5,
+      "best": 0
+    },
+    {
+      "minute": 6,
+      "best": 0
+    },
+    {
+      "minute": 7,
+      "best": 0
+    },
+    {
+      "minute": 8,
+      "best": 0
+    },
+    {
+      "minute": 9,
+      "best": 0.7368421052631579
+    },
+    {
+      "minute": 10,
+      "best": 1.1864406779661016
+    },
+    {
+      "minute": 11,
+      "best": 1.25
+    },
+    {
+      "minute": 12,
+      "best": 1.25
+    },
+    {
+      "minute": 13,
+      "best": 1.25
+    },
+    {
+      "minute": 14,
+      "best": 1.25
+    },
+    {
+      "minute": 15,
+      "best": 1.25
+    },
+    {
+      "minute": 16,
+      "best": 1.25
+    },
+    {
+      "minute": 17,
+      "best": 1.25
+    },
+    {
+      "minute": 18,
+      "best": 1.25
+    },
+    {
+      "minute": 19,
+      "best": 1.25
+    },
+    {
+      "minute": 20,
+      "best": 13.309859154929578
+    },
+    {
+      "minute": 21,
+      "best": 13.309859154929578
+    },
+    {
+      "minute": 22,
+      "best": 13.309859154929578
+    },
+    {
+      "minute": 23,
+      "best": 13.309859154929578
+    },
+    {
+      "minute": 24,
+      "best": 13.309859154929578
+    },
+    {
+      "minute": 25,
+      "best": 13.309859154929578
+    },
+    {
+      "minute": 26,
+      "best": 14.538461538461538
+    },
+    {
+      "minute": 27,
+      "best": 14.538461538461538
+    },
+    {
+      "minute": 28,
+      "best": 14.538461538461538
+    },
+    {
+      "minute": 29,
+      "best": 14.538461538461538
+    },
+    {
+      "minute": 30,
+      "best": 14.538461538461538
+    }
+  ],
+  "costUsd": 0.098066382,
+  "agents": [
+    {
+      "name": "tfg2ptta",
+      "launches": 2,
+      "costUsd": 0.098066382,
+      "inputTokens": 123485,
+      "cachedTokens": 7625344,
+      "outputTokens": 94446,
+      "steps": 118
+    }
+  ]
+}

@@ -1,0 +1,142 @@
+{
+  "runDir": "E:\\runebench\\runs\\20261022-095717-r052-2x-opencode-unique-sol-clean",
+  "mode": "unique",
+  "backend": "opencode",
+  "model": "openrouter/openai/gpt-6.1-sol",
+  "nAgents": 2,
+  "minutes": 15,
+  "team": [
+    "Alpha",
+    "Bravo"
+  ],
+  "startedAt": "2026-10-22T09:57:50.180Z",
+  "endedAt": "2026-10-22T10:12:50.180Z",
+  "score": 0,
+  "levelSum": 0,
+  "enemies": [],
+  "totalKills": 0,
+  "killsByAgent": {
+    "Alpha": 0,
+    "Bravo": 0
+  },
+  "uniqueByAgent": {
+    "Alpha": 0,
+    "Bravo": 0
+  },
+  "overlap": [],
+  "nonScoringKills": 0,
+  "scoreOverTime": [
+    {
+      "minute": 1,
+      "score": 0
+    },
+    {
+      "minute": 2,
+      "score": 0
+    },
+    {
+      "minute": 3,
+      "score": 0
+    },
+    {
+      "minute": 4,
+      "score": 0
+    },
+    {
+      "minute": 5,
+      "score": 0
+    },
+    {
+      "minute": 6,
+      "score": 0
+    },
+    {
+      "minute": 7,
+      "score": 0
+    },
+    {
+      "minute": 8,
+      "score": 0
+    },
+    {
+      "minute": 9,
+      "score": 0
+    },
+    {
+      "minute": 10,
+      "score": 0
+    },
+    {
+      "minute": 11,
+      "score": 0
+    },
+    {
+      "minute": 12,
+      "score": 0
+    },
+    {
+      "minute": 13,
+      "score": 0
+    },
+    {
+      "minute": 14,
+      "score": 0
+    },
+    {
+      "minute": 15,
+      "score": 0
+    }
+  ],
+  "finalScoreAt": null,
+  "scoringKills": [],
+  "costUsd": 0.0564446,
+  "budgetUsd": 3,
+  "budgetStoppedAt": null,
+  "agents": [
+    {
+      "name": "Alpha",
+      "launches": 13,
+      "costUsd": 0.0323761,
+      "inputTokens": 11910,
+      "cachedTokens": 9441,
+      "outputTokens": 166,
+      "steps": 2
+    },
+    {
+      "name": "Bravo",
+      "launches": 15,
+      "costUsd": 0.0240685,
+      "inputTokens": 9476,
+      "cachedTokens": 0,
+      "outputTokens": 38,
+      "steps": 1
+    }
+  ],
+  "timing": {
+    "agents": [
+      {
+        "agent": "Alpha",
+        "turns": 2,
+        "gameCalls": 1,
+        "modelSeconds": 0.5,
+        "toolSeconds": 0.4,
+        "gameToolSeconds": 0,
+        "medianModelSecondsPerTurn": 0.3,
+        "gameCallsPerMinute": 0.07
+      },
+      {
+        "agent": "Bravo",
+        "turns": 1,
+        "gameCalls": 0,
+        "modelSeconds": 0.6,
+        "toolSeconds": 0,
+        "gameToolSeconds": 0,
+        "medianModelSecondsPerTurn": 0.6,
+        "gameCallsPerMinute": 0
+      }
+    ],
+    "modelShare": 0.733,
+    "medianModelSecondsPerTurn": 0.5,
+    "gameCallsPerMinute": 0.07
+  }
+}

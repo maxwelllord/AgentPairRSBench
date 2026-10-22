@@ -1,0 +1,48 @@
+[13:17:09] run E:\runebench\runs\20261021-131709-r024-2x-opencode-unique-glm
+[13:17:09] team Alpha, Bravo | backend opencode | model openrouter/z-ai/glm-5.3 | 15 min | mode unique
+[13:17:25] Alpha ready at 3222,3222 (fresh, combat 3)
+[13:17:42] Bravo ready at 3222,3222 (fresh, combat 3)
+[13:17:42] live view: E:\runebench\runs\20261021-131709-r024-2x-opencode-unique-glm\live.html
+[13:17:42] start; deadline 2026-10-21T13:32:42.440Z
+[13:17:42] Alpha launch #1
+[13:17:45] Bravo launch #1
+[13:18:30] kill: alpha -> giantspider1 (lvl 2, hp 5, ttk 60 ticks)
+[13:18:56] kill: bravo -> man3 (lvl 2, hp 7, ttk 55 ticks)
+[13:19:00] kill: alpha -> goblin (lvl 2, hp 5, ttk 48 ticks)
+[13:19:04] kill: bravo -> rat (lvl 1, hp 2, ttk 5 ticks)
+[13:19:24] kill: bravo -> rat (lvl 1, hp 2, ttk 4 ticks)
+[13:19:40] kill: alpha -> cow (lvl 2, hp 8, ttk 71 ticks)
+[13:19:46] kill: bravo -> rat (lvl 1, hp 2, ttk 9 ticks)
+[13:20:08] kill: bravo -> woman3 (lvl 2, hp 7, ttk 23 ticks)
+[13:20:22] kill: bravo -> duck_female (lvl 1, hp 3, ttk 12 ticks)
+[13:20:32] kill: bravo -> rat (lvl 1, hp 2, ttk 4 ticks)
+[13:20:50] kill: bravo -> goblin (lvl 2, hp 5, ttk 19 ticks)
+[13:21:00] kill: bravo -> giantspider1 (lvl 2, hp 5, ttk 16 ticks)
+[13:21:18] kill: alpha -> rat (lvl 1, hp 2, ttk 8 ticks)
+[13:21:38] kill: bravo -> spider (lvl 1, hp 2, ttk 5 ticks)
+[13:22:14] kill: alpha -> woman (lvl 2, hp 7, ttk 60 ticks)
+[13:22:22] kill: alpha -> woman (lvl 2, hp 7, ttk 68 ticks)
+[13:22:56] kill: alpha -> spider (lvl 1, hp 2, ttk 12 ticks)
+[13:23:02] kill: bravo -> imp (lvl 2, hp 8, ttk 31 ticks)
+[13:23:09] Alpha exited after 328s (code 0)
+[13:23:09] Alpha launch #2 (resuming ses_ea163b24fffeqUIhVUt1yhzRoC)
+[13:23:14] Bravo exited after 329s (code 0)
+[13:23:14] Bravo launch #2 (resuming ses_ea163a5e5ffe6YQwHzycUUz73G)
+[13:23:54] kill: alpha -> goblin (lvl 2, hp 5, ttk 52 ticks)
+[13:24:31] Alpha exited after 82s (code 0)
+[13:24:31] Alpha launch #3 (resuming ses_ea163b24fffeqUIhVUt1yhzRoC)
+[13:25:18] Bravo exited after 124s (code 0)
+[13:25:18] Bravo launch #3 (resuming ses_ea163a5e5ffe6YQwHzycUUz73G)
+[13:26:13] Alpha exited after 102s (code 0)
+[13:26:13] Alpha launch #4 (resuming ses_ea163b24fffeqUIhVUt1yhzRoC)
+[13:26:41] Bravo exited after 83s (code 0)
+[13:26:41] Bravo launch #4 (resuming ses_ea163a5e5ffe6YQwHzycUUz73G)
+[13:27:04] Alpha exited after 50s (code 0)
+[13:27:04] Alpha launch #5 (resuming ses_ea163b24fffeqUIhVUt1yhzRoC)
+[13:27:53] Alpha exited after 50s (code 0)
+[13:27:54] Alpha launch #6 (resuming ses_ea163b24fffeqUIhVUt1yhzRoC)
+[13:27:57] BUDGET reached ($2.14 >= $2); stopping all agents
+[13:27:57] Bravo exited after 77s (code 1)
+[13:27:57] Alpha exited after 4s (code 1)
+[13:28:06] timelapse: E:\runebench\runs\20261021-131709-r024-2x-opencode-unique-glm\timelapse-team.mp4
+[13:28:30] SCORE 8.67 | 9 enemies (level sum 15): Giant spider 2, Man 2, Goblin 2, Cow 2, Woman 2, Imp 2, Rat 1, Duck 1, Spider 1 | unique by agent Alpha 6, Bravo 8 | overlap 5 | kills 19 (10 non-scoring) | cost $2.1449

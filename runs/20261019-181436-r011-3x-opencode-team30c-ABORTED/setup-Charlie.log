@@ -1,0 +1,15 @@
+Pathfinding initialized in 323ms (136704 zones + 297 mainland fill, 1268350 tiles, 2691 doors masked, 5 one-way doors blocked)
+[BotSDK] Waiting for game state to be ready...
+[BotSDK] Game state ready!
+[BotSDK] Connected and game state ready
+READY 3094,3106 cb=3
+
+── State ──
+Pos (3094, 3106) | HP 0/0
+XP: none gained
+Inv 0/28: (empty)
+> Welcome to RuneScape.
+[Runner] Connecting to bot "Charlie"...
+[Runner] Connected to bot "Charlie"
+[Runner] Disconnecting bot "Charlie"...
+[LOGOUT DEBUG] SDK WebSocket closed - autoReconnect=true, intentionalDisconnect=true

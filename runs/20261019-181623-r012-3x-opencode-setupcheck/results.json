@@ -1,0 +1,61 @@
+{
+  "runDir": "E:\\runebench\\runs\\20261019-181623-r012-3x-opencode-setupcheck",
+  "backend": "opencode",
+  "model": "openrouter/deepseek/deepseek-v4.1-flash",
+  "nAgents": 3,
+  "minutes": 0,
+  "team": [
+    "Alpha",
+    "Bravo",
+    "Charlie"
+  ],
+  "startedAt": "2026-10-19T18:17:13.334Z",
+  "endedAt": "2026-10-19T18:17:13.334Z",
+  "score": 0,
+  "bestType": null,
+  "bestKill": null,
+  "altScores": {
+    "bestSingleKill": 0,
+    "combatLevel": 0,
+    "levelPlusHalfHp": 0,
+    "levelTimeOnly": 0
+  },
+  "totalKills": 0,
+  "killsByAgent": {
+    "Alpha": 0,
+    "Bravo": 0,
+    "Charlie": 0
+  },
+  "distinctNpcs": [],
+  "bestOverTime": [],
+  "costUsd": 0,
+  "agents": [
+    {
+      "name": "Alpha",
+      "launches": 0,
+      "costUsd": 0,
+      "inputTokens": 0,
+      "cachedTokens": 0,
+      "outputTokens": 0,
+      "steps": 0
+    },
+    {
+      "name": "Bravo",
+      "launches": 0,
+      "costUsd": 0,
+      "inputTokens": 0,
+      "cachedTokens": 0,
+      "outputTokens": 0,
+      "steps": 0
+    },
+    {
+      "name": "Charlie",
+      "launches": 0,
+      "costUsd": 0,
+      "inputTokens": 0,
+      "cachedTokens": 0,
+      "outputTokens": 0,
+      "steps": 0
+    }
+  ]
+}

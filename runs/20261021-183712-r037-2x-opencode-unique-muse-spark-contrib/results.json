@@ -1,0 +1,58 @@
+{
+  "runDir": "E:\\runebench\\runs\\20261021-183712-r037-2x-opencode-unique-muse-spark-contrib",
+  "mode": "unique",
+  "backend": "opencode",
+  "model": "openrouter/meta/muse-spark-1.3-contributor",
+  "nAgents": 2,
+  "minutes": 15,
+  "team": [
+    "Alpha",
+    "Bravo"
+  ],
+  "startedAt": "2026-10-21T18:37:46.228Z",
+  "endedAt": "2026-10-21T18:38:12.815Z",
+  "score": 0,
+  "levelSum": 0,
+  "enemies": [],
+  "totalKills": 0,
+  "killsByAgent": {
+    "Alpha": 0,
+    "Bravo": 0
+  },
+  "uniqueByAgent": {
+    "Alpha": 0,
+    "Bravo": 0
+  },
+  "overlap": [],
+  "nonScoringKills": 0,
+  "scoreOverTime": [
+    {
+      "minute": 1,
+      "score": 0
+    }
+  ],
+  "finalScoreAt": null,
+  "costUsd": 0,
+  "budgetUsd": 3,
+  "budgetStoppedAt": null,
+  "agents": [
+    {
+      "name": "Alpha",
+      "launches": 4,
+      "costUsd": 0,
+      "inputTokens": 0,
+      "cachedTokens": 0,
+      "outputTokens": 0,
+      "steps": 0
+    },
+    {
+      "name": "Bravo",
+      "launches": 4,
+      "costUsd": 0,
+      "inputTokens": 0,
+      "cachedTokens": 0,
+      "outputTokens": 0,
+      "steps": 0
+    }
+  ]
+}

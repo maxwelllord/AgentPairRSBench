@@ -1,0 +1,239 @@
+{
+  "runDir": "E:\\runebench\\runs\\20261021-184705-r038-2x-opencode-unique-gemma4-31b",
+  "mode": "unique",
+  "backend": "opencode",
+  "model": "openrouter/google/gemma-4-31b-it",
+  "nAgents": 2,
+  "minutes": 15,
+  "team": [
+    "Alpha",
+    "Bravo"
+  ],
+  "startedAt": "2026-10-21T18:47:37.867Z",
+  "endedAt": "2026-10-21T19:02:23.028Z",
+  "score": 8.825265953515753,
+  "levelSum": 18,
+  "enemies": [
+    {
+      "name": "Giant rat",
+      "level": 6,
+      "value": 1.9459101490553132,
+      "kills": 14,
+      "firstAt": "2026-10-21T18:50:07.840Z",
+      "firstBy": "Bravo",
+      "byAgent": {
+        "Bravo": 10,
+        "Alpha": 4
+      }
+    },
+    {
+      "name": "Woman",
+      "level": 2,
+      "value": 1.0986122886681098,
+      "kills": 7,
+      "firstAt": "2026-10-21T18:48:50.756Z",
+      "firstBy": "Bravo",
+      "byAgent": {
+        "Bravo": 5,
+        "Alpha": 2
+      }
+    },
+    {
+      "name": "Giant spider",
+      "level": 2,
+      "value": 1.0986122886681098,
+      "kills": 1,
+      "firstAt": "2026-10-21T18:49:46.139Z",
+      "firstBy": "Alpha",
+      "byAgent": {
+        "Alpha": 1
+      }
+    },
+    {
+      "name": "Goblin",
+      "level": 2,
+      "value": 1.0986122886681098,
+      "kills": 2,
+      "firstAt": "2026-10-21T18:49:55.491Z",
+      "firstBy": "Alpha",
+      "byAgent": {
+        "Alpha": 2
+      }
+    },
+    {
+      "name": "Man",
+      "level": 2,
+      "value": 1.0986122886681098,
+      "kills": 6,
+      "firstAt": "2026-10-21T18:51:53.279Z",
+      "firstBy": "Alpha",
+      "byAgent": {
+        "Alpha": 4,
+        "Bravo": 2
+      }
+    },
+    {
+      "name": "Cow",
+      "level": 2,
+      "value": 1.0986122886681098,
+      "kills": 2,
+      "firstAt": "2026-10-21T18:57:21.138Z",
+      "firstBy": "Alpha",
+      "byAgent": {
+        "Alpha": 2
+      }
+    },
+    {
+      "name": "Rat",
+      "level": 1,
+      "value": 0.6931471805599453,
+      "kills": 6,
+      "firstAt": "2026-10-21T18:48:20.067Z",
+      "firstBy": "Bravo",
+      "byAgent": {
+        "Bravo": 1,
+        "Alpha": 5
+      }
+    },
+    {
+      "name": "Spider",
+      "level": 1,
+      "value": 0.6931471805599453,
+      "kills": 1,
+      "firstAt": "2026-10-21T18:50:16.041Z",
+      "firstBy": "Alpha",
+      "byAgent": {
+        "Alpha": 1
+      }
+    }
+  ],
+  "totalKills": 39,
+  "killsByAgent": {
+    "Alpha": 21,
+    "Bravo": 18
+  },
+  "uniqueByAgent": {
+    "Alpha": 8,
+    "Bravo": 4
+  },
+  "overlap": [
+    "Giant rat",
+    "Woman",
+    "Man",
+    "Rat"
+  ],
+  "nonScoringKills": 31,
+  "scoreOverTime": [
+    {
+      "minute": 1,
+      "score": 0.6931471805599453
+    },
+    {
+      "minute": 2,
+      "score": 1.791759469228055
+    },
+    {
+      "minute": 3,
+      "score": 6.628041376179533
+    },
+    {
+      "minute": 4,
+      "score": 6.628041376179533
+    },
+    {
+      "minute": 5,
+      "score": 7.726653664847643
+    },
+    {
+      "minute": 6,
+      "score": 7.726653664847643
+    },
+    {
+      "minute": 7,
+      "score": 7.726653664847643
+    },
+    {
+      "minute": 8,
+      "score": 7.726653664847643
+    },
+    {
+      "minute": 9,
+      "score": 7.726653664847643
+    },
+    {
+      "minute": 10,
+      "score": 8.825265953515753
+    },
+    {
+      "minute": 11,
+      "score": 8.825265953515753
+    },
+    {
+      "minute": 12,
+      "score": 8.825265953515753
+    },
+    {
+      "minute": 13,
+      "score": 8.825265953515753
+    },
+    {
+      "minute": 14,
+      "score": 8.825265953515753
+    },
+    {
+      "minute": 15,
+      "score": 8.825265953515753
+    }
+  ],
+  "finalScoreAt": "2026-10-21T18:57:21.138Z",
+  "costUsd": 0.7110162,
+  "budgetUsd": 3,
+  "budgetStoppedAt": null,
+  "agents": [
+    {
+      "name": "Alpha",
+      "launches": 13,
+      "costUsd": 0.44306360000000006,
+      "inputTokens": 2203364,
+      "cachedTokens": 0,
+      "outputTokens": 5977,
+      "steps": 48
+    },
+    {
+      "name": "Bravo",
+      "launches": 9,
+      "costUsd": 0.2679526,
+      "inputTokens": 1329793,
+      "cachedTokens": 0,
+      "outputTokens": 4985,
+      "steps": 35
+    }
+  ],
+  "timing": {
+    "agents": [
+      {
+        "agent": "Alpha",
+        "turns": 48,
+        "gameCalls": 34,
+        "modelSeconds": 484.9,
+        "toolSeconds": 246.6,
+        "gameToolSeconds": 246.3,
+        "medianModelSecondsPerTurn": 10.1,
+        "gameCallsPerMinute": 2.27
+      },
+      {
+        "agent": "Bravo",
+        "turns": 35,
+        "gameCalls": 22,
+        "modelSeconds": 419.4,
+        "toolSeconds": 353.2,
+        "gameToolSeconds": 353,
+        "medianModelSecondsPerTurn": 10.5,
+        "gameCallsPerMinute": 1.47
+      }
+    ],
+    "modelShare": 0.601,
+    "medianModelSecondsPerTurn": 10.5,
+    "gameCallsPerMinute": 3.73
+  }
+}

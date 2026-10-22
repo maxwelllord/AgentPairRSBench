@@ -1,0 +1,39 @@
+[12:20:43] run E:\runebench\runs\20261021-122042-r022-2x-opencode-unique-qwen
+[12:20:43] team Alpha, Bravo | backend opencode | model openrouter/qwen/qwen3.8-flash | 15 min | mode unique
+[12:20:59] Alpha ready at 3222,3222 (fresh, combat 3)
+[12:21:16] Bravo ready at 3222,3222 (fresh, combat 3)
+[12:21:16] live view: E:\runebench\runs\20261021-122042-r022-2x-opencode-unique-qwen\live.html
+[12:21:16] start; deadline 2026-10-21T12:36:16.043Z
+[12:21:16] Alpha launch #1
+[12:21:19] Bravo launch #1
+[12:23:50] kill: alpha -> rat (lvl 1, hp 2, ttk 8 ticks)
+[12:23:52] kill: alpha -> rat (lvl 1, hp 2, ttk 34 ticks)
+[12:24:28] kill: alpha -> rat (lvl 1, hp 2, ttk 31 ticks)
+[12:24:32] kill: alpha -> man3 (lvl 2, hp 7, ttk 95 ticks)
+[12:24:38] kill: alpha -> woman (lvl 2, hp 7, ttk 67 ticks)
+[12:26:30] kill: bravo -> rat (lvl 1, hp 2, ttk 8 ticks)
+[12:26:40] kill: alpha -> chicken (lvl 1, hp 3, ttk 12 ticks)
+[12:26:42] kill: bravo -> man3 (lvl 2, hp 7, ttk 147 ticks)
+[12:26:50] kill: bravo -> woman (lvl 2, hp 7, ttk 110 ticks)
+[12:27:20] kill: alpha -> farmer1 (lvl 7, hp 12, ttk 164 ticks)
+[12:27:30] kill: alpha -> cow (lvl 2, hp 8, ttk 99 ticks)
+[12:27:38] kill: alpha -> goblin (lvl 2, hp 5, ttk 56 ticks)
+[12:27:44] kill: bravo -> giantrat1 (lvl 6, hp 10, ttk 58 ticks)
+[12:28:01] kill: bravo -> giantrat1 (lvl 6, hp 10, ttk 72 ticks)
+[12:28:18] kill: alpha -> giantspider1 (lvl 2, hp 5, ttk 24 ticks)
+[12:28:22] kill: alpha -> goblin (lvl 2, hp 5, ttk 52 ticks)
+[12:28:24] kill: bravo -> spider (lvl 1, hp 2, ttk 11 ticks)
+[12:28:26] kill: bravo -> giantspider1 (lvl 2, hp 5, ttk 24 ticks)
+[12:29:20] kill: bravo -> farmer1 (lvl 7, hp 12, ttk 162 ticks)
+[12:29:44] kill: bravo -> goblin_armed (lvl 5, hp 12, ttk 120 ticks)
+[12:29:54] kill: bravo -> highwayman (lvl 5, hp 13, ttk 156 ticks)
+[12:33:04] kill: bravo -> imp (lvl 2, hp 8, ttk 56 ticks)
+[12:33:23] Bravo exited after 724s (code 0)
+[12:33:23] Bravo launch #2 (resuming ses_ea1975222ffeKyyuBo2eyo35bW)
+[12:34:26] kill: bravo -> chicken (lvl 1, hp 3, ttk 12 ticks)
+[12:35:21] Alpha exited after 846s (code 0)
+[12:35:21] Alpha launch #2 (resuming ses_ea1975e22ffe6n3HK3fuoKNNB2)
+[12:36:16] Bravo exited after 173s (code 1)
+[12:36:16] Alpha exited after 55s (code 1)
+[12:36:24] timelapse: E:\runebench\runs\20261021-122042-r022-2x-opencode-unique-qwen\timelapse-team.mp4
+[12:36:49] SCORE 15.18 | 12 enemies (level sum 36): Farmer 7, Giant rat 6, Goblin 5, Highwayman 5, Man 2, Woman 2, Cow 2, Giant spider 2, Imp 2, Rat 1, Chicken 1, Spider 1 | unique by agent Alpha 8, Bravo 11 | overlap 7 | kills 23 (10 non-scoring) | cost $0.0768

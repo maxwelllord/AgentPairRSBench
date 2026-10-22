@@ -1,0 +1,511 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Agent Pair Scaping</title>
+<meta name="description" content="Teams of two LLM agents get 15 minutes in a 2004 RuneScape emulator to kill as many different kinds of enemy as they can.">
+<style>
+:root {
+  --bg: #fcfcfb; --surface: #ffffff; --ink: #1f2328; --ink-2: #4b535c; --muted: #6e7781;
+  --rule: #e3e6ea; --grid: #eceef1; --accent: #2f6fde; --off: #838c96; --code-bg: #f3f4f6;
+  --red: #d64545; --blue: #3c82ff; --green: #28a85a;
+  --m-sol: #2a78d6; --m-deepseek: #eda100; --m-qwen: #e87ba4; --m-haiku: #008300;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #14171b; --surface: #1b1f24; --ink: #e8eaed; --ink-2: #b9c0c8; --muted: #8b949e;
+    --rule: #2c3238; --grid: #252a30; --accent: #5b8ff0; --off: #6c7580; --code-bg: #22272e;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #14171b; --surface: #1b1f24; --ink: #e8eaed; --ink-2: #b9c0c8; --muted: #8b949e;
+  --rule: #2c3238; --grid: #252a30; --accent: #5b8ff0; --off: #6c7580; --code-bg: #22272e;
+}
+/* Model colours for the results chart, stepped for the dark surface. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { --m-sol: #3987e5; --m-deepseek: #c98500; --m-qwen: #d55181; }
+}
+:root[data-theme="dark"] { --m-sol: #3987e5; --m-deepseek: #c98500; --m-qwen: #d55181; }
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font: 17px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+main { max-width: 760px; margin: 0 auto; padding: 48px 16px 80px; }
+.wide { width: min(1100px, calc(100vw - 32px)); margin-left: calc(50% - min(550px, 50vw - 16px)); }
+h1 { font-size: 2.3rem; line-height: 1.15; margin: 0 0 .3em; letter-spacing: -.01em; }
+h2 { font-size: 1.45rem; margin: 2.4em 0 .6em; padding-top: .6em; border-top: 1px solid var(--rule); }
+h3 { font-size: 1.1rem; margin: 1.8em 0 .4em; }
+p, li { color: var(--ink-2); }
+strong { color: var(--ink); }
+a { color: var(--accent); }
+.lede { font-size: 1.2rem; color: var(--ink-2); margin: 0 0 1.5em; }
+code { font: .88em/1.4 ui-monospace, "Cascadia Mono", Consolas, monospace; background: var(--code-bg); padding: .1em .35em; border-radius: 4px; }
+.formula { font-size: 1.15rem; text-align: center; margin: 1.2em 0; color: var(--ink); }
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin: 1.5em 0; }
+.stat { background: var(--surface); border: 1px solid var(--rule); border-radius: 10px; padding: 14px 16px; }
+.stat b { display: block; font-size: 1.6rem; line-height: 1.2; color: var(--ink); font-variant-numeric: tabular-nums; }
+.stat span { font-size: .85rem; color: var(--muted); }
+figure { margin: 1.5em 0; }
+figcaption { font-size: .88rem; color: var(--muted); margin-top: .6em; }
+.tabs { display: flex; gap: 6px; flex-wrap: wrap; margin: 0 0 14px; }
+.tabs button {
+  font: inherit; font-size: .95rem; cursor: pointer; padding: 6px 14px; border-radius: 999px;
+  border: 1px solid var(--rule); background: var(--surface); color: var(--ink-2);
+}
+.tabs button[aria-selected="true"] { background: var(--ink); border-color: var(--ink); color: var(--bg); }
+.tabs button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.videos figure { margin: 0; }
+.videos figcaption { font-size: 1rem; color: var(--ink-2); margin: .8em 0 0; max-width: 760px; }
+.videos .runs { max-width: 760px; margin-top: 1.2em; }
+.videos h3 { margin-top: 1.4em; }
+.chart { position: relative; background: var(--surface); border: 1px solid var(--rule); border-radius: 10px; padding: 12px 8px 4px; }
+.chart .scroll { overflow-x: auto; }
+.chart svg { display: block; width: 100%; min-width: 640px; height: auto; overflow: visible; }
+.chart text { font: 12px system-ui, sans-serif; fill: var(--muted); }
+.chart .lbl { fill: var(--ink-2); }
+.chart .lbl.on { fill: var(--ink); font-weight: 600; }
+.tip {
+  position: absolute; pointer-events: none; background: var(--ink); color: var(--bg);
+  font-size: .82rem; line-height: 1.4; padding: 8px 10px; border-radius: 6px; white-space: nowrap;
+  opacity: 0; transition: opacity .1s; z-index: 2;
+}
+.tip b { color: var(--bg); }
+.legend { display: flex; gap: 18px; flex-wrap: wrap; font-size: .85rem; color: var(--muted); margin: 0 8px 6px; }
+.legend i { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; vertical-align: -1px; }
+.legend i.line { width: 18px; height: 2px; border-radius: 1px; vertical-align: 3px; }
+.tablewrap { overflow-x: auto; margin: 1em 0; border: 1px solid var(--rule); border-radius: 10px; background: var(--surface); }
+table { border-collapse: collapse; width: 100%; font-size: .9rem; font-variant-numeric: tabular-nums; }
+th, td { padding: 7px 10px; text-align: right; white-space: nowrap; border-bottom: 1px solid var(--rule); }
+th { color: var(--muted); font-weight: 600; font-size: .8rem; }
+th:first-child, td:first-child { text-align: left; }
+tr:last-child td { border-bottom: none; }
+td.dim { color: var(--muted); }
+tr.mean td { font-weight: 600; color: var(--ink); background: var(--code-bg); }
+details { margin: 1em 0; }
+summary { cursor: pointer; color: var(--accent); font-size: .92rem; }
+video { width: 100%; height: auto; border-radius: 10px; background: #000; display: block; }
+.key { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: .85rem; color: var(--muted); margin-top: .6em; }
+.key span::before { content: ""; display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; vertical-align: -1px; background: var(--c); }
+.tabbar { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 24px; margin: 0 0 14px; }
+.tabbar .tabs { margin: 0; }
+.mapkey { display: flex; flex-wrap: wrap; gap: 8px 22px; margin: 0 0 0 auto; font-size: .9rem; color: var(--ink-2); }
+.mapkey span { display: inline-flex; align-items: center; gap: 7px; }
+.mapkey svg { width: 13px; height: 13px; fill: var(--ink-2); stroke: var(--ink-2); }
+.runs dt { font-weight: 600; color: var(--ink); margin-top: 1em; }
+.runs dd { margin: .2em 0 0 0; }
+.runs ul { margin: .2em 0; padding-left: 1.2em; }
+.note { font-size: .88rem; color: var(--muted); }
+footer { margin-top: 4em; padding-top: 1.2em; border-top: 1px solid var(--rule); font-size: .85rem; color: var(--muted); }
+@media (max-width: 560px) {
+  body { font-size: 16px; }
+  h1 { font-size: 1.8rem; }
+  main { padding-top: 28px; }
+}
+</style>
+</head>
+<body>
+<main>
+
+<h1>Agent Pair Scaping</h1>
+<p>A bench inspired by Max's <a href="https://maxbittker.github.io/runebench/">RuneBench</a> and <a href="https://github.com/MaxBittker/rs-sdk">rs-sdk</a>.</p>
+
+<h2 id="task">The task</h2>
+<p>2 agents on new characters must team up to kill as many unique enemies as they can within 15 minutes. Tougher enemies are worth more.</p>
+<p class="formula">score = Σ ln(1 + level)</p>
+<p>A level-2 Goblin is worth 1.10 and a level-5 Goblin 1.79, the stronger killed later adds the difference. Scoring by natural log rewards exploration: ten different easy monsters beat
+one hard one. Repeat kills are worth zero.</p>
+
+<h2 id="maps">Timelapse</h2>
+<div class="videos wide">
+  <div class="tabbar">
+    <div class="tabs" role="tablist" aria-label="Model">
+      <button role="tab" id="tab-sol" aria-controls="panel-sol" aria-selected="true">GPT-6.1 Sol</button>
+      <button role="tab" id="tab-deepseek" aria-controls="panel-deepseek" aria-selected="false" tabindex="-1">DeepSeek V4.1 Flash</button>
+      <button role="tab" id="tab-qwen" aria-controls="panel-qwen" aria-selected="false" tabindex="-1">Qwen3.8 Flash</button>
+      <button role="tab" id="tab-haiku" aria-controls="panel-haiku" aria-selected="false" tabindex="-1">Haiku 5.5</button>
+    </div>
+    <div class="mapkey">
+      <span><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M6 1 11 6 6 11 1 6Z"/></svg>Scored kill</span>
+      <span><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2 2 10 10M10 2 2 10" fill="none" stroke-width="2.2" stroke-linecap="round"/></svg>Agent death</span>
+    </div>
+  </div>
+  <div role="tabpanel" id="panel-sol" aria-labelledby="tab-sol">
+    <figure>
+      <video controls muted playsinline preload="metadata" poster="media/sol-poster.jpg" src="media/sol-timelapse.mp4"></video>
+      <figcaption>Sol teams cover a lot of ground, getting as far as the Frozen Plateau, White Wolf mountain, Taverly Dungeon and Varrock Sewers.</figcaption>
+    </figure>
+    <h3>Run notes</h3>
+    <dl class="runs">
+      <dt>r053 Alpha</dt>
+      <dd><ul>
+        <li>Sold its shortbow, bought ten kebabs, and ate them all to score a kill on a Deadly Red Spider. Unfortunately the script missed the spider dying and Alpha messaged Bravo
+          "no clear red kill", so the team didn't count it. Another spider was killed in the wilderness five minutes later.</li>
+        <li>Used the monks at edgeville monastery to heal</li>
+      </ul></dd>
+      <dt>r053 Bravo</dt>
+      <dd>Picked cabbages to use as food, and ate them while killing a White Knight, but died.</dd>
+      <dt>r054 Alpha and Bravo</dt>
+      <dd>Both also sold their shortbows for kebabs.</dd>
+      <dt>r055 Alpha</dt>
+      <dd>Killed a duck with magic, and sold some of its starting equipment for kebabs.</dd>
+      <dt>r055 Bravo</dt>
+      <dd>Got stuck at Port Sarim for a while trying to kill the jailed enemies it couldn't reach, then picked cabbages and ate them.</dd>
+    </dl>
+  </div>
+  <div role="tabpanel" id="panel-deepseek" aria-labelledby="tab-deepseek" hidden>
+    <figure>
+      <video controls muted playsinline preload="metadata" poster="media/deepseek-poster.jpg" src="media/deepseek-timelapse.mp4"></video>
+      <figcaption>DeepSeek teams mostly work the area between
+        Lumbridge, Draynor, Al Kharid and Varrock.</figcaption>
+    </figure>
+    <h3>Run notes</h3>
+    <dl class="runs">
+      <dt>r047 Bravo</dt>
+      <dd>Attempted to shoot a duck with the shortbow, but couldn't as it had lost arrows on death earlier.</dd>
+      <dt>r049 Alpha</dt>
+      <dd>Signed off with "Gg" just before time ran out.</dd>
+    </dl>
+  </div>
+  <div role="tabpanel" id="panel-qwen" aria-labelledby="tab-qwen" hidden>
+    <figure>
+      <video controls muted playsinline preload="metadata" poster="media/qwen-poster.jpg" src="media/qwen-timelapse.mp4"></video>
+      <figcaption>Qwen teams work the area between Draynor, Lumbridge and Al Kharid, with a few
+        trips towards Varrock.</figcaption>
+    </figure>
+    <h3>Run notes</h3>
+    <dl class="runs">
+      <dt>Best kill</dt>
+      <dd>Bear (level 21), in r064.</dd>
+      <dt>Al Kharid palace</dt>
+      <dd>Every team had at least one agent die there.</dd>
+    </dl>
+  </div>
+  <div role="tabpanel" id="panel-haiku" aria-labelledby="tab-haiku" hidden>
+    <figure>
+      <video controls muted playsinline preload="metadata" poster="media/haiku-poster.jpg" src="media/haiku-timelapse.mp4"></video>
+      <figcaption>Haiku teams stay close to Lumbridge, and die often in
+        Lumbridge Swamp.</figcaption>
+    </figure>
+    <h3>Run notes</h3>
+    <dl class="runs">
+      <dt>All three runs</dt>
+      <dd>No team left Lumbridge. The strongest kill in any run was a Thief (level 16).</dd>
+      <dt>Lumbridge Swamp</dt>
+      <dd>Most of the 33 deaths happened here, where every team went for giant rats.</dd>
+      <dt>r062</dt>
+      <dd>250 of the team's 258 kills were repeats that added nothing to the score.</dd>
+    </dl>
+  </div>
+</div>
+
+<h2 id="notes">Notes</h2>
+<ul>
+  <li><strong>A  kill ledger</strong> records every NPC death, credited to the
+    player who did the most damage (the game's own loot rule). Agents are not told when they've scored. Keeping
+    track of what the team has killed is part of the task.</li>
+  <li><strong>The game runs at 8× speed</strong> with the server's 25× XP rate. Agents aren't told the XP rate.</li>
+  <li><strong>Harness:</strong> each agent is an <a href="https://opencode.ai">OpenCode</a> 1.19.3 session using a model
+    through OpenRouter. It plays by writing TypeScript for rs-sdk's <code>execute_code</code> tool and reads the
+    world state that comes back.</li>
+</ul>
+
+<h2 id="limits">Limitations</h2>
+<ul>
+  <li><strong>Small samples.</strong> The <a href="#appendix">screening runs</a> are one run per model, and in the <a href="#results">main results</a> three runs of the same team ranged from
+    86 to 113 (Sol), 19 to 38 (DeepSeek), 12 to 24 (Qwen) and 9 to 18 (Haiku).</li>
+  <li><strong>One harness.</strong> Every model played through OpenCode with the same prompt and tools. Some models may do
+    much better with a harness built for them.</li>
+  <li><strong>The screening runs aren't directly comparable with the main results.</strong> The patches and prompt changed in between.</li>
+  <li><strong>Cost depends on routing.</strong> OpenRouter picks a provider per request, and prices differ between them.</li>
+  <li><strong>Wall-clock time.</strong> The 15 minutes are real time, so a slow provider costs a model score as well as money.</li>
+</ul>
+
+<h2 id="results">Results</h2>
+<figure class="wide">
+  <div class="chart" id="main-chart">
+    <div class="legend"><span><i style="background:var(--m-sol)"></i>GPT-6.1 Sol</span><span><i style="background:var(--m-deepseek)"></i>DeepSeek V4.1 Flash</span><span><i style="background:var(--m-qwen)"></i>Qwen3.8 Flash</span><span><i style="background:var(--m-haiku)"></i>Haiku 5.5</span><span>Large dot: mean of three runs · small: single run</span></div>
+    <div class="scroll"><svg viewBox="0 0 900 400" role="img" aria-label="Score against cost per run for GPT-6.1 Sol, DeepSeek V4.1 Flash, Qwen3.8 Flash and Haiku 5.5, three runs each"></svg></div>
+    <div class="tip"></div>
+  </div>
+  <figcaption>Cost on a log scale. Hover a point for its numbers.</figcaption>
+</figure>
+<div class="tablewrap">
+  <table>
+    <thead><tr><th>Model</th><th>Run</th><th>Score</th><th>Cost</th><th>Enemy types</th><th>Deaths (A + B)</th></tr></thead>
+    <tbody>
+      <tr><td>GPT-6.1 Sol</td><td>r053</td><td>113.25</td><td>$1.48</td><td>44</td><td>5 + 8</td></tr>
+      <tr><td>GPT-6.1 Sol</td><td>r054</td><td>93.91</td><td>$1.42</td><td>39</td><td>8 + 7</td></tr>
+      <tr><td>GPT-6.1 Sol</td><td>r055</td><td>86.10</td><td>$1.80</td><td>37</td><td>7 + 7</td></tr>
+      <tr class="mean"><td>Sol mean</td><td></td><td>97.75 ± 14.0</td><td>$1.56</td><td>40</td><td></td></tr>
+      <tr><td>DeepSeek V4.1 Flash</td><td>r047</td><td>19.11</td><td>$0.14</td><td>15</td><td>4 + 5</td></tr>
+      <tr><td>DeepSeek V4.1 Flash</td><td>r048</td><td>36.66</td><td>$0.15</td><td>21</td><td>4 + 7</td></tr>
+      <tr><td>DeepSeek V4.1 Flash</td><td>r049</td><td>38.28</td><td>$0.10</td><td>23</td><td>3 + 8</td></tr>
+      <tr class="mean"><td>DeepSeek mean</td><td></td><td>31.35 ± 10.6</td><td>$0.13</td><td>20</td><td></td></tr>
+      <tr><td>Qwen3.8 Flash</td><td>r064</td><td>20.35</td><td>$0.11</td><td>15</td><td>4 + 2</td></tr>
+      <tr><td>Qwen3.8 Flash</td><td>r065</td><td>23.66</td><td>$0.11</td><td>16</td><td>3 + 4</td></tr>
+      <tr><td>Qwen3.8 Flash</td><td>r066</td><td>12.00</td><td>$0.09</td><td>10</td><td>2 + 0</td></tr>
+      <tr class="mean"><td>Qwen mean</td><td></td><td>18.67 ± 6.0</td><td>$0.10</td><td>14</td><td></td></tr>
+      <tr><td>Haiku 5.5</td><td>r060</td><td>17.84</td><td>$0.06</td><td>13</td><td>4 + 9</td></tr>
+      <tr><td>Haiku 5.5</td><td>r061</td><td>11.60</td><td>$0.15</td><td>10</td><td>1 + 8</td></tr>
+      <tr><td>Haiku 5.5</td><td>r062</td><td>8.83</td><td>$0.02</td><td>7</td><td>7 + 4</td></tr>
+      <tr class="mean"><td>Haiku mean</td><td></td><td>12.76 ± 4.6</td><td>$0.08</td><td>10</td><td></td></tr>
+    </tbody>
+  </table>
+</div>
+<p class="note">± is the sample standard deviation. Two more Sol runs (r051, r052) died within minutes when the
+OpenRouter account ran out of credit, and r050 (77.3) lost its model about 8 minutes in for the same reason;
+all three are excluded.</p>
+
+<p>Sol scores about three times as much as DeepSeek, at twelve times the price. DeepSeek scores about two and a half
+times as much as Haiku, for about 60% more, and Qwen3.8 Flash falls between them.</p>
+
+<h2 id="changes">Changes from rs-sdk and rs-bench</h2>
+<p>The main results (r047 onward) have all of these. The screening runs in the appendix had only the dialogue text and the kill ledger.</p>
+<ul>
+  <li><strong>Level-up messages no longer block the agent.</strong> In stock rs-sdk the "Congratulations" box stops your attack
+    until something clicks continue, and at 25× XP that happens every kill or two. Now the level goes to the chat box instead.</li>
+  <li><strong>The Al Kharid toll gate is free and needs no dialogue.</strong> The border guard conversation stalled agents for
+    minutes without testing anything the benchmark measures.</li>
+  <li><strong>Private messages work.</strong> The engine silently dropped PMs unless the friend server was running.</li>
+  <li><strong>The game tool no longer dies.</strong> An un-awaited <code>sdk.say()</code> at the end of a call could crash
+    the MCP server, leaving that agent with no game for the rest of the run.</li>
+  <li><strong>The world state shows dialogue text</strong>, not just the options (from r019).</li>
+  <li><strong>A kill ledger</strong> records every NPC death with its level, for scoring.</li>
+  <li><strong>The prompt's scoring examples are bare levels</strong> (from r047). Earlier prompts gave examples by name
+    (Chicken, Goblin, Guard, Lesser demon), and agents treated them as a to-do list: several hunted for a guard in
+    Lumbridge Castle that doesn't exist, and a few became fixated on lesser demons.</li>
+</ul>
+
+<h2 id="appendix">Appendix: screening sixteen models</h2>
+<p>Before the main runs, a first pass gave every model one run, to see which could play at all. These runs predate
+most of the <a href="#changes">changes</a>.</p>
+
+<figure class="wide">
+  <div class="chart" id="pareto">
+    <div class="legend"><span><i class="line" style="background:var(--accent)"></i>Pareto frontier</span><span><i style="background:var(--accent)"></i>on the frontier</span><span><i style="background:var(--off)"></i>dominated</span></div>
+    <div class="scroll"><svg viewBox="0 0 900 440" role="img" aria-label="Score against cost for 16 models; Haiku 5.5, Qwen3.8 Flash, DeepSeek V4.1 Flash, GPT-6 Luna, HY4 Preview and GPT-6.1 Sol are on the Pareto frontier"></svg></div>
+    <div class="tip"></div>
+  </div>
+  <figcaption>Runs r021–r040. Cost on a log scale. GLM-5.3's bar spans OpenCode's cost estimate to Z.AI's list price.
+    DeepSeek is the mean of r039 and r040. An earlier DeepSeek run, r019, is dropped because Bravo lost its game tool 24 seconds in.
+    Muse Spark 1.3 Contributor (r037) failed to start and isn't shown.</figcaption>
+</figure>
+
+<details>
+  <summary>Table: screening runs, with how each team spent its time</summary>
+  <div class="tablewrap">
+    <table id="r1table">
+      <thead><tr><th>Model</th><th>Run</th><th>Score</th><th>Cost</th><th>Enemies</th><th>Thinking</th><th>s / turn</th><th>Calls / min</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+  <p class="note">Enemies is the number of distinct enemy types killed. Thinking is the share of the team's time spent waiting
+    on the model rather than running tools; s / turn is the median wait per model turn. Calls / min counts both agents' game calls. Solar Mini 4 never made a game call.</p>
+</details>
+
+<h3>Outliers</h3>
+<p>In reruns, HY4 Preview scored 49.6 in r034, then 11.7 and 14.9 in r045
+and r046. GPT-6 Luna went from 31.3 to 18.9. </p>
+
+<p>The changes helped Sol far more than DeepSeek: Sol's mean in the main runs is 27% above its screening run (76.8),
+DeepSeek's only 8% above its screening score (29.0).</p>
+
+<footer>
+  Built on <a href="https://github.com/MaxBittker/rs-sdk">rs-sdk</a> and inspired by
+  <a href="https://github.com/MaxBittker/rs-bench">rs-bench</a>, both by Max Bittker. RuneScape is a trademark of Jagex Ltd;
+  this is an unofficial hobby project.
+</footer>
+</main>
+
+<script>
+// Video tabs: one model at a time; switching pauses the video being left.
+(function () {
+  const tabs = [...document.querySelectorAll('.tabs [role="tab"]')];
+  function select(tab) {
+    for (const t of tabs) {
+      const on = t === tab, panel = document.getElementById(t.getAttribute('aria-controls'));
+      t.setAttribute('aria-selected', on);
+      t.tabIndex = on ? 0 : -1;
+      panel.hidden = !on;
+      if (!on) panel.querySelector('video')?.pause();
+    }
+  }
+  tabs.forEach((t, i) => {
+    t.addEventListener('click', () => select(t));
+    t.addEventListener('keydown', e => {
+      const k = { ArrowRight: 1, ArrowLeft: -1 }[e.key];
+      if (!k) return;
+      const next = tabs[(i + k + tabs.length) % tabs.length];
+      select(next);
+      next.focus();
+    });
+  });
+})();
+
+// Round 1: [model, run, cost $, score, enemy types, thinking share, median s/turn, game calls/min, cost range]
+const R1 = [
+  ['GPT-6.1 Sol', 'r021', 1.22, 76.80, 34, .441, 6.7, 6.2],
+  ['Opus 5.5', 'r027', 2.84, 60.56, 29, .372, 6.0, 5.33],
+  ['Gemini 4 Argon', 'r030', 1.73, 55.82, 29, .535, 15.8, 2.8],
+  ['HY4 Preview', 'r034', 0.59, 49.58, 27, .661, 10.9, 4.93],
+  ['Muse Wonder', 'r031', 3.50, 34.57, 20, .25, 3.6, 5.33],
+  ['GPT-6 Luna', 'r035', 0.23, 31.27, 19, .698, 7.2, 7.27],
+  ['Sonnet 5.5', 'r023', 1.64, 30.54, 17, .301, 4.7, 6.07],
+  ['DeepSeek V4.1 Flash', 'r039–40', 0.09, 29.03, 18, .352, 9.2, 2.6],
+  ['Gemini 3.8 Flash', 'r028', 2.01, 19.21, 15, .884, 5.1, 5.07],
+  ['Qwen3.8 Flash', 'r022', 0.077, 15.18, 12, .606, 14.3, 2.67],
+  ['Nemotron 3 Ultra', 'r033', 2.69, 14.24, 11, .54, 3.1, 12.87],
+  ['GLM-5.3', 'r025', 0.30, 11.73, 11, .49, 12.7, 2.2, [0.30, 1.18]],
+  ['Haiku 5.5', 'r026', 0.065, 10.06, 10, .14, 2.6, 3.53],
+  ['MiMo v2.6 Flash', 'r029', 0.21, 8.83, 8, .191, 8.0, 0.87],
+  ['Gemma 4 31B', 'r038', 0.71, 8.83, 8, .601, 10.5, 3.73],
+  ['Solar Mini 4', 'r036', 0.35, 0.0, 0, .814, 2.7, 0],
+];
+
+const tbody = document.querySelector('#r1table tbody');
+for (const [m, run, cost, score, en, share, spt, cpm, rng] of R1) {
+  const tr = document.createElement('tr');
+  const c = rng ? `$${rng[0].toFixed(2)}–${rng[1].toFixed(2)}` : `$${cost < 0.1 ? cost.toFixed(3) : cost.toFixed(2)}`;
+  tr.innerHTML = `<td>${m}</td><td class="dim">${run}</td><td>${score.toFixed(2)}</td><td>${c}</td><td>${en}</td>` +
+    `<td>${Math.round(share * 100)}%</td><td>${spt.toFixed(1)}</td><td>${cpm.toFixed(1)}</td>`;
+  tbody.appendChild(tr);
+}
+
+// Main results chart: every run, plus each model's mean. Log-x cost, linear score.
+(function () {
+  const RUNS = {
+    'GPT-6.1 Sol': [['r053', 1.4761, 113.25, 44], ['r054', 1.4191, 93.91, 39], ['r055', 1.7976, 86.10, 37]],
+    'DeepSeek V4.1 Flash': [['r047', 0.1421, 19.11, 15], ['r048', 0.1507, 36.66, 21], ['r049', 0.0970, 38.28, 23]],
+    'Qwen3.8 Flash': [['r064', 0.1081, 20.35, 15], ['r065', 0.1134, 23.66, 16], ['r066', 0.0925, 12.00, 10]],
+    'Haiku 5.5': [['r060', 0.0618, 17.84, 13], ['r061', 0.1532, 11.60, 10], ['r062', 0.0248, 8.83, 7]],
+  };
+  const COLOR = { 'GPT-6.1 Sol': 'var(--m-sol)', 'DeepSeek V4.1 Flash': 'var(--m-deepseek)', 'Qwen3.8 Flash': 'var(--m-qwen)', 'Haiku 5.5': 'var(--m-haiku)' };
+  // Label offsets [dx, dy, anchor] for the means.
+  const off = { 'GPT-6.1 Sol': [-12, 4, 'end'], 'DeepSeek V4.1 Flash': [12, 4, 'start'], 'Qwen3.8 Flash': [-10, -10, 'end'], 'Haiku 5.5': [-12, 4, 'end'] };
+  const box = document.getElementById('main-chart'), svg = box.querySelector('svg'), tip = box.querySelector('.tip');
+  const W = 900, H = 400, L = 56, R = 24, T = 16, B = 46;
+  const x0 = Math.log(0.02), x1 = Math.log(2.5), yMax = 120;
+  const X = v => L + (Math.log(v) - x0) / (x1 - x0) * (W - L - R);
+  const Y = v => T + (1 - v / yMax) * (H - T - B);
+  const NS = 'http://www.w3.org/2000/svg';
+  const el = (name, attrs) => {
+    const e = document.createElementNS(NS, name);
+    for (const k in attrs) e.setAttribute(k, attrs[k]);
+    svg.appendChild(e);
+    return e;
+  };
+  for (const v of [0, 20, 40, 60, 80, 100, 120]) {
+    el('line', { x1: L, x2: W - R, y1: Y(v), y2: Y(v), stroke: 'var(--grid)' });
+    el('text', { x: L - 8, y: Y(v) + 4, 'text-anchor': 'end' }).textContent = v;
+  }
+  for (const v of [0.02, 0.05, 0.1, 0.2, 0.5, 1, 2]) {
+    el('line', { x1: X(v), x2: X(v), y1: T, y2: H - B, stroke: 'var(--grid)' });
+    el('text', { x: X(v), y: H - B + 18, 'text-anchor': 'middle' }).textContent = '$' + v;
+  }
+  el('text', { x: (L + W - R) / 2, y: H - 6, 'text-anchor': 'middle' }).textContent = 'Cost per run (USD, log scale)';
+  el('text', { x: 14, y: (T + H - B) / 2, 'text-anchor': 'middle', transform: `rotate(-90 14 ${(T + H - B) / 2})` }).textContent = 'Score';
+
+  const usd = v => '$' + (v < 0.1 ? v.toFixed(3) : v.toFixed(2));
+  const hover = (cx, cy, r, html) => {
+    const hit = el('circle', { cx, cy, r, fill: 'transparent', style: 'cursor:default' });
+    const show = () => {
+      tip.innerHTML = html;
+      const b = box.getBoundingClientRect(), s = svg.getBoundingClientRect(), k = s.width / W;
+      let left = s.left - b.left + cx * k + 12, top = s.top - b.top + cy * k - 12;
+      tip.style.opacity = 1;
+      if (left + tip.offsetWidth > b.width - 4) left -= tip.offsetWidth + 24;
+      tip.style.left = left + 'px'; tip.style.top = Math.max(4, top - tip.offsetHeight / 2) + 'px';
+    };
+    hit.addEventListener('mouseenter', show);
+    hit.addEventListener('touchstart', show, { passive: true });
+    hit.addEventListener('mouseleave', () => { tip.style.opacity = 0; });
+  };
+  const means = [];
+  for (const [m, runs] of Object.entries(RUNS)) {
+    for (const [run, cost, score] of runs) {
+      el('circle', { cx: X(cost), cy: Y(score), r: 4.5, fill: COLOR[m], 'fill-opacity': .7, stroke: 'var(--surface)', 'stroke-width': 1.5 });
+    }
+    const avg = i => runs.reduce((a, r) => a + r[i], 0) / runs.length;
+    means.push([m, avg(1), avg(2), avg(3)]);
+  }
+  for (const [m, cost, score, en] of means) {
+    el('circle', { cx: X(cost), cy: Y(score), r: 7, fill: COLOR[m], stroke: 'var(--surface)', 'stroke-width': 2 });
+    const [dx, dy, anchor] = off[m];
+    el('text', { x: X(cost) + dx, y: Y(score) + dy, 'text-anchor': anchor, class: 'lbl on', stroke: 'var(--surface)', 'stroke-width': 4, 'paint-order': 'stroke' }).textContent = m;
+  }
+  // Hit targets last, so they sit above every mark; runs before means so a mean wins where they overlap.
+  for (const [m, runs] of Object.entries(RUNS)) {
+    for (const [run, cost, score, en] of runs) {
+      hover(X(cost), Y(score), 10, `<b>${m}</b> · ${run}<br>Score ${score.toFixed(2)} · ${usd(cost)}<br>${en} enemy types`);
+    }
+  }
+  for (const [m, cost, score, en] of means) {
+    hover(X(cost), Y(score), 12, `<b>${m}</b> · mean of 3 runs<br>Score ${score.toFixed(2)} · ${usd(cost)}<br>${Math.round(en)} enemy types`);
+  }
+})();
+
+// Pareto chart: log-x cost, linear score.
+(function () {
+  const box = document.getElementById('pareto'), svg = box.querySelector('svg'), tip = box.querySelector('.tip');
+  const W = 900, H = 440, L = 56, R = 24, T = 16, B = 46;
+  const x0 = Math.log(0.04), x1 = Math.log(4.5), yMax = 85;
+  const X = v => L + (Math.log(v) - x0) / (x1 - x0) * (W - L - R);
+  const Y = v => T + (1 - v / yMax) * (H - T - B);
+  const NS = 'http://www.w3.org/2000/svg';
+  const el = (name, attrs, parent = svg) => {
+    const e = document.createElementNS(NS, name);
+    for (const k in attrs) e.setAttribute(k, attrs[k]);
+    parent.appendChild(e);
+    return e;
+  };
+  for (const v of [0, 20, 40, 60, 80]) {
+    el('line', { x1: L, x2: W - R, y1: Y(v), y2: Y(v), stroke: 'var(--grid)' });
+    el('text', { x: L - 8, y: Y(v) + 4, 'text-anchor': 'end' }).textContent = v;
+  }
+  for (const v of [0.05, 0.1, 0.2, 0.5, 1, 2, 4]) {
+    el('line', { x1: X(v), x2: X(v), y1: T, y2: H - B, stroke: 'var(--grid)' });
+    el('text', { x: X(v), y: H - B + 18, 'text-anchor': 'middle' }).textContent = '$' + v;
+  }
+  el('text', { x: (L + W - R) / 2, y: H - 6, 'text-anchor': 'middle' }).textContent = 'Cost per run (USD, log scale)';
+  el('text', { x: 14, y: (T + H - B) / 2, 'text-anchor': 'middle', transform: `rotate(-90 14 ${(T + H - B) / 2})` }).textContent = 'Score';
+
+  const pts = [...R1].sort((a, b) => a[2] - b[2]);
+  const front = []; let best = -1;
+  for (const p of pts) if (p[3] > best) { front.push(p); best = p[3]; }
+  const on = new Set(front.map(p => p[0]));
+  el('polyline', { points: front.map(p => `${X(p[2])},${Y(p[3])}`).join(' '), fill: 'none', stroke: 'var(--accent)', 'stroke-width': 2, 'stroke-linejoin': 'round' });
+
+  // Label offsets [dx, dy, anchor] for points whose neighbours crowd them.
+  const off = {
+    'DeepSeek V4.1 Flash': [-11, 4, 'end'], 'GLM-5.3': [-11, -8, 'end'], 'Haiku 5.5': [-11, 10, 'end'],
+    'MiMo v2.6 Flash': [-11, 14, 'end'], 'Gemma 4 31B': [11, 12, 'start'], 'Solar Mini 4': [11, -6, 'start'],
+    'Muse Wonder': [-11, 4, 'end'], 'Nemotron 3 Ultra': [11, 4, 'start'], 'Gemini 3.8 Flash': [11, 4, 'start'],
+    'Sonnet 5.5': [11, 12, 'start'], 'Opus 5.5': [-11, 4, 'end'], 'Qwen3.8 Flash': [-11, -6, 'end'],
+  };
+  for (const p of R1) {
+    const [m, run, cost, score, en, , , , rng] = p, is = on.has(m);
+    if (rng) el('line', { x1: X(rng[0]), x2: X(rng[1]), y1: Y(score), y2: Y(score), stroke: 'var(--off)', 'stroke-width': 2, 'stroke-linecap': 'round', opacity: .6 });
+    el('circle', { cx: X(cost), cy: Y(score), r: 6, fill: is ? 'var(--accent)' : 'var(--off)', stroke: 'var(--surface)', 'stroke-width': 2 });
+    const [dx, dy, anchor] = off[m] || [11, 4, 'start'];
+    el('text', { x: X(cost) + dx, y: Y(score) + dy, 'text-anchor': anchor, class: 'lbl' + (is ? ' on' : '') }).textContent = m;
+    const hit = el('circle', { cx: X(cost), cy: Y(score), r: 16, fill: 'transparent', style: 'cursor:default' });
+    const costTxt = rng ? `$${rng[0].toFixed(2)}–$${rng[1].toFixed(2)}` : `$${cost < 0.1 ? cost.toFixed(3) : cost.toFixed(2)}`;
+    const show = () => {
+      tip.innerHTML = `<b>${m}</b> · ${run}<br>Score ${score.toFixed(2)} · ${costTxt}<br>${en} enemy types`;
+      const r = box.getBoundingClientRect(), s = svg.getBoundingClientRect(), k = s.width / W;
+      let left = s.left - r.left + X(cost) * k + 12, top = s.top - r.top + Y(score) * k - 12;
+      tip.style.opacity = 1;
+      if (left + tip.offsetWidth > r.width - 4) left -= tip.offsetWidth + 24;
+      tip.style.left = left + 'px'; tip.style.top = Math.max(4, top - tip.offsetHeight / 2) + 'px';
+    };
+    hit.addEventListener('mouseenter', show);
+    hit.addEventListener('touchstart', show, { passive: true });
+    hit.addEventListener('mouseleave', () => { tip.style.opacity = 0; });
+  }
+})();
+</script>
+</body>
+</html>

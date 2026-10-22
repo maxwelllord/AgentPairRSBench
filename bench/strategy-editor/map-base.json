@@ -1,0 +1,33 @@
+{
+  "zoom": 5.032258064516129,
+  "focusX": 1058,
+  "focusZ": 2619,
+  "left": 283,
+  "right": 1833,
+  "top": 1910,
+  "bottom": 3280,
+  "sWid": 3900,
+  "sHei": 3448,
+  "mapOriginX": 1792,
+  "mapOriginZ": 2624,
+  "mapHeight": 3328,
+  "bands": [
+    {
+      "from": 42,
+      "to": 62,
+      "offset": 0
+    },
+    {
+      "from": 142,
+      "to": 161,
+      "offset": -79
+    },
+    {
+      "from": 69,
+      "to": 77,
+      "offset": 14
+    }
+  ],
+  "width": 3900,
+  "height": 3400
+}

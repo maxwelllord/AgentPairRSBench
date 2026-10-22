@@ -1,0 +1,99 @@
+{
+  "runDir": "E:\\runebench\\runs\\20261019-151558-1x-claude-smoke",
+  "backend": "claude",
+  "model": "haiku",
+  "nAgents": 1,
+  "minutes": 4,
+  "team": [
+    "tfecm2va"
+  ],
+  "startedAt": "2026-10-19T15:16:01.051Z",
+  "endedAt": "2026-10-19T15:20:00.090Z",
+  "score": 11,
+  "bestKill": {
+    "ts": "2026-10-19T15:17:45.038Z",
+    "tick": 6228,
+    "npcId": 101,
+    "npcName": "goblin_armed",
+    "combatLevel": 5,
+    "maxHp": 12,
+    "killer": "tfecm2va",
+    "contributors": [
+      {
+        "username": "tfecm2va",
+        "damage": 13
+      }
+    ],
+    "x": 3163,
+    "z": 3279,
+    "level": 0,
+    "value": 11,
+    "minutesIn": 1.7331166666666666
+  },
+  "totalKills": 36,
+  "killsByAgent": {
+    "tfecm2va": 36
+  },
+  "distinctNpcs": [
+    {
+      "npcName": "goblin_armed",
+      "combatLevel": 5,
+      "maxHp": 12,
+      "count": 1
+    },
+    {
+      "npcName": "imp",
+      "combatLevel": 2,
+      "maxHp": 8,
+      "count": 3
+    },
+    {
+      "npcName": "man3",
+      "combatLevel": 2,
+      "maxHp": 7,
+      "count": 6
+    },
+    {
+      "npcName": "man2",
+      "combatLevel": 2,
+      "maxHp": 7,
+      "count": 2
+    },
+    {
+      "npcName": "goblin",
+      "combatLevel": 2,
+      "maxHp": 5,
+      "count": 24
+    }
+  ],
+  "bestOverTime": [
+    {
+      "minute": 1,
+      "best": 5.5
+    },
+    {
+      "minute": 2,
+      "best": 11
+    },
+    {
+      "minute": 3,
+      "best": 11
+    },
+    {
+      "minute": 4,
+      "best": 11
+    }
+  ],
+  "costUsd": 0.00831209,
+  "agents": [
+    {
+      "name": "tfecm2va",
+      "launches": 1,
+      "costUsd": 0.00831209,
+      "inputTokens": 23817,
+      "cachedTokens": 191289,
+      "outputTokens": 3274,
+      "steps": 6
+    }
+  ]
+}

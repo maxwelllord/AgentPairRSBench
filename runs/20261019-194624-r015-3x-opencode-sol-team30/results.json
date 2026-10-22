@@ -1,0 +1,268 @@
+{
+  "runDir": "E:\\runebench\\runs\\20261019-194624-r015-3x-opencode-sol-team30",
+  "backend": "opencode",
+  "model": "openrouter/openai/gpt-6.1-sol",
+  "nAgents": 3,
+  "minutes": 30,
+  "team": [
+    "Alpha",
+    "Bravo",
+    "Charlie"
+  ],
+  "startedAt": "2026-10-19T19:47:13.871Z",
+  "endedAt": "2026-10-19T20:17:13.871Z",
+  "score": 50.301615059994106,
+  "bestType": {
+    "npcName": "lesser_demon",
+    "value": 50.301615059994106,
+    "kills": 7
+  },
+  "bestKill": {
+    "ts": "2026-10-19T20:15:45.807Z",
+    "tick": 101906,
+    "npcId": 82,
+    "npcName": "lesser_demon",
+    "combatLevel": 82,
+    "maxHp": 79,
+    "ttkTicks": 79,
+    "engagementDamage": 80,
+    "killer": "charlie",
+    "contributors": [
+      {
+        "username": "charlie",
+        "damage": 80
+      }
+    ],
+    "x": 3110,
+    "z": 3157,
+    "level": 2,
+    "value": 51.25,
+    "ttkSeconds": 47.4,
+    "dps": 1.6666666666666667,
+    "minutesIn": 28.53226666666667
+  },
+  "altScores": {
+    "bestSingleKill": 51.25,
+    "combatLevel": 82,
+    "levelPlusHalfHp": 121.5,
+    "levelTimeOnly": 63.56589147286821
+  },
+  "totalKills": 295,
+  "killsByAgent": {
+    "Alpha": 187,
+    "Bravo": 33,
+    "Charlie": 75
+  },
+  "distinctNpcs": [
+    {
+      "npcName": "lesser_demon",
+      "combatLevel": 82,
+      "maxHp": 79,
+      "count": 7,
+      "fastestTtkSeconds": 17.4
+    },
+    {
+      "npcName": "wizard_grayzag",
+      "combatLevel": 41,
+      "maxHp": 34,
+      "count": 43,
+      "fastestTtkSeconds": 12
+    },
+    {
+      "npcName": "guard1",
+      "combatLevel": 21,
+      "maxHp": 22,
+      "count": 18,
+      "fastestTtkSeconds": 12
+    },
+    {
+      "npcName": "monk",
+      "combatLevel": 5,
+      "maxHp": 15,
+      "count": 32,
+      "fastestTtkSeconds": 4.8
+    },
+    {
+      "npcName": "summonedimp",
+      "combatLevel": 3,
+      "maxHp": 9,
+      "count": 31,
+      "fastestTtkSeconds": 2.4
+    },
+    {
+      "npcName": "man3",
+      "combatLevel": 2,
+      "maxHp": 7,
+      "count": 2,
+      "fastestTtkSeconds": 28.2
+    },
+    {
+      "npcName": "cow",
+      "combatLevel": 2,
+      "maxHp": 8,
+      "count": 142,
+      "fastestTtkSeconds": 2.4
+    },
+    {
+      "npcName": "chicken",
+      "combatLevel": 1,
+      "maxHp": 3,
+      "count": 20,
+      "fastestTtkSeconds": 2.4
+    }
+  ],
+  "bestOverTime": [
+    {
+      "minute": 1,
+      "best": 0.2098384507324905
+    },
+    {
+      "minute": 2,
+      "best": 0.7494102228047183
+    },
+    {
+      "minute": 3,
+      "best": 1.1184210526315788
+    },
+    {
+      "minute": 4,
+      "best": 1.25
+    },
+    {
+      "minute": 5,
+      "best": 1.25
+    },
+    {
+      "minute": 6,
+      "best": 1.25
+    },
+    {
+      "minute": 7,
+      "best": 10.543457239005145
+    },
+    {
+      "minute": 8,
+      "best": 11.444800320288259
+    },
+    {
+      "minute": 9,
+      "best": 12.467556094602791
+    },
+    {
+      "minute": 10,
+      "best": 12.467556094602791
+    },
+    {
+      "minute": 11,
+      "best": 12.467556094602791
+    },
+    {
+      "minute": 12,
+      "best": 12.467556094602791
+    },
+    {
+      "minute": 13,
+      "best": 12.467556094602791
+    },
+    {
+      "minute": 14,
+      "best": 12.467556094602791
+    },
+    {
+      "minute": 15,
+      "best": 12.467556094602791
+    },
+    {
+      "minute": 16,
+      "best": 12.467556094602791
+    },
+    {
+      "minute": 17,
+      "best": 12.467556094602791
+    },
+    {
+      "minute": 18,
+      "best": 12.467556094602791
+    },
+    {
+      "minute": 19,
+      "best": 12.467556094602791
+    },
+    {
+      "minute": 20,
+      "best": 12.467556094602791
+    },
+    {
+      "minute": 21,
+      "best": 12.467556094602791
+    },
+    {
+      "minute": 22,
+      "best": 12.467556094602791
+    },
+    {
+      "minute": 23,
+      "best": 12.467556094602791
+    },
+    {
+      "minute": 24,
+      "best": 24.09645096283027
+    },
+    {
+      "minute": 25,
+      "best": 26.010338345864664
+    },
+    {
+      "minute": 26,
+      "best": 26.615653306494583
+    },
+    {
+      "minute": 27,
+      "best": 41.61898977181502
+    },
+    {
+      "minute": 28,
+      "best": 41.61898977181502
+    },
+    {
+      "minute": 29,
+      "best": 47.721630492494334
+    },
+    {
+      "minute": 30,
+      "best": 50.301615059994106
+    }
+  ],
+  "costUsd": 1.9136789999999995,
+  "budgetUsd": 6.5,
+  "budgetStoppedAt": null,
+  "agents": [
+    {
+      "name": "Alpha",
+      "launches": 1,
+      "costUsd": 0.4823184,
+      "inputTokens": 180,
+      "cachedTokens": 3545784,
+      "outputTokens": 12738,
+      "steps": 60
+    },
+    {
+      "name": "Bravo",
+      "launches": 1,
+      "costUsd": 0.8851991999999999,
+      "inputTokens": 291,
+      "cachedTokens": 7007772,
+      "outputTokens": 18384,
+      "steps": 97
+    },
+    {
+      "name": "Charlie",
+      "launches": 1,
+      "costUsd": 0.5461613999999997,
+      "inputTokens": 207,
+      "cachedTokens": 3869874,
+      "outputTokens": 15876,
+      "steps": 69
+    }
+  ]
+}

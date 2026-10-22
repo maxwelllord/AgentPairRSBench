@@ -1,0 +1,34 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "provider": {
+    "openrouter": {
+      "options": {
+        "timeout": 180000,
+        "apiKey": "{file:~/.runebench/openrouter.key}"
+      },
+      "models": {
+        "nvidia/nemotron-3-ultra-550b-a55b": {
+          "limit": {
+            "context": 200000,
+            "output": 16384
+          }
+        }
+      }
+    }
+  },
+  "model": "openrouter/nvidia/nemotron-3-ultra-550b-a55b",
+  "permission": {
+    "*": "allow",
+    "external_directory": "deny",
+    "bash": {
+      "*": "allow",
+      "*.env*": "deny",
+      "*.runebench*": "deny",
+      "*openrouter*": "deny",
+      "*OPENROUTER*": "deny"
+    }
+  },
+  "experimental": {
+    "mcp_timeout": 300000
+  }
+}

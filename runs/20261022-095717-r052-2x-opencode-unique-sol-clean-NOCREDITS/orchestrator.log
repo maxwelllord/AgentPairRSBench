@@ -1,0 +1,66 @@
+[09:57:17] run E:\runebench\runs\20261022-095717-r052-2x-opencode-unique-sol-clean
+[09:57:17] team Alpha, Bravo | backend opencode | model openrouter/openai/gpt-6.1-sol | 15 min | mode unique
+[09:57:33] Alpha ready at 3222,3222 (fresh, combat 3)
+[09:57:50] Bravo ready at 3222,3222 (fresh, combat 3)
+[09:57:50] live view: E:\runebench\runs\20261022-095717-r052-2x-opencode-unique-sol-clean\live.html
+[09:57:50] start; deadline 2026-10-22T10:12:50.180Z
+[09:57:50] Alpha launch #1
+[09:57:53] Bravo launch #1
+[09:57:59] Alpha exited after 9s (code 1)
+[09:57:59] Alpha launch #2 (resuming ses_e9cf4532fffeeDOaIUkb0iltvP)
+[09:57:59] Bravo exited after 7s (code 1)
+[09:57:59] Bravo launch #2 (resuming ses_e9cf44428ffeR0GSDMiKNwSVmB)
+[09:58:05] Bravo exited after 6s (code 1)
+[09:58:05] Bravo resume keeps failing; starting a fresh conversation
+[09:58:05] Bravo launch #3
+[09:58:12] Alpha exited after 13s (code 1)
+[09:58:12] Alpha resume keeps failing; starting a fresh conversation
+[09:58:12] Alpha launch #3
+[09:59:25] Bravo exited after 79s (code 1)
+[09:59:25] Bravo launch #4 (resuming ses_e9cf4169effeZN2HYIaGNzpGLw)
+[09:59:26] Bravo exited after 1s (code 1)
+[09:59:26] Bravo launch #5 (resuming ses_e9cf4169effeZN2HYIaGNzpGLw)
+[09:59:26] Alpha exited after 74s (code 1)
+[09:59:26] Alpha launch #4 (resuming ses_e9cf3fb36ffem2fjeKVIWnbke4)
+[10:00:41] Alpha exited after 74s (code 1)
+[10:00:41] Alpha launch #5 (resuming ses_e9cf3fb36ffem2fjeKVIWnbke4)
+[10:00:42] Bravo exited after 76s (code 1)
+[10:00:42] Bravo launch #6 (resuming ses_e9cf4169effeZN2HYIaGNzpGLw)
+[10:02:00] Bravo exited after 78s (code 1)
+[10:02:00] Bravo launch #7 (resuming ses_e9cf4169effeZN2HYIaGNzpGLw)
+[10:02:00] Alpha exited after 80s (code 1)
+[10:02:00] Alpha launch #6 (resuming ses_e9cf3fb36ffem2fjeKVIWnbke4)
+[10:03:16] Alpha exited after 76s (code 1)
+[10:03:16] Alpha launch #7 (resuming ses_e9cf3fb36ffem2fjeKVIWnbke4)
+[10:03:20] Bravo exited after 80s (code 1)
+[10:03:20] Bravo launch #8 (resuming ses_e9cf4169effeZN2HYIaGNzpGLw)
+[10:04:33] Alpha exited after 77s (code 1)
+[10:04:33] Alpha launch #8 (resuming ses_e9cf3fb36ffem2fjeKVIWnbke4)
+[10:04:36] Bravo exited after 76s (code 1)
+[10:04:36] Bravo launch #9 (resuming ses_e9cf4169effeZN2HYIaGNzpGLw)
+[10:05:51] Bravo exited after 75s (code 1)
+[10:05:51] Bravo launch #10 (resuming ses_e9cf4169effeZN2HYIaGNzpGLw)
+[10:05:53] Alpha exited after 80s (code 1)
+[10:05:53] Alpha launch #9 (resuming ses_e9cf3fb36ffem2fjeKVIWnbke4)
+[10:07:09] Bravo exited after 77s (code 1)
+[10:07:09] Bravo launch #11 (resuming ses_e9cf4169effeZN2HYIaGNzpGLw)
+[10:07:09] Alpha exited after 77s (code 1)
+[10:07:09] Alpha launch #10 (resuming ses_e9cf3fb36ffem2fjeKVIWnbke4)
+[10:08:27] Alpha exited after 78s (code 1)
+[10:08:27] Alpha launch #11 (resuming ses_e9cf3fb36ffem2fjeKVIWnbke4)
+[10:08:27] Bravo exited after 78s (code 1)
+[10:08:27] Bravo launch #12 (resuming ses_e9cf4169effeZN2HYIaGNzpGLw)
+[10:09:44] Bravo exited after 77s (code 1)
+[10:09:44] Bravo launch #13 (resuming ses_e9cf4169effeZN2HYIaGNzpGLw)
+[10:09:45] Alpha exited after 78s (code 1)
+[10:09:45] Alpha launch #12 (resuming ses_e9cf3fb36ffem2fjeKVIWnbke4)
+[10:10:59] Bravo exited after 75s (code 1)
+[10:10:59] Bravo launch #14 (resuming ses_e9cf4169effeZN2HYIaGNzpGLw)
+[10:11:06] Alpha exited after 81s (code 1)
+[10:11:06] Alpha launch #13 (resuming ses_e9cf3fb36ffem2fjeKVIWnbke4)
+[10:12:13] Bravo exited after 74s (code 1)
+[10:12:13] Bravo launch #15 (resuming ses_e9cf4169effeZN2HYIaGNzpGLw)
+[10:12:26] Alpha exited after 80s (code 1)
+[10:12:50] Bravo exited after 37s (code 1)
+[10:12:59] timelapse: E:\runebench\runs\20261022-095717-r052-2x-opencode-unique-sol-clean\timelapse-team.mp4
+[10:13:23] SCORE 0.00 | 0 enemies (level sum 0): - | unique by agent Alpha 0, Bravo 0 | overlap 0 | kills 0 (0 non-scoring) | cost $0.0564

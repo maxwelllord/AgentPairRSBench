@@ -1,0 +1,254 @@
+{
+  "runDir": "E:\\runebench\\runs\\20261019-213109-r017-3x-opencode-qwen-team30",
+  "backend": "opencode",
+  "model": "openrouter/qwen/qwen3.8-flash",
+  "nAgents": 3,
+  "minutes": 30,
+  "team": [
+    "Alpha",
+    "Bravo",
+    "Charlie"
+  ],
+  "startedAt": "2026-10-19T21:31:58.051Z",
+  "endedAt": "2026-10-19T22:01:58.051Z",
+  "score": 16.137462686567165,
+  "bestType": {
+    "npcName": "jailguard",
+    "value": 16.137462686567165,
+    "kills": 18
+  },
+  "bestKill": {
+    "ts": "2026-10-19T21:55:35.017Z",
+    "tick": 221567,
+    "npcId": 917,
+    "npcName": "jailguard",
+    "combatLevel": 26,
+    "maxHp": 32,
+    "ttkTicks": 30,
+    "engagementDamage": 33,
+    "killer": "alpha",
+    "contributors": [
+      {
+        "username": "alpha",
+        "damage": 33
+      }
+    ],
+    "x": 3120,
+    "z": 3238,
+    "level": 0,
+    "value": 16.64,
+    "ttkSeconds": 18,
+    "dps": 1.7777777777777777,
+    "minutesIn": 23.6161
+  },
+  "altScores": {
+    "bestSingleKill": 16.64,
+    "combatLevel": 33,
+    "levelPlusHalfHp": 54,
+    "levelTimeOnly": 20
+  },
+  "totalKills": 565,
+  "killsByAgent": {
+    "Alpha": 314,
+    "Bravo": 203,
+    "Charlie": 48
+  },
+  "distinctNpcs": [
+    {
+      "npcName": "black_knight",
+      "combatLevel": 33,
+      "maxHp": 42,
+      "count": 1,
+      "fastestTtkSeconds": 54
+    },
+    {
+      "npcName": "jailguard",
+      "combatLevel": 26,
+      "maxHp": 32,
+      "count": 18,
+      "fastestTtkSeconds": 18
+    },
+    {
+      "npcName": "young_dark_wizard",
+      "combatLevel": 7,
+      "maxHp": 12,
+      "count": 1,
+      "fastestTtkSeconds": 23.4
+    },
+    {
+      "npcName": "goblin",
+      "combatLevel": 2,
+      "maxHp": 5,
+      "count": 15,
+      "fastestTtkSeconds": 4.8
+    },
+    {
+      "npcName": "chicken",
+      "combatLevel": 1,
+      "maxHp": 3,
+      "count": 498,
+      "fastestTtkSeconds": 2.4
+    },
+    {
+      "npcName": "rat",
+      "combatLevel": 1,
+      "maxHp": 2,
+      "count": 32,
+      "fastestTtkSeconds": 2.4
+    }
+  ],
+  "bestOverTime": [
+    {
+      "minute": 1,
+      "best": 0
+    },
+    {
+      "minute": 2,
+      "best": 0
+    },
+    {
+      "minute": 3,
+      "best": 0
+    },
+    {
+      "minute": 4,
+      "best": 0
+    },
+    {
+      "minute": 5,
+      "best": 0.09377967711301045
+    },
+    {
+      "minute": 6,
+      "best": 0.4985754985754986
+    },
+    {
+      "minute": 7,
+      "best": 0.5555555555555556
+    },
+    {
+      "minute": 8,
+      "best": 0.5555555555555556
+    },
+    {
+      "minute": 9,
+      "best": 0.5555555555555556
+    },
+    {
+      "minute": 10,
+      "best": 0.8558028785439542
+    },
+    {
+      "minute": 11,
+      "best": 1.0204081632653061
+    },
+    {
+      "minute": 12,
+      "best": 1.0204081632653061
+    },
+    {
+      "minute": 13,
+      "best": 1.0204081632653061
+    },
+    {
+      "minute": 14,
+      "best": 1.0204081632653061
+    },
+    {
+      "minute": 15,
+      "best": 1.0204081632653061
+    },
+    {
+      "minute": 16,
+      "best": 1.0204081632653061
+    },
+    {
+      "minute": 17,
+      "best": 1.0204081632653061
+    },
+    {
+      "minute": 18,
+      "best": 4.812500000000001
+    },
+    {
+      "minute": 19,
+      "best": 4.812500000000001
+    },
+    {
+      "minute": 20,
+      "best": 4.812500000000001
+    },
+    {
+      "minute": 21,
+      "best": 8.793562854504684
+    },
+    {
+      "minute": 22,
+      "best": 13.693445068874532
+    },
+    {
+      "minute": 23,
+      "best": 13.693445068874532
+    },
+    {
+      "minute": 24,
+      "best": 15.673176972281452
+    },
+    {
+      "minute": 25,
+      "best": 15.673176972281452
+    },
+    {
+      "minute": 26,
+      "best": 15.673176972281452
+    },
+    {
+      "minute": 27,
+      "best": 15.673176972281452
+    },
+    {
+      "minute": 28,
+      "best": 15.673176972281452
+    },
+    {
+      "minute": 29,
+      "best": 16.137462686567165
+    },
+    {
+      "minute": 30,
+      "best": 16.137462686567165
+    }
+  ],
+  "costUsd": 0.18071199800000004,
+  "budgetUsd": 3,
+  "budgetStoppedAt": null,
+  "agents": [
+    {
+      "name": "Alpha",
+      "launches": 1,
+      "costUsd": 0.07410874800000003,
+      "inputTokens": 103121,
+      "cachedTokens": 2382848,
+      "outputTokens": 43649,
+      "steps": 39
+    },
+    {
+      "name": "Bravo",
+      "launches": 1,
+      "costUsd": 0.068795036,
+      "inputTokens": 141222,
+      "cachedTokens": 2103296,
+      "outputTokens": 29700,
+      "steps": 48
+    },
+    {
+      "name": "Charlie",
+      "launches": 1,
+      "costUsd": 0.037808214,
+      "inputTokens": 62245,
+      "cachedTokens": 847104,
+      "outputTokens": 31740,
+      "steps": 21
+    }
+  ]
+}

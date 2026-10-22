@@ -1,0 +1,11 @@
+Pathfinding initialized in 287ms (136704 zones + 297 mainland fill, 1268350 tiles, 2691 doors masked, 5 one-way doors blocked)
+[BotSDK] Waiting for game state to be ready...
+[Runner] Connecting to bot "Human"...
+[BotSDK] Timeout waiting for game state to be ready
+[BotSDK] Connected but game state not ready: Game state not ready within timeout
+[BotSDK] Continuing anyway - state may load later
+[LOGOUT DEBUG] SDK WebSocket closed - autoReconnect=true, intentionalDisconnect=true
+[Runner] Failed to connect: No game client is attached to "Human" (no game state was received).
+Scripts drive a running client; they don't start one. Start one, leave it running, then rerun:
+  browser: http://localhost:8888/bot?bot=Human&password=<PASSWORD from bot.env>
+MCP execute_code can open that browser automatically. For fleets of many bots, an optional lite client is available: cd server/webclient && bun src/lite/runner.ts Human

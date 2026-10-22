@@ -1,0 +1,122 @@
+{
+  "runDir": "E:\\runebench\\runs\\20261019-155036-1x-opencode-attempt2",
+  "backend": "opencode",
+  "model": "openrouter/deepseek/deepseek-v4.1-flash",
+  "nAgents": 1,
+  "minutes": 10,
+  "team": [
+    "tffl5mna"
+  ],
+  "startedAt": "2026-10-19T15:50:44.721Z",
+  "endedAt": "2026-10-19T16:00:44.721Z",
+  "score": 2.027027027027027,
+  "bestKill": {
+    "ts": "2026-10-19T15:59:14.509Z",
+    "tick": 33562,
+    "npcId": 86,
+    "npcName": "giantrat",
+    "combatLevel": 3,
+    "maxHp": 5,
+    "ttkTicks": 4,
+    "killer": "tffl5mna",
+    "contributors": [
+      {
+        "username": "tffl5mna",
+        "damage": 5
+      }
+    ],
+    "x": 3199,
+    "z": 3211,
+    "level": 0,
+    "value": 2.027027027027027,
+    "ttkSeconds": 2.4,
+    "dps": 2.0833333333333335,
+    "minutesIn": 8.496466666666667
+  },
+  "altScores": {
+    "combatLevel": 3,
+    "levelPlusHalfHp": 5.5,
+    "levelTimeOnly": 2.8846153846153846
+  },
+  "totalKills": 38,
+  "killsByAgent": {
+    "tffl5mna": 38
+  },
+  "distinctNpcs": [
+    {
+      "npcName": "giantrat",
+      "combatLevel": 3,
+      "maxHp": 5,
+      "count": 20,
+      "fastestTtkSeconds": 2.4
+    },
+    {
+      "npcName": "man3",
+      "combatLevel": 2,
+      "maxHp": 7,
+      "count": 14,
+      "fastestTtkSeconds": 7.199999999999999
+    },
+    {
+      "npcName": "rat",
+      "combatLevel": 1,
+      "maxHp": 2,
+      "count": 4,
+      "fastestTtkSeconds": 2.4
+    }
+  ],
+  "bestOverTime": [
+    {
+      "minute": 1,
+      "best": 0
+    },
+    {
+      "minute": 2,
+      "best": 0
+    },
+    {
+      "minute": 3,
+      "best": 0
+    },
+    {
+      "minute": 4,
+      "best": 0
+    },
+    {
+      "minute": 5,
+      "best": 0.2928870292887029
+    },
+    {
+      "minute": 6,
+      "best": 0.36649214659685864
+    },
+    {
+      "minute": 7,
+      "best": 0.9859154929577465
+    },
+    {
+      "minute": 8,
+      "best": 1.5306122448979593
+    },
+    {
+      "minute": 9,
+      "best": 2.027027027027027
+    },
+    {
+      "minute": 10,
+      "best": 2.027027027027027
+    }
+  ],
+  "costUsd": 0.031058298,
+  "agents": [
+    {
+      "name": "tffl5mna",
+      "launches": 1,
+      "costUsd": 0.031058298,
+      "inputTokens": 66215,
+      "cachedTokens": 1753216,
+      "outputTokens": 26444,
+      "steps": 29
+    }
+  ]
+}

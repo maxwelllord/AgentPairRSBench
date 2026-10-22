@@ -1,0 +1,9 @@
+[18:16:24] run E:\runebench\runs\20261019-181623-r012-3x-opencode-setupcheck
+[18:16:24] team Alpha, Bravo, Charlie | backend opencode | model openrouter/deepseek/deepseek-v4.1-flash | 0 min
+[18:16:40] Alpha ready at 3222,3222 (fresh, combat 3)
+[18:16:56] Bravo ready at 3222,3222 (fresh, combat 3)
+[18:17:13] Charlie ready at 3222,3222 (fresh, combat 3)
+[18:17:13] live view: E:\runebench\runs\20261019-181623-r012-3x-opencode-setupcheck\live.html
+[18:17:13] start; deadline 2026-10-19T18:17:13.334Z
+[18:17:23] timelapse: E:\runebench\runs\20261019-181623-r012-3x-opencode-setupcheck\timelapse-team.mp4
+[18:17:56] SCORE 0.00 (top-3 -, 0 kills) | best single - (lvl -, hp -, ttk ?s, ? dps) by - | kills 0 | cost $0.0000

@@ -1,0 +1,5 @@
+{"ts":"2026-10-19T18:05:45.611Z","tick":43691,"npcId":59,"npcName":"giantspider1","combatLevel":2,"maxHp":5,"ttkTicks":32,"killer":"bravo","contributors":[{"username":"bravo","damage":5}],"x":3200,"z":3237,"level":0}
+{"ts":"2026-10-19T18:08:28.112Z","tick":46918,"npcId":3,"npcName":"man3","combatLevel":2,"maxHp":7,"ttkTicks":35,"killer":"charlie","contributors":[{"username":"charlie","damage":8}],"x":3224,"z":3222,"level":0}
+{"ts":"2026-10-19T18:08:35.550Z","tick":47065,"npcId":3,"npcName":"man3","combatLevel":2,"maxHp":7,"ttkTicks":27,"killer":"charlie","contributors":[{"username":"charlie","damage":8}],"x":3218,"z":3221,"level":0}
+{"ts":"2026-10-19T18:08:43.200Z","tick":47218,"npcId":3,"npcName":"man3","combatLevel":2,"maxHp":7,"ttkTicks":35,"killer":"charlie","contributors":[{"username":"charlie","damage":8}],"x":3225,"z":3222,"level":0}
+{"ts":"2026-10-19T18:08:50.799Z","tick":47370,"npcId":3,"npcName":"man3","combatLevel":2,"maxHp":7,"ttkTicks":28,"killer":"charlie","contributors":[{"username":"charlie","damage":7}],"x":3219,"z":3218,"level":0}

@@ -1,0 +1,38 @@
+[16:41:34] run E:\runebench\runs\20261019-164134-3x-opencode-team5test
+[16:41:34] team tfheovva, tfheovvb, tfheovvc | backend opencode | model openrouter/deepseek/deepseek-v4.1-flash | 5 min
+[16:41:41] tfheovva ready at 3222,3222
+[16:41:50] tfheovvb ready at 3222,3222
+[16:41:58] tfheovvc ready at 3222,3222
+[16:41:58] live view: E:\runebench\runs\20261019-164134-3x-opencode-team5test\live.html
+[16:41:58] start; deadline 2026-10-19T16:46:58.486Z
+[16:41:58] tfheovva launch #1
+[16:41:58] tfheovvb launch #1
+[16:41:58] tfheovvc launch #1
+[16:42:38] kill: tfheovvb -> man3 (lvl 2, hp 7, ttk 34209 ticks)
+[16:42:48] kill: tfheovvb -> man3 (lvl 2, hp 7, ttk 67 ticks)
+[16:42:58] kill: tfheovvb -> man3 (lvl 2, hp 7, ttk 83 ticks)
+[16:43:08] kill: tfheovvb -> man3 (lvl 2, hp 7, ttk 91 ticks)
+[16:43:16] kill: tfheovvb -> man3 (lvl 2, hp 7, ttk 72 ticks)
+[16:43:26] kill: tfheovvb -> man3 (lvl 2, hp 7, ttk 55 ticks)
+[16:44:12] kill: tfheovvb -> man3 (lvl 2, hp 7, ttk 818 ticks)
+[16:44:20] kill: tfheovvb -> man3 (lvl 2, hp 7, ttk 56 ticks)
+[16:44:34] kill: tfheovvb -> man3 (lvl 2, hp 7, ttk 160 ticks)
+[16:44:42] kill: tfheovvb -> man3 (lvl 2, hp 7, ttk 44 ticks)
+[16:44:52] kill: tfheovvb -> man3 (lvl 2, hp 7, ttk 52 ticks)
+[16:45:08] kill: tfheovvb -> man3 (lvl 2, hp 7, ttk 215 ticks)
+[16:45:22] kill: tfheovvb -> man3 (lvl 2, hp 7, ttk 48 ticks)
+[16:45:32] kill: tfheovvb -> man3 (lvl 2, hp 7, ttk 56 ticks)
+[16:45:42] kill: tfheovvb -> man3 (lvl 2, hp 7, ttk 72 ticks)
+[16:45:50] kill: tfheovvb -> man (lvl 2, hp 7, ttk 56 ticks)
+[16:46:00] kill: tfheovvb -> man (lvl 2, hp 7, ttk 64 ticks)
+[16:46:08] kill: tfheovvb -> man3 (lvl 2, hp 7, ttk 72 ticks)
+[16:46:18] kill: tfheovvb -> man3 (lvl 2, hp 7, ttk 67 ticks)
+[16:46:30] kill: tfheovvb -> man3 (lvl 2, hp 7, ttk 76 ticks)
+[16:46:38] kill: tfheovvb -> man3 (lvl 2, hp 7, ttk 48 ticks)
+[16:46:48] kill: tfheovvb -> man3 (lvl 2, hp 7, ttk 88 ticks)
+[16:46:56] kill: tfheovvb -> man3 (lvl 2, hp 7, ttk 44 ticks)
+[16:46:59] tfheovva exited after 301s (code 1)
+[16:46:59] tfheovvb exited after 301s (code 1)
+[16:46:59] tfheovvc exited after 301s (code 1)
+[16:47:06] timelapse: E:\runebench\runs\20261019-164134-3x-opencode-team5test\timelapse-team.mp4
+[16:47:06] SCORE 0.42 | best man3 (lvl 2, hp 7, ttk 26.4s, 0.27 dps) by tfheovvb | kills 23 | cost $0.0440

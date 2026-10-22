@@ -1,0 +1,31 @@
+# Third-party clones; our rs-sdk changes live in patches/
+/rs-sdk/
+/rs-sdk-upstream/
+/rs-bench/
+/.claude/
+
+# Logs and scratch
+/*.log
+/ledger/
+__pycache__/
+bench/.tmp-prof/
+runs/orphaned/
+runs/*.out
+
+# Big or regenerable media. The site's own videos and posters are kept.
+*.mp4
+*.png
+*.jpg
+!site/media/*.mp4
+!site/media/*.jpg
+
+# Run artefacts: keep results, kills, positions, transcripts and the orchestrator log.
+# Drop screenshots, account saves and the live view's working files.
+runs/**/frames-*/
+runs/**/final-state/
+runs/**/gateway.log*
+runs/**/browser-*.log*
+runs/**/live-feed.log*
+runs/**/agents.js
+runs/**/status.js
+runs/**/live.html

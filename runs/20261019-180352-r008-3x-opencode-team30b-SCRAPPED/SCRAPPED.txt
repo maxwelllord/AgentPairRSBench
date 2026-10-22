@@ -1,0 +1,1 @@
+SCRAPPED by user at 18:10:19 UTC: Bravo's first launch crashed (database is locked) and its relaunch hung mid-stream; required a manual kill.

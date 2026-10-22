@@ -1,0 +1,19 @@
+[16:22:24] run E:\runebench\runs\20261022-162223-r058-1x-opencode-unique-ds-strat-attack30
+[16:22:24] team Alpha | backend opencode | model openrouter/deepseek/deepseek-v4.1-flash | 15 min | mode unique
+[16:22:40] Alpha ready at 3222,3222 (fresh, combat 3)
+[16:22:40] live view: E:\runebench\runs\20261022-162223-r058-1x-opencode-unique-ds-strat-attack30\live.html
+[16:22:40] start; deadline 2026-10-22T16:37:40.700Z
+[16:22:40] Alpha launch #1
+[16:23:16] kill: alpha -> man3 (lvl 2, hp 7, ttk 36 ticks)
+[16:23:20] kill: alpha -> man2 (lvl 2, hp 7, ttk 44 ticks)
+[16:23:22] kill: alpha -> man3 (lvl 2, hp 7, ttk 20 ticks)
+[16:23:26] kill: alpha -> man2 (lvl 2, hp 7, ttk 44 ticks)
+[16:23:30] kill: alpha -> man3 (lvl 2, hp 7, ttk 28 ticks)
+[16:23:32] kill: alpha -> man2 (lvl 2, hp 7, ttk 28 ticks)
+[16:23:34] kill: alpha -> man3 (lvl 2, hp 7, ttk 12 ticks)
+[16:23:38] kill: alpha -> man3 (lvl 2, hp 7, ttk 16 ticks)
+[16:23:40] kill: alpha -> man (lvl 2, hp 7, ttk 8 ticks)
+[16:23:42] kill: alpha -> man3 (lvl 2, hp 7, ttk 24 ticks)
+[16:23:48] kill: alpha -> man3 (lvl 2, hp 7, ttk 28 ticks)
+[16:23:52] kill: alpha -> man (lvl 2, hp 7, ttk 8 ticks)
+[16:23:54] kill: alpha -> man3 (lvl 2, hp 7, ttk 12 ticks)

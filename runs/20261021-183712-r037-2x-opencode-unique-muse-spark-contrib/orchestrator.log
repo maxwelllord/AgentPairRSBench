@@ -1,0 +1,30 @@
+[18:37:12] run E:\runebench\runs\20261021-183712-r037-2x-opencode-unique-muse-spark-contrib
+[18:37:12] team Alpha, Bravo | backend opencode | model openrouter/meta/muse-spark-1.3-contributor | 15 min | mode unique
+[18:37:29] Alpha ready at 3222,3222 (fresh, combat 3)
+[18:37:46] Bravo ready at 3222,3222 (fresh, combat 3)
+[18:37:46] live view: E:\runebench\runs\20261021-183712-r037-2x-opencode-unique-muse-spark-contrib\live.html
+[18:37:46] start; deadline 2026-10-21T18:52:46.228Z
+[18:37:46] Alpha launch #1
+[18:37:49] Bravo launch #1
+[18:37:53] Alpha exited after 7s (code 1)
+[18:37:53] Alpha launch #2 (resuming ses_ea03eaa37ffe5CPNnaFmcWYhyr)
+[18:37:55] Bravo exited after 7s (code 1)
+[18:37:55] Bravo launch #2 (resuming ses_ea03e9d62ffeDk49DLaSm1ONS2)
+[18:37:59] Alpha exited after 6s (code 1)
+[18:37:59] Alpha resume keeps failing; starting a fresh conversation
+[18:37:59] Alpha launch #3
+[18:38:01] Bravo exited after 6s (code 1)
+[18:38:01] Bravo resume keeps failing; starting a fresh conversation
+[18:38:01] Bravo launch #3
+[18:38:04] Alpha exited after 6s (code 1)
+[18:38:04] Alpha launch #4 (resuming ses_ea03e78bdffeeevl89IVFVn85t)
+[18:38:07] Bravo exited after 6s (code 1)
+[18:38:07] Bravo launch #4 (resuming ses_ea03e6e94ffeAFPYoWjvaE2yN0)
+[18:38:10] Alpha exited after 6s (code 1)
+[18:38:10] Alpha resume keeps failing; starting a fresh conversation
+[18:38:10] Alpha gave up after 4 fast failures; check agent-Alpha-*.jsonl.err
+[18:38:12] Bravo exited after 5s (code 1)
+[18:38:12] Bravo resume keeps failing; starting a fresh conversation
+[18:38:12] Bravo gave up after 4 fast failures; check agent-Bravo-*.jsonl.err
+[18:38:16] timelapse: E:\runebench\runs\20261021-183712-r037-2x-opencode-unique-muse-spark-contrib\timelapse-team.mp4
+[18:38:47] SCORE 0.00 | 0 enemies (level sum 0): - | unique by agent Alpha 0, Bravo 0 | overlap 0 | kills 0 (0 non-scoring) | cost $0.0000

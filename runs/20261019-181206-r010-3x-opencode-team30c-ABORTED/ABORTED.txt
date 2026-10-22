@@ -1,0 +1,1 @@
+aborted at setup: Bravo restored from market.sqlite checkpoint (combat 5)

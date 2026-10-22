@@ -1,0 +1,44 @@
+[21:05:13] run E:\runebench\runs\20261021-210513-r044-2x-opencode-unique-luna-s2
+[21:05:13] team Alpha, Bravo | backend opencode | model openrouter/openai/gpt-6-luna | 15 min | mode unique
+[21:05:30] Alpha ready at 3222,3222 (fresh, combat 3)
+[21:05:47] Bravo ready at 3222,3222 (fresh, combat 3)
+[21:05:47] live view: E:\runebench\runs\20261021-210513-r044-2x-opencode-unique-luna-s2\live.html
+[21:05:47] start; deadline 2026-10-21T21:20:47.046Z
+[21:05:47] Alpha launch #1
+[21:05:50] Bravo launch #1
+[21:06:39] kill: bravo -> rat (lvl 1, hp 2, ttk 36 ticks)
+[21:06:49] kill: bravo -> giantspider1 (lvl 2, hp 5, ttk 76 ticks)
+[21:06:51] kill: alpha -> man3 (lvl 2, hp 7, ttk 64 ticks)
+[21:06:57] kill: bravo -> goblin (lvl 2, hp 5, ttk 40 ticks)
+[21:07:27] kill: alpha -> woman (lvl 2, hp 7, ttk 44 ticks)
+[21:07:51] kill: bravo -> giantspider1 (lvl 2, hp 5, ttk 52 ticks)
+[21:08:05] kill: alpha -> cow (lvl 2, hp 8, ttk 28 ticks)
+[21:09:07] kill: alpha -> farmer1 (lvl 7, hp 12, ttk 80 ticks)
+[21:10:39] kill: bravo -> giantrat1 (lvl 6, hp 10, ttk 116 ticks)
+[21:10:49] kill: bravo -> giantrat1 (lvl 6, hp 10, ttk 108 ticks)
+[21:10:55] kill: bravo -> giantrat1 (lvl 6, hp 10, ttk 68 ticks)
+[21:10:55] kill: alpha -> chicken (lvl 1, hp 3, ttk 14 ticks)
+[21:13:09] kill: alpha -> chicken (lvl 1, hp 3, ttk 14 ticks)
+[21:13:13] kill: alpha -> chicken (lvl 1, hp 3, ttk 12 ticks)
+[21:13:15] kill: alpha -> chicken (lvl 1, hp 3, ttk 10 ticks)
+[21:14:13] kill: bravo -> goblin_armed (lvl 5, hp 12, ttk 128 ticks)
+[21:14:21] kill: alpha -> goblin_armed (lvl 5, hp 12, ttk 60 ticks)
+[21:15:05] kill: bravo -> imp (lvl 2, hp 8, ttk 56 ticks)
+[21:15:05] kill: alpha -> imp (lvl 2, hp 8, ttk 18 ticks)
+[21:16:40] kill: bravo -> spider (lvl 1, hp 2, ttk 16 ticks)
+[21:17:13] kill: alpha -> scorpion (lvl 14, hp 17, ttk 104 ticks)
+[21:17:21] kill: alpha -> scorpion (lvl 14, hp 17, ttk 72 ticks)
+[21:17:21] kill: alpha -> scorpion (lvl 14, hp 17, ttk 32 ticks)
+[21:17:27] kill: alpha -> scorpion (lvl 14, hp 17, ttk 60 ticks)
+[21:18:51] kill: bravo -> goblin (lvl 2, hp 5, ttk 32 ticks)
+[21:18:51] kill: alpha -> young_dark_wizard (lvl 7, hp 12, ttk 48 ticks)
+[21:19:15] kill: bravo -> duck_female (lvl 1, hp 3, ttk 10 ticks)
+[21:19:59] kill: alpha -> farmer1 (lvl 7, hp 12, ttk 28 ticks)
+[21:20:21] kill: bravo -> goblin (lvl 2, hp 5, ttk 20 ticks)
+[21:20:27] kill: bravo -> goblin (lvl 2, hp 5, ttk 24 ticks)
+[21:20:35] kill: bravo -> goblin (lvl 2, hp 5, ttk 16 ticks)
+[21:20:41] kill: bravo -> goblin (lvl 2, hp 5, ttk 8 ticks)
+[21:20:47] Alpha exited after 900s (code 1)
+[21:20:47] Bravo exited after 897s (code 1)
+[21:20:56] timelapse: E:\runebench\runs\20261021-210513-r044-2x-opencode-unique-luna-s2\timelapse-team.mp4
+[21:21:21] SCORE 18.87 | 14 enemies (level sum 53): Scorpion 14, Farmer 7, Dark wizard 7, Giant rat 6, Goblin 5, Giant spider 2, Man 2, Woman 2, Cow 2, Imp 2, Rat 1, Chicken 1, Spider 1, Duck 1 | unique by agent Alpha 9, Bravo 7 | overlap 2 | kills 32 (17 non-scoring) | cost $0.1788

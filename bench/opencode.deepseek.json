@@ -1,0 +1,39 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "provider": {
+    "openrouter": {
+      "options": {
+        "timeout": 180000,
+        "apiKey": "{file:~/.runebench/openrouter.key}"
+      },
+      "models": {
+        "deepseek/deepseek-v4.1-flash": {
+          "options": {
+            "provider": {
+              "quantizations": [
+                "fp8",
+                "bf16"
+              ],
+              "require_parameters": true
+            }
+          }
+        }
+      }
+    }
+  },
+  "model": "openrouter/deepseek/deepseek-v4.1-flash",
+  "permission": {
+    "*": "allow",
+    "external_directory": "deny",
+    "bash": {
+      "*": "allow",
+      "*.env*": "deny",
+      "*.runebench*": "deny",
+      "*openrouter*": "deny",
+      "*OPENROUTER*": "deny"
+    }
+  },
+  "experimental": {
+    "mcp_timeout": 300000
+  }
+}

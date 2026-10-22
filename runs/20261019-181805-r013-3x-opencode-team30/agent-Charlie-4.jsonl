@@ -1,0 +1,2 @@
+{"type":"step_start","timestamp":1792434673967,"sessionID":"ses_eaa9c8d2effeAdWLAbX5Z0pYkb","part":{"id":"prt_1556e9926001EeIIbNGdxadbed","messageID":"msg_1556e66e9001lUfudulHbSn4AY","sessionID":"ses_eaa9c8d2effeAdWLAbX5Z0pYkb","snapshot":"9167b15d6a11e840a905cdd7b7568e26e7e63d88","type":"step-start"}}
+{"type":"error","timestamp":1792434723377,"sessionID":"ses_eaa9c8d2effeAdWLAbX5Z0pYkb","error":{"name":"UnknownError","data":{"message":"The operation timed out."}}}

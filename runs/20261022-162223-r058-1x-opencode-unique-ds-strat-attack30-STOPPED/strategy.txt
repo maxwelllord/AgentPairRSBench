@@ -1,0 +1,24 @@
+STRATEGY (written by a human player). Follow these steps in order. They take priority over your own
+plans, even where they seem slower than hunting new enemies.
+
+Rules that apply the whole time:
+- Fight with melee unless a step says otherwise.
+- Train the skill the step names by picking a combat style that trains it: in sdk.getState().combatStyle.styles,
+  use the style whose trainsSkills includes that skill (see learnings/combat.md). "Accurate" styles train
+  Attack, "aggressive" styles train Strength.
+- Pick up and bury the bones from every kill.
+- Pick up and equip any armour you find that you are able to wear.
+- If you die, go back for your items, re-equip your weapon and armour, then carry on from the step you were on.
+
+Steps:
+1. Wield the Bronze sword and the Wooden shield.
+2. Pickpocket a level 2 Man in Lumbridge until Thieving is level 5 (see learnings/thieving.md).
+3. Switch to a style that trains Strength.
+4. Kill a level 2 Man in the Lumbridge castle courtyard.
+5. Kill a level 2 Woman in the Lumbridge graveyard.
+6. Kill a Duck on the river at Lumbridge with magic: cast Wind Strike (you have air and mind runes).
+7. Go to the Lumbridge chicken pen. Kill chickens until Strength is level 10.
+8. Go to the Lumbridge cow pen. Switch to a style that trains Attack. Kill cows until Attack is level 10.
+9. Switch to a style that trains Strength. Kill cows until Strength is level 20.
+10. Switch to a style that trains Attack. Kill cows until Attack is level 30.
+11. The strategy ends here. Spend any time left on the main goal however you like.

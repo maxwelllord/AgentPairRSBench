@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Live run</title>
+<style>
+  :root { --bg: #111; --panel: #1b1b1b; --text: #ddd; --muted: #888; --think: #9ecbff; --tool: #ddd; --bad: #ff8a80; --good: #a5d6a7; --line: #2c2c2c; }
+  body { background: var(--bg); color: var(--text); font: 14px/1.4 system-ui, sans-serif; margin: 16px; }
+  h2 { font-size: 18px; margin: 0 0 12px; }
+  .bot { display: grid; grid-template-columns: minmax(0, 765px) minmax(0, 1fr); gap: 12px; margin-bottom: 16px; background: var(--panel); padding: 10px; border-radius: 6px; }
+  @media (max-width: 1100px) { .bot { grid-template-columns: minmax(0, 1fr); } }
+  .bot img { width: 100%; display: block; border-radius: 4px; }
+  .name { font-weight: 600; margin-bottom: 6px; }
+  .name .meta { color: var(--muted); font-weight: 400; font-size: 12px; margin-left: 8px; }
+  .feed { font: 12px/1.45 ui-monospace, Consolas, monospace; max-height: 503px; overflow-y: auto; }
+  .ev { padding: 3px 0; border-bottom: 1px solid var(--line); word-break: break-word; }
+  .ev .t { color: var(--muted); margin-right: 6px; }
+  .think { color: var(--think); }
+  .tool { color: var(--tool); }
+  .tool.fail, .error { color: var(--bad); }
+  .panels { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 12px; }
+  .panel { background: var(--panel); padding: 10px; border-radius: 6px; }
+  .panel h3 { margin: 0 0 6px; font-size: 14px; }
+  pre { white-space: pre-wrap; word-break: break-word; margin: 0; font: 12px/1.45 ui-monospace, Consolas, monospace; }
+  .stale { color: var(--bad); }
+</style>
+</head>
+<body>
+<h2 id="h">Waiting for run status…</h2>
+<div id="bots"></div>
+<div class="panels">
+  <div class="panel"><h3>Recent kills</h3><pre id="k"></pre></div>
+  <div class="panel"><h3>Team notes</h3><pre id="notes">(none yet)</pre></div>
+</div>
+<script>
+const TEAM = {{TEAM_JSON}};
+const INTERVAL = {{INTERVAL}};
+const bots = document.getElementById('bots');
+for (const n of TEAM) {
+  const d = document.createElement('div');
+  d.className = 'bot';
+  d.innerHTML = '<div><img data-bot="' + n + '" alt="' + n + ' game view"></div>' +
+    '<div><div class="name">' + n + '<span class="meta" id="meta-' + n + '"></span></div><div class="feed" id="feed-' + n + '"></div></div>';
+  bots.appendChild(d);
+}
+function loadScript(src, done) {
+  const s = document.createElement('script');
+  s.src = src + '?' + Date.now();
+  s.onload = () => { s.remove(); done(); };
+  s.onerror = () => s.remove();
+  document.body.appendChild(s);
+}
+function renderAgents() {
+  const A = window.AGENTS;
+  if (!A) return;
+  for (const n of TEAM) {
+    const a = A.agents[n];
+    const feed = document.getElementById('feed-' + n);
+    const meta = document.getElementById('meta-' + n);
+    if (!a) { meta.textContent = 'not started'; continue; }
+    meta.textContent = 'launch #' + a.launch + ' · last output ' + a.idleSec + 's ago';
+    meta.className = 'meta' + (a.idleSec > 120 ? ' stale' : '');
+    const atBottom = feed.scrollHeight - feed.scrollTop - feed.clientHeight < 30;
+    feed.replaceChildren(...a.events.map(e => {
+      const row = document.createElement('div');
+      row.className = 'ev ' + e.kind + (e.kind === 'tool' && e.ok === false ? ' fail' : '');
+      const t = document.createElement('span');
+      t.className = 't';
+      t.textContent = e.t;
+      row.append(t, (e.kind === 'think' ? '💭 ' : e.kind === 'error' ? '⚠ ' : '') + e.text);
+      return row;
+    }));
+    if (atBottom) feed.scrollTop = feed.scrollHeight;
+  }
+  if (A.notes) document.getElementById('notes').textContent = A.notes;
+}
+function tick() {
+  document.querySelectorAll('img[data-bot]').forEach(i => i.src = 'frames-' + i.dataset.bot + '/latest.jpg?' + Date.now());
+  loadScript('status.js', () => {
+    const S = window.STATUS;
+    if (!S) return;
+    document.getElementById('h').textContent = S.elapsed + ' / ' + S.minutes + ' min  |  score ' + S.score + '  |  kills ' + S.kills;
+    document.getElementById('k').textContent = S.recent.join('\n');
+  });
+  loadScript('agents.js', renderAgents);
+}
+tick();
+setInterval(tick, INTERVAL);
+</script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+Pathfinding initialized in 357ms (136704 zones + 297 mainland fill, 1268350 tiles, 2691 doors masked, 5 one-way doors blocked)
+[BotSDK] Waiting for game state to be ready...
+[BotSDK] Waiting - no entities loaded yet
+[BotSDK] Game state ready!
+[BotSDK] Connected and game state ready
+READY 3200,3238 cb=5
+
+── State ──
+Pos (3200, 3238) | HP 11/11
+XP: none gained
+Inv 16/28: Bronze axe, Tinderbox, Small fishing net, Shrimps, Bucket, Pot, Bread, Bronze pickaxe, +8 more
+NPCs: Giant spider x2 (5t), Man (9t), Shop keeper (9t), Goblin x4 (11t), Shop assistant (12t) +1 more
+Objs: Tree x21 (2t), Oak x3 (3t), Flower x3 (5t), Flowers x3 (7t), Warehouse shelves x9 (8t) +17 more
+Ground: Bronze arrow (11t)
+> Welcome to RuneScape.
+[Runner] Connecting to bot "Bravo"...
+[Runner] Connected to bot "Bravo"
+[Runner] Disconnecting bot "Bravo"...
+[LOGOUT DEBUG] SDK WebSocket closed - autoReconnect=true, intentionalDisconnect=true

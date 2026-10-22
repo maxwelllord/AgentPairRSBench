@@ -1,0 +1,35 @@
+[15:12:20] run E:\runebench\runs\20261021-151220-r028-2x-opencode-unique-gemini-flash
+[15:12:20] team Alpha, Bravo | backend opencode | model openrouter/google/gemini-3.8-flash | 15 min | mode unique
+[15:12:36] Alpha ready at 3222,3222 (fresh, combat 3)
+[15:12:52] Bravo ready at 3222,3222 (fresh, combat 3)
+[15:12:52] live view: E:\runebench\runs\20261021-151220-r028-2x-opencode-unique-gemini-flash\live.html
+[15:12:52] start; deadline 2026-10-21T15:27:52.870Z
+[15:12:52] Alpha launch #1
+[15:12:55] Bravo launch #1
+[15:17:37] kill: alpha -> rat (lvl 1, hp 2, ttk 28 ticks)
+[15:18:09] kill: bravo -> mugger (lvl 6, hp 8, ttk 168 ticks)
+[15:18:21] kill: alpha -> giantspider1 (lvl 2, hp 5, ttk 62 ticks)
+[15:18:25] kill: alpha -> man2 (lvl 2, hp 7, ttk 47 ticks)
+[15:18:31] kill: alpha -> woman (lvl 2, hp 7, ttk 107 ticks)
+[15:19:01] kill: bravo -> jonny_the_beard (lvl 2, hp 8, ttk 103 ticks)
+[15:19:09] kill: alpha -> duck (lvl 1, hp 3, ttk 81 ticks)
+[15:19:19] kill: alpha -> goblin (lvl 2, hp 5, ttk 39 ticks)
+[15:21:27] kill: alpha -> chicken (lvl 1, hp 3, ttk 32 ticks)
+[15:21:31] kill: bravo -> chicken (lvl 1, hp 3, ttk 12 ticks)
+[15:21:33] kill: alpha -> farmer1 (lvl 7, hp 12, ttk 82 ticks)
+[15:21:43] kill: bravo -> farmer1 (lvl 7, hp 12, ttk 90 ticks)
+[15:21:59] kill: bravo -> cow (lvl 2, hp 8, ttk 23 ticks)
+[15:23:07] kill: bravo -> giantrat (lvl 3, hp 5, ttk 16 ticks)
+[15:23:37] kill: bravo -> spider (lvl 1, hp 2, ttk 8 ticks)
+[15:24:41] kill: alpha -> highwayman (lvl 5, hp 13, ttk 47 ticks)
+[15:24:55] kill: bravo -> highwayman (lvl 5, hp 13, ttk 55 ticks)
+[15:25:39] kill: bravo -> young_dark_wizard (lvl 7, hp 12, ttk 44 ticks)
+[15:25:51] kill: alpha -> young_dark_wizard (lvl 7, hp 12, ttk 35 ticks)
+[15:27:09] kill: bravo -> giantrat1 (lvl 6, hp 10, ttk 60 ticks)
+[15:27:31] kill: bravo -> giantrat1 (lvl 6, hp 10, ttk 88 ticks)
+[15:27:37] BUDGET reached ($2.01 >= $2); stopping all agents
+[15:27:38] Alpha exited after 885s (code 1)
+[15:27:38] Bravo exited after 882s (code 1)
+[15:27:41] kill: alpha -> giantrat1 (lvl 6, hp 10, ttk 28 ticks)
+[15:27:47] timelapse: E:\runebench\runs\20261021-151220-r028-2x-opencode-unique-gemini-flash\timelapse-team.mp4
+[15:28:11] SCORE 19.21 | 15 enemies (level sum 47): Farmer 7, Dark wizard 7, Mugger 6, Giant rat 6, Highwayman 5, Giant spider 2, Man 2, Woman 2, Jonny the beard 2, Goblin 2, Cow 2, Rat 1, Duck 1, Chicken 1, Spider 1 | unique by agent Alpha 10, Bravo 9 | overlap 4 | kills 21 (5 non-scoring) | cost $2.0109

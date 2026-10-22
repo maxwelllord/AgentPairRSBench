@@ -1,0 +1,117 @@
+{
+  "runDir": "E:\\runebench\\runs\\20261019-164134-3x-opencode-team5test",
+  "backend": "opencode",
+  "model": "openrouter/deepseek/deepseek-v4.1-flash",
+  "nAgents": 3,
+  "minutes": 5,
+  "team": [
+    "tfheovva",
+    "tfheovvb",
+    "tfheovvc"
+  ],
+  "startedAt": "2026-10-19T16:41:58.486Z",
+  "endedAt": "2026-10-19T16:46:58.486Z",
+  "score": 0.41916167664670656,
+  "bestKill": {
+    "ts": "2026-10-19T16:44:42.294Z",
+    "tick": 87964,
+    "npcId": 3,
+    "npcName": "man3",
+    "combatLevel": 2,
+    "maxHp": 7,
+    "ttkTicks": 44,
+    "killer": "tfheovvb",
+    "contributors": [
+      {
+        "username": "tfheovvb",
+        "damage": 7
+      }
+    ],
+    "x": 3224,
+    "z": 3217,
+    "level": 0,
+    "value": 0.41916167664670656,
+    "ttkSeconds": 26.4,
+    "dps": 0.26515151515151514,
+    "minutesIn": 2.7301333333333333
+  },
+  "altScores": {
+    "combatLevel": 2,
+    "levelPlusHalfHp": 5.5,
+    "levelTimeOnly": 1.3888888888888888
+  },
+  "totalKills": 23,
+  "killsByAgent": {
+    "tfheovva": 0,
+    "tfheovvb": 23,
+    "tfheovvc": 0
+  },
+  "distinctNpcs": [
+    {
+      "npcName": "man3",
+      "combatLevel": 2,
+      "maxHp": 7,
+      "count": 21,
+      "fastestTtkSeconds": 26.4
+    },
+    {
+      "npcName": "man",
+      "combatLevel": 2,
+      "maxHp": 7,
+      "count": 2,
+      "fastestTtkSeconds": 33.6
+    }
+  ],
+  "bestOverTime": [
+    {
+      "minute": 1,
+      "best": 0.29661016949152547
+    },
+    {
+      "minute": 2,
+      "best": 0.35
+    },
+    {
+      "minute": 3,
+      "best": 0.41916167664670656
+    },
+    {
+      "minute": 4,
+      "best": 0.41916167664670656
+    },
+    {
+      "minute": 5,
+      "best": 0.41916167664670656
+    }
+  ],
+  "costUsd": 0.043986396,
+  "agents": [
+    {
+      "name": "tfheovva",
+      "launches": 1,
+      "costUsd": 0.016654428,
+      "inputTokens": 60882,
+      "cachedTokens": 219776,
+      "outputTokens": 11438,
+      "steps": 10
+    },
+    {
+      "name": "tfheovvb",
+      "launches": 1,
+      "costUsd": 0.011945802000000002,
+      "inputTokens": 36991,
+      "cachedTokens": 333184,
+      "outputTokens": 8996,
+      "steps": 10
+    },
+    {
+      "name": "tfheovvc",
+      "launches": 1,
+      "costUsd": 0.015386165999999998,
+      "inputTokens": 49669,
+      "cachedTokens": 300672,
+      "outputTokens": 11723,
+      "steps": 13
+    }
+  ]
+}

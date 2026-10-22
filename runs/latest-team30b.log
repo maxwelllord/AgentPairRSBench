@@ -1,0 +1,21 @@
+[18:03:52] run E:\runebench\runs\20261019-180352-r008-3x-opencode-team30b
+[18:03:52] team Alpha, Bravo, Charlie | backend opencode | model openrouter/deepseek/deepseek-v4.1-flash | 30 min
+[18:04:00] Alpha ready at 3222,3222 (fresh, combat 3)
+[18:04:09] Bravo ready at 3222,3222 (fresh, combat 3)
+[18:04:23] Charlie ready at 3222,3222 (fresh, combat 3)
+[18:04:23] live view: E:\runebench\runs\20261019-180352-r008-3x-opencode-team30b\live.html
+[18:04:23] start; deadline 2026-10-19T18:34:23.549Z
+[18:04:23] Alpha launch #1
+[18:04:23] Bravo launch #1
+[18:04:23] Charlie launch #1
+[18:04:24] Bravo exited after 1s (code 1)
+[18:04:24] Bravo launch #2
+[18:05:47] kill: bravo -> giantspider1 (lvl 2, hp 5, ttk 32 ticks)
+[18:06:04] Alpha exited after 101s (code 1)
+[18:06:04] Alpha launch #2 (resuming ses_eaaa9f106ffegdkroZJEDLTj44)
+[18:08:29] kill: charlie -> man3 (lvl 2, hp 7, ttk 35 ticks)
+[18:08:35] kill: charlie -> man3 (lvl 2, hp 7, ttk 27 ticks)
+[18:08:44] kill: charlie -> man3 (lvl 2, hp 7, ttk 35 ticks)
+[18:08:51] kill: charlie -> man3 (lvl 2, hp 7, ttk 28 ticks)
+[18:08:51] Bravo exited after 267s (code 1)
+[18:08:51] Bravo launch #3 (resuming ses_eaaa9ecb8ffekenJnCgdPUsyaz)

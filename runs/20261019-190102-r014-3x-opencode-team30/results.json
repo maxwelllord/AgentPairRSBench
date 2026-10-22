@@ -1,0 +1,273 @@
+{
+  "runDir": "E:\\runebench\\runs\\20261019-190102-r014-3x-opencode-team30",
+  "backend": "opencode",
+  "model": "openrouter/deepseek/deepseek-v4.1-flash",
+  "nAgents": 3,
+  "minutes": 30,
+  "team": [
+    "Alpha",
+    "Bravo",
+    "Charlie"
+  ],
+  "startedAt": "2026-10-19T19:01:51.938Z",
+  "endedAt": "2026-10-19T19:31:51.938Z",
+  "score": 26.501531462502793,
+  "bestType": {
+    "npcName": "hobgoblin_armed",
+    "value": 26.501531462502793,
+    "kills": 21
+  },
+  "bestKill": {
+    "ts": "2026-10-19T19:27:52.239Z",
+    "tick": 44463,
+    "npcId": 123,
+    "npcName": "hobgoblin_armed",
+    "combatLevel": 42,
+    "maxHp": 49,
+    "ttkTicks": 8,
+    "engagementDamage": 9,
+    "killer": "alpha",
+    "contributors": [
+      {
+        "username": "alpha",
+        "damage": 53
+      }
+    ],
+    "x": 2906,
+    "z": 3294,
+    "level": 0,
+    "value": 27.391304347826086,
+    "ttkSeconds": 4.8,
+    "dps": 1.875,
+    "minutesIn": 26.005016666666666
+  },
+  "altScores": {
+    "bestSingleKill": 27.391304347826086,
+    "combatLevel": 42,
+    "levelPlusHalfHp": 66.5,
+    "levelTimeOnly": 38.888888888888886
+  },
+  "totalKills": 765,
+  "killsByAgent": {
+    "Alpha": 334,
+    "Bravo": 95,
+    "Charlie": 336
+  },
+  "distinctNpcs": [
+    {
+      "npcName": "hobgoblin_armed",
+      "combatLevel": 42,
+      "maxHp": 49,
+      "count": 21,
+      "fastestTtkSeconds": 4.8
+    },
+    {
+      "npcName": "hobgoblin_unarmed",
+      "combatLevel": 28,
+      "maxHp": 29,
+      "count": 36,
+      "fastestTtkSeconds": 2.4
+    },
+    {
+      "npcName": "brownbear",
+      "combatLevel": 21,
+      "maxHp": 27,
+      "count": 5,
+      "fastestTtkSeconds": 21.599999999999998
+    },
+    {
+      "npcName": "man3",
+      "combatLevel": 2,
+      "maxHp": 7,
+      "count": 31,
+      "fastestTtkSeconds": 4.8
+    },
+    {
+      "npcName": "man2",
+      "combatLevel": 2,
+      "maxHp": 7,
+      "count": 32,
+      "fastestTtkSeconds": 4.8
+    },
+    {
+      "npcName": "man",
+      "combatLevel": 2,
+      "maxHp": 7,
+      "count": 27,
+      "fastestTtkSeconds": 4.8
+    },
+    {
+      "npcName": "woman",
+      "combatLevel": 2,
+      "maxHp": 7,
+      "count": 13,
+      "fastestTtkSeconds": 4.8
+    },
+    {
+      "npcName": "woman3",
+      "combatLevel": 2,
+      "maxHp": 7,
+      "count": 6,
+      "fastestTtkSeconds": 4.8
+    },
+    {
+      "npcName": "rat",
+      "combatLevel": 1,
+      "maxHp": 2,
+      "count": 594,
+      "fastestTtkSeconds": 2.4
+    }
+  ],
+  "bestOverTime": [
+    {
+      "minute": 1,
+      "best": 0
+    },
+    {
+      "minute": 2,
+      "best": 0.11666666666666665
+    },
+    {
+      "minute": 3,
+      "best": 0.6773542718395724
+    },
+    {
+      "minute": 4,
+      "best": 0.9870388833499502
+    },
+    {
+      "minute": 5,
+      "best": 1.1195989496299832
+    },
+    {
+      "minute": 6,
+      "best": 1.1864406779661016
+    },
+    {
+      "minute": 7,
+      "best": 1.1864406779661016
+    },
+    {
+      "minute": 8,
+      "best": 1.1864406779661016
+    },
+    {
+      "minute": 9,
+      "best": 1.1864406779661016
+    },
+    {
+      "minute": 10,
+      "best": 1.1864406779661016
+    },
+    {
+      "minute": 11,
+      "best": 1.1864406779661016
+    },
+    {
+      "minute": 12,
+      "best": 1.1864406779661016
+    },
+    {
+      "minute": 13,
+      "best": 1.1864406779661016
+    },
+    {
+      "minute": 14,
+      "best": 1.1864406779661016
+    },
+    {
+      "minute": 15,
+      "best": 1.1864406779661016
+    },
+    {
+      "minute": 16,
+      "best": 1.1864406779661016
+    },
+    {
+      "minute": 17,
+      "best": 1.1864406779661016
+    },
+    {
+      "minute": 18,
+      "best": 1.1864406779661016
+    },
+    {
+      "minute": 19,
+      "best": 1.1864406779661016
+    },
+    {
+      "minute": 20,
+      "best": 14.212763492007028
+    },
+    {
+      "minute": 21,
+      "best": 18.00830799046277
+    },
+    {
+      "minute": 22,
+      "best": 18.00830799046277
+    },
+    {
+      "minute": 23,
+      "best": 18.00830799046277
+    },
+    {
+      "minute": 24,
+      "best": 21.466522032697608
+    },
+    {
+      "minute": 25,
+      "best": 22.142369465620103
+    },
+    {
+      "minute": 26,
+      "best": 23.444399802041204
+    },
+    {
+      "minute": 27,
+      "best": 25.323248960971256
+    },
+    {
+      "minute": 28,
+      "best": 26.501531462502793
+    },
+    {
+      "minute": 29,
+      "best": 26.501531462502793
+    },
+    {
+      "minute": 30,
+      "best": 26.501531462502793
+    }
+  ],
+  "costUsd": 0.24058045800000005,
+  "agents": [
+    {
+      "name": "Alpha",
+      "launches": 1,
+      "costUsd": 0.06042402,
+      "inputTokens": 65246,
+      "cachedTokens": 3642240,
+      "outputTokens": 66184,
+      "steps": 46
+    },
+    {
+      "name": "Bravo",
+      "launches": 1,
+      "costUsd": 0.08420286600000002,
+      "inputTokens": 106987,
+      "cachedTokens": 5155072,
+      "outputTokens": 87816,
+      "steps": 47
+    },
+    {
+      "name": "Charlie",
+      "launches": 1,
+      "costUsd": 0.09595357200000003,
+      "inputTokens": 209738,
+      "cachedTokens": 4820224,
+      "outputTokens": 83387,
+      "steps": 50
+    }
+  ]
+}

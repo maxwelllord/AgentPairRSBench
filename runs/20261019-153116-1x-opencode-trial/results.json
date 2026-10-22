@@ -1,0 +1,41 @@
+{
+  "runDir": "E:\\runebench\\runs\\20261019-153116-1x-opencode-trial",
+  "backend": "opencode",
+  "model": "openrouter/deepseek/deepseek-v4.1-flash",
+  "nAgents": 1,
+  "minutes": 5,
+  "team": [
+    "tfewaima"
+  ],
+  "startedAt": "2026-10-19T15:31:31.313Z",
+  "endedAt": "2026-10-19T15:31:41.588Z",
+  "score": 0,
+  "bestKill": null,
+  "altScores": {
+    "combatLevel": 0,
+    "levelPlusHalfHp": 0
+  },
+  "totalKills": 0,
+  "killsByAgent": {
+    "tfewaima": 0
+  },
+  "distinctNpcs": [],
+  "bestOverTime": [
+    {
+      "minute": 1,
+      "best": 0
+    }
+  ],
+  "costUsd": 0,
+  "agents": [
+    {
+      "name": "tfewaima",
+      "launches": 3,
+      "costUsd": 0,
+      "inputTokens": 0,
+      "cachedTokens": 0,
+      "outputTokens": 0,
+      "steps": 0
+    }
+  ]
+}

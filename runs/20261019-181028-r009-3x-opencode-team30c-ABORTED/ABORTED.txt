@@ -1,0 +1,1 @@
+aborted at setup: Bravo reconnected to the scrapped run's still-online character (combat 5)

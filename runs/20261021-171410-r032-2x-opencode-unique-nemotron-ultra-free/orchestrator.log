@@ -1,0 +1,13 @@
+[17:14:10] run E:\runebench\runs\20261021-171410-r032-2x-opencode-unique-nemotron-ultra-free
+[17:14:10] team Alpha, Bravo | backend opencode | model openrouter/nvidia/nemotron-3-ultra-550b-a55b:free | 15 min | mode unique
+[17:14:26] Alpha ready at 3222,3222 (fresh, combat 3)
+[17:14:42] Bravo ready at 3222,3222 (fresh, combat 3)
+[17:14:42] live view: E:\runebench\runs\20261021-171410-r032-2x-opencode-unique-nemotron-ultra-free\live.html
+[17:14:42] start; deadline 2026-10-21T17:29:42.726Z
+[17:14:42] Alpha launch #1
+[17:14:45] Bravo launch #1
+[17:15:40] kill: alpha -> rat (lvl 1, hp 2, ttk 8 ticks)
+[17:15:46] kill: bravo -> rat (lvl 1, hp 2, ttk 28 ticks)
+[17:15:50] kill: alpha -> man2 (lvl 2, hp 7, ttk 107 ticks)
+[17:16:00] kill: bravo -> rat (lvl 1, hp 2, ttk 20 ticks)
+[17:16:04] kill: alpha -> man2 (lvl 2, hp 7, ttk 107 ticks)

@@ -1,0 +1,391 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Strategy Editor</title>
+<style>
+:root {
+  --bg: #f6f7f8; --panel: #ffffff; --ink: #1f2328; --muted: #6e7781; --rule: #dde1e5; --field: #ffffff;
+  --accent: #2f6fde; --alpha: #d64545; --bravo: #2f6fde; --both: #8a4fd6; --npc: #f2c230;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #14171b; --panel: #1b1f24; --ink: #e8eaed; --muted: #8b949e; --rule: #2c3238; --field: #22272e; --accent: #5b8ff0; }
+}
+* { box-sizing: border-box; }
+html, body { height: 100%; margin: 0; }
+body { display: flex; background: var(--bg); color: var(--ink); font: 14px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif; }
+#mapwrap { position: relative; flex: 1; overflow: hidden; background: #0b0d10; cursor: crosshair; user-select: none; }
+#mapwrap.panning { cursor: grabbing; }
+#stage { position: absolute; left: 0; top: 0; transform-origin: 0 0; }
+#stage img { display: block; image-rendering: auto; }
+#stage svg { position: absolute; left: 0; top: 0; overflow: visible; }
+#hud { position: absolute; left: 12px; bottom: 12px; background: rgba(0,0,0,.7); color: #fff; padding: 6px 10px; border-radius: 6px; font-size: 13px; pointer-events: none; }
+#help { position: absolute; left: 12px; top: 12px; background: rgba(0,0,0,.7); color: #ddd; padding: 6px 10px; border-radius: 6px; font-size: 12px; pointer-events: none; }
+aside { width: 440px; display: flex; flex-direction: column; background: var(--panel); border-left: 1px solid var(--rule); }
+.sec { padding: 12px 14px; border-bottom: 1px solid var(--rule); }
+.scroll { flex: 1; overflow-y: auto; }
+h2 { font-size: 12px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); margin: 0 0 8px; }
+.row { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+input, select, textarea, button { font: inherit; color: var(--ink); background: var(--field); border: 1px solid var(--rule); border-radius: 6px; padding: 4px 7px; }
+textarea { width: 100%; resize: vertical; }
+button { cursor: pointer; }
+button.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+button.small { padding: 1px 6px; font-size: 12px; }
+.seg { display: inline-flex; border: 1px solid var(--rule); border-radius: 6px; overflow: hidden; }
+.seg button { border: 0; border-radius: 0; padding: 4px 10px; background: var(--field); }
+.seg button.on { background: var(--accent); color: #fff; }
+.task { border: 1px solid var(--rule); border-left: 4px solid var(--c); border-radius: 8px; padding: 8px; margin-bottom: 8px; }
+.task.sel { outline: 2px solid var(--accent); }
+.task .head { display: flex; align-items: center; gap: 6px; margin-bottom: 6px; }
+.task .num { font-weight: 700; min-width: 3.2em; }
+.task .loc { color: var(--muted); font-size: 12px; margin-left: auto; }
+.task textarea { display: block; }
+#npcResults { max-height: 160px; overflow-y: auto; margin-top: 6px; }
+#npcResults div { padding: 2px 6px; border-radius: 4px; cursor: pointer; display: flex; justify-content: space-between; }
+#npcResults div:hover, #npcResults div.on { background: var(--bg); }
+#npcResults span { color: var(--muted); }
+#status { color: var(--muted); font-size: 12px; min-height: 1.2em; margin-top: 6px; }
+pre { white-space: pre-wrap; font: 12px/1.45 ui-monospace, Consolas, monospace; background: var(--bg); padding: 8px; border-radius: 6px; margin: 6px 0 0; max-height: 300px; overflow-y: auto; }
+.empty { color: var(--muted); font-size: 13px; }
+</style>
+</head>
+<body>
+<div id="mapwrap">
+  <div id="stage"><img id="map" src="map-base.png" alt="World map"><svg id="overlay"></svg></div>
+  <div id="help">Click: add a task here · Drag: pan · Wheel: zoom</div>
+  <div id="hud">tile –</div>
+</div>
+<aside>
+  <div class="sec">
+    <h2>Strategy</h2>
+    <div class="row">
+      <input id="name" placeholder="name, e.g. attack30" style="flex:1">
+      <select id="loadList"><option value="">Load…</option></select>
+      <button id="newBtn">New</button>
+      <button id="saveBtn" class="primary">Save</button>
+    </div>
+    <div id="status"></div>
+  </div>
+  <div class="scroll">
+    <div class="sec">
+      <h2>New tasks go to</h2>
+      <div class="seg" id="agentSeg"><button data-a="Alpha" class="on">Alpha</button><button data-a="Bravo">Bravo</button><button data-a="Both">Both</button></div>
+    </div>
+    <div class="sec">
+      <h2>Find an NPC</h2>
+      <input id="npcSearch" placeholder="e.g. cow, hill giant" style="width:100%">
+      <div id="npcResults"></div>
+      <div class="empty" id="npcHint"></div>
+    </div>
+    <div class="sec">
+      <h2>Tasks</h2>
+      <div id="tasks"></div>
+    </div>
+    <div class="sec">
+      <h2>Rules (top of the strategy)</h2>
+      <textarea id="rules" rows="9"></textarea>
+      <h2 style="margin-top:10px">After the last step</h2>
+      <textarea id="after" rows="2"></textarea>
+    </div>
+    <div class="sec">
+      <h2>Strategy text <button class="small" id="copyBtn">Copy</button></h2>
+      <pre id="preview"></pre>
+    </div>
+  </div>
+</aside>
+
+<script>
+const DEFAULT_RULES = `STRATEGY (written by a human player). Follow these steps in order. They take priority over your own
+plans, even where they seem slower than hunting new enemies. Coordinates are tiles for bot.walkTo(x, z).
+
+Rules that apply the whole time:
+- Fight with melee unless a step says otherwise.
+- Train the skill a step names by picking a combat style that trains it: in sdk.getState().combatStyle.styles,
+  use the style whose trainsSkills includes that skill (see learnings/combat.md).
+- Pick up and bury the bones from every kill.
+- Pick up and equip any armour you find that you are able to wear.
+- If you die, go back for your items, re-equip your weapon and armour, then carry on from the step you were on.`;
+const DEFAULT_AFTER = 'The strategy ends here. Spend any time left on the main goal however you like.';
+const COLORS = { Alpha: 'var(--alpha)', Bravo: 'var(--bravo)', Both: 'var(--both)' };
+
+let view, npcs = [], tasks = [], selected = null, newAgent = 'Alpha', moving = null, npcShown = null;
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
+
+// ---- tile <-> map pixel (same projection as map-timelapse.py's to_px) ----
+function remapZ(z) {
+  for (const b of view.bands) if (b.from <= z >> 6 && z >> 6 <= b.to) return (((z >> 6) + b.offset) << 6) | (z & 63);
+  return null;
+}
+function toPx(x, z) {
+  const rz = remapZ(z);
+  if (rz === null) return null;
+  const mx = x - view.mapOriginX + 0.5, my = view.mapOriginZ + view.mapHeight - rz - 0.5;
+  const px = view.sWid * (mx - view.left) / (view.right - view.left), py = view.sHei * (my - view.top) / (view.bottom - view.top);
+  return px >= 0 && py >= 0 && px <= view.width && py <= view.height ? [px, py] : null; // off this map's frame
+}
+function toTile(px, py) {
+  const mx = view.left + px * (view.right - view.left) / view.sWid, my = view.top + py * (view.bottom - view.top) / view.sHei;
+  const x = Math.round(mx - 0.5 + view.mapOriginX), rz = Math.round(view.mapOriginZ + view.mapHeight - my - 0.5);
+  for (const b of view.bands) {
+    const zr = (rz >> 6) - b.offset;
+    if (b.from <= zr && zr <= b.to) return [x, (zr << 6) | (rz & 63)];
+  }
+  return null;
+}
+
+// ---- pan / zoom ----
+const wrap = $('mapwrap'), stage = $('stage');
+let tx = 0, ty = 0, scale = 1;
+const apply = () => { stage.style.transform = `translate(${tx}px, ${ty}px) scale(${scale})`; };
+function centreOn(x, z, s) {
+  const p = toPx(x, z);
+  scale = s;
+  tx = wrap.clientWidth / 2 - p[0] * scale;
+  ty = wrap.clientHeight / 2 - p[1] * scale;
+  apply();
+}
+wrap.addEventListener('wheel', e => {
+  e.preventDefault();
+  const r = wrap.getBoundingClientRect(), cx = e.clientX - r.left, cy = e.clientY - r.top;
+  const k = Math.exp(-e.deltaY * 0.0015), s = Math.min(4, Math.max(0.25, scale * k));
+  tx = cx - (cx - tx) * s / scale; ty = cy - (cy - ty) * s / scale; scale = s;
+  apply();
+}, { passive: false });
+let drag = null;
+wrap.addEventListener('pointerdown', e => {
+  if (e.target.closest('.pin, .spawn')) return;
+  drag = { x: e.clientX, y: e.clientY, tx, ty, moved: false };
+  wrap.setPointerCapture(e.pointerId);
+});
+wrap.addEventListener('pointermove', e => {
+  const r = wrap.getBoundingClientRect();
+  const t = toTile((e.clientX - r.left - tx) / scale, (e.clientY - r.top - ty) / scale);
+  $('hud').textContent = t ? `tile (${t[0]}, ${t[1]})${moving ? ' · click to move the task here' : ''}` : 'tile –';
+  if (!drag) return;
+  if (Math.hypot(e.clientX - drag.x, e.clientY - drag.y) > 4) { drag.moved = true; wrap.classList.add('panning'); }
+  if (drag.moved) { tx = drag.tx + e.clientX - drag.x; ty = drag.ty + e.clientY - drag.y; apply(); }
+});
+wrap.addEventListener('pointerup', e => {
+  wrap.classList.remove('panning');
+  if (drag && !drag.moved) {
+    const r = wrap.getBoundingClientRect();
+    const t = toTile((e.clientX - r.left - tx) / scale, (e.clientY - r.top - ty) / scale);
+    if (t) {
+      if (moving) { moving.x = t[0]; moving.z = t[1]; selected = moving; moving = null; render(); }
+      else addTask({ x: t[0], z: t[1] });
+    }
+  }
+  drag = null;
+});
+
+// ---- tasks ----
+function addTask(fields) {
+  const t = { agent: newAgent, text: '', ...fields };
+  tasks.push(t);
+  selected = t;
+  render();
+  const el = document.querySelector('.task.sel textarea[data-k="text"]');
+  if (el) { el.focus(); el.setSelectionRange(el.value.length, el.value.length); }
+}
+function numbers() {
+  // Per-agent step numbers: a Both task is a step for each agent.
+  const n = { Alpha: 0, Bravo: 0 }, out = new Map();
+  for (const t of tasks) {
+    if (t.agent === 'Both') { n.Alpha++; n.Bravo++; out.set(t, `A${n.Alpha}/B${n.Bravo}`); }
+    else out.set(t, `${t.agent[0]}${++n[t.agent]}`);
+  }
+  return out;
+}
+function render() {
+  const nums = numbers();
+  $('tasks').innerHTML = tasks.length ? '' : '<div class="empty">Click the map to add a task, or pick an NPC spawn.</div>';
+  tasks.forEach((t, i) => {
+    const d = document.createElement('div');
+    d.className = 'task' + (t === selected ? ' sel' : '');
+    d.style.setProperty('--c', COLORS[t.agent]);
+    d.innerHTML = `
+      <div class="head"><span class="num">${nums.get(t)}</span>
+        <select data-k="agent">${['Alpha', 'Bravo', 'Both'].map(a => `<option${a === t.agent ? ' selected' : ''}>${a}</option>`).join('')}</select>
+        <span class="loc">(${t.x}, ${t.z})</span>
+        <button class="small" data-act="move" title="Click the map to move this task">Move</button>
+        <button class="small" data-act="up" title="Earlier">↑</button><button class="small" data-act="down" title="Later">↓</button>
+        <button class="small" data-act="del" title="Delete">✕</button></div>
+      <textarea data-k="text" rows="2" placeholder="e.g. Kill cows until Attack is level 30, using a style that trains Attack">${esc(t.text)}</textarea>
+`;
+    d.addEventListener('focusin', () => { if (selected !== t) { selected = t; drawOverlay(); document.querySelectorAll('.task').forEach(x => x.classList.toggle('sel', x === d)); } });
+    d.querySelectorAll('[data-k]').forEach(el => el.addEventListener(el.tagName === 'SELECT' ? 'change' : 'input', () => {
+      t[el.dataset.k] = el.value;
+      if (el.tagName === 'SELECT') render(); else { drawOverlay(); preview(); }
+    }));
+    d.querySelectorAll('[data-act]').forEach(b => b.addEventListener('click', () => {
+      const act = b.dataset.act;
+      if (act === 'del') { tasks.splice(i, 1); if (selected === t) selected = null; }
+      if (act === 'up' && i > 0) [tasks[i - 1], tasks[i]] = [tasks[i], tasks[i - 1]];
+      if (act === 'down' && i < tasks.length - 1) [tasks[i + 1], tasks[i]] = [tasks[i], tasks[i + 1]];
+      if (act === 'move') { moving = t; selected = t; $('hud').textContent = 'click the map to move the task here'; }
+      render();
+    }));
+    $('tasks').appendChild(d);
+  });
+  drawOverlay();
+  preview();
+}
+
+// ---- overlay: route lines, task pins, NPC spawns ----
+const NS = 'http://www.w3.org/2000/svg';
+function svgEl(name, attrs, parent) {
+  const e = document.createElementNS(NS, name);
+  for (const k in attrs) e.setAttribute(k, attrs[k]);
+  parent.appendChild(e);
+  return e;
+}
+function drawOverlay() {
+  const svg = $('overlay');
+  svg.innerHTML = '';
+  for (const agent of ['Alpha', 'Bravo']) {
+    const pts = tasks.filter(t => t.agent === agent || t.agent === 'Both').map(t => toPx(t.x, t.z)).filter(Boolean);
+    if (pts.length > 1) svgEl('polyline', { points: pts.map(p => p.join(',')).join(' '), fill: 'none', stroke: COLORS[agent], 'stroke-width': 3, 'stroke-dasharray': '8 6', opacity: .85 }, svg);
+  }
+  if (npcShown) {
+    for (const [x, z] of npcShown.spawns) {
+      const p = toPx(x, z);
+      if (!p) continue;
+      const c = svgEl('circle', { cx: p[0], cy: p[1], r: 9, fill: 'var(--npc)', stroke: '#000', 'stroke-width': 2, class: 'spawn', style: 'cursor:pointer' }, svg);
+      svgEl('title', {}, c).textContent = `${npcShown.name} (level ${npcShown.level}) at (${x}, ${z}): click to add a task`;
+      c.addEventListener('click', () => addTask({ x, z, text: `Kill ${npcShown.name} ` }));
+    }
+  }
+  const nums = numbers();
+  for (const t of tasks) {
+    const p = toPx(t.x, t.z);
+    if (!p) continue;
+    const g = svgEl('g', { class: 'pin', style: 'cursor:pointer', transform: `translate(${p[0]},${p[1]})` }, svg);
+    svgEl('circle', { r: t === selected ? 16 : 13, fill: COLORS[t.agent], stroke: '#fff', 'stroke-width': 3 }, g);
+    const label = nums.get(t).replace(/[AB](\d+)\/[AB](\d+)/, '$1/$2').replace(/^[AB]/, '');
+    svgEl('text', { 'text-anchor': 'middle', dy: 5, fill: '#fff', 'font-size': label.length > 2 ? 10 : 14, 'font-weight': 700, 'font-family': 'system-ui' }, g).textContent = label;
+    svgEl('title', {}, g).textContent = describe(t);
+    g.addEventListener('click', () => { selected = t; render(); document.querySelector('.task.sel')?.scrollIntoView({ block: 'nearest' }); });
+  }
+}
+
+// ---- strategy text ----
+function describe(t) {
+  const text = (t.text || '').trim().replace(/[.!?]$/, '') || '(no instruction)';
+  return `${text} (at tile (${t.x}, ${t.z})).`;
+}
+function strategyText() {
+  const parts = [$('rules').value.trim()];
+  const split = tasks.some(t => t.agent !== 'Both');
+  const list = ts => ts.map((t, i) => `${i + 1}. ${describe(t)}`).join('\n');
+  if (!split) parts.push('Steps (for every agent):\n' + list(tasks));
+  else for (const agent of ['Alpha', 'Bravo']) {
+    const ts = tasks.filter(t => t.agent === agent || t.agent === 'Both');
+    if (ts.length) parts.push(`Steps for ${agent} (only ${agent} does these):\n` + list(ts));
+  }
+  if ($('after').value.trim()) parts.push($('after').value.trim());
+  return parts.join('\n\n');
+}
+function preview() { $('preview').textContent = strategyText(); saveDraft(); }
+// The current draft lives in this browser too, so a refresh (or a closed tab) doesn't lose unsaved work.
+const DRAFT = 'strategy-editor-draft';
+function saveDraft() {
+  try { localStorage.setItem(DRAFT, JSON.stringify({ name: $('name').value, rules: $('rules').value, after: $('after').value, tasks })); } catch {}
+}
+function loadDraft() {
+  try { return JSON.parse(localStorage.getItem(DRAFT) || 'null'); } catch { return null; }
+}
+$('name').addEventListener('input', saveDraft);
+$('rules').addEventListener('input', preview);
+$('after').addEventListener('input', preview);
+$('copyBtn').addEventListener('click', () => navigator.clipboard.writeText(strategyText()).then(() => status('Copied the strategy text.')));
+
+// ---- agent chooser ----
+$('agentSeg').addEventListener('click', e => {
+  const b = e.target.closest('button');
+  if (!b) return;
+  newAgent = b.dataset.a;
+  $('agentSeg').querySelectorAll('button').forEach(x => x.classList.toggle('on', x === b));
+});
+
+// ---- NPC search ----
+$('npcSearch').addEventListener('input', () => {
+  const q = $('npcSearch').value.trim().toLowerCase();
+  const hits = q ? npcs.filter(n => n.name.toLowerCase().includes(q)).slice(0, 60) : [];
+  $('npcResults').innerHTML = hits.map((n, i) => `<div data-i="${npcs.indexOf(n)}"><b>${esc(n.name)}</b><span>lvl ${n.level} · ${n.spawns.length} spawn${n.spawns.length === 1 ? '' : 's'}</span></div>`).join('');
+  $('npcHint').textContent = q && !hits.length ? 'No NPC with spawns matches.' : '';
+});
+$('npcResults').addEventListener('click', e => {
+  const row = e.target.closest('[data-i]');
+  if (!row) return;
+  npcShown = npcs[+row.dataset.i];
+  $('npcResults').querySelectorAll('div').forEach(x => x.classList.toggle('on', x === row));
+  const on = npcShown.spawns.map(([x, z]) => toPx(x, z)).filter(Boolean);
+  $('npcHint').textContent = on.length ? `${on.length} spawn${on.length === 1 ? '' : 's'} on this map (yellow). Click one to add a task.` : 'None of its spawns are on this map.';
+  if (on.length) {
+    const [x, z] = npcShown.spawns.find(([x, z]) => toPx(x, z));
+    centreOn(x, z, Math.max(scale, 0.8));
+  }
+  drawOverlay();
+});
+
+// ---- save / load ----
+const status = msg => { $('status').textContent = msg; };
+async function refreshList() {
+  const names = await (await fetch('api/strategies')).json();
+  $('loadList').innerHTML = '<option value="">Load…</option>' + names.map(n => `<option>${esc(n)}</option>`).join('');
+}
+$('saveBtn').addEventListener('click', async () => {
+  const name = $('name').value.trim();
+  if (!/^[A-Za-z0-9_-]{1,64}$/.test(name)) return status('Give it a name: letters, digits, - and _ only.');
+  const doc = { rules: $('rules').value, after: $('after').value, tasks };
+  const r = await fetch(`api/strategies/${encodeURIComponent(name)}`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ doc, text: strategyText() }) });
+  if (!r.ok) return status(`Save failed: ${await r.text()}`);
+  const { saved } = await r.json();
+  status(`Saved ${saved}. Run it with: bun bench/run.ts ... --strategy ${saved}`);
+  refreshList();
+});
+$('loadList').addEventListener('change', async () => {
+  const name = $('loadList').value;
+  if (!name) return;
+  const doc = await (await fetch(`api/strategies/${encodeURIComponent(name)}`)).json();
+  $('name').value = name;
+  $('rules').value = doc.rules ?? DEFAULT_RULES;
+  $('after').value = doc.after ?? DEFAULT_AFTER;
+  tasks = doc.tasks ?? [];
+  selected = null;
+  render();
+  status(`Loaded ${name}.`);
+  $('loadList').value = '';
+});
+$('newBtn').addEventListener('click', () => {
+  if (tasks.length && !confirm('Start a new strategy? Unsaved tasks will be lost.')) return;
+  tasks = []; selected = null; $('name').value = ''; $('rules').value = DEFAULT_RULES; $('after').value = DEFAULT_AFTER;
+  render();
+  status('');
+});
+
+// ---- start ----
+(async () => {
+  [view, npcs] = await Promise.all([fetch('map-base.json').then(r => r.json()), fetch('npcs.json').then(r => r.json())]);
+  const draft = loadDraft();
+  $('name').value = draft?.name ?? '';
+  $('rules').value = draft?.rules ?? DEFAULT_RULES;
+  $('after').value = draft?.after ?? DEFAULT_AFTER;
+  tasks = draft?.tasks ?? [];
+  if (tasks.length) status('Restored your unsaved draft from this browser.');
+  const img = $('map');
+  const ready = () => {
+    $('overlay').setAttribute('width', img.naturalWidth);
+    $('overlay').setAttribute('height', img.naturalHeight);
+    $('overlay').setAttribute('viewBox', `0 0 ${img.naturalWidth} ${img.naturalHeight}`);
+    centreOn(3222, 3218, 1);
+    render();
+  };
+  img.complete ? ready() : img.addEventListener('load', ready);
+  refreshList();
+})();
+</script>
+</body>
+</html>

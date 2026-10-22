@@ -1,0 +1,33 @@
+[09:54:57] run E:\runebench\runs\20261022-095456-r051-2x-opencode-unique-sol-clean
+[09:54:57] team Alpha, Bravo | backend opencode | model openrouter/openai/gpt-6.1-sol | 15 min | mode unique
+[09:55:15] Alpha ready at 3222,3222 (fresh, combat 3)
+[09:55:31] Bravo ready at 3222,3222 (fresh, combat 3)
+[09:55:31] live view: E:\runebench\runs\20261022-095456-r051-2x-opencode-unique-sol-clean\live.html
+[09:55:31] start; deadline 2026-10-22T10:10:31.454Z
+[09:55:31] Alpha launch #1
+[09:55:34] Bravo launch #1
+[09:55:39] Bravo exited after 6s (code 1)
+[09:55:39] Bravo launch #2 (resuming ses_e9cf66513ffeZgrD3toxD70bC3)
+[09:55:45] Bravo exited after 5s (code 1)
+[09:55:45] Bravo resume keeps failing; starting a fresh conversation
+[09:55:45] Bravo launch #3
+[09:55:51] Bravo exited after 5s (code 1)
+[09:55:51] Bravo launch #4 (resuming ses_e9cf638a1ffejEVAJwh2019cjZ)
+[09:55:56] Bravo exited after 5s (code 1)
+[09:55:56] Bravo resume keeps failing; starting a fresh conversation
+[09:55:56] Bravo gave up after 4 fast failures; check agent-Bravo-*.jsonl.err
+[09:56:15] kill: alpha -> man3 (lvl 2, hp 7, ttk 64 ticks)
+[09:56:23] Alpha exited after 52s (code 1)
+[09:56:23] Alpha launch #2 (resuming ses_e9cf6719affeS3XN7w907qX1ha)
+[09:56:28] Alpha exited after 5s (code 1)
+[09:56:28] Alpha launch #3 (resuming ses_e9cf6719affeS3XN7w907qX1ha)
+[09:56:33] Alpha exited after 5s (code 1)
+[09:56:33] Alpha resume keeps failing; starting a fresh conversation
+[09:56:33] Alpha launch #4
+[09:56:38] Alpha exited after 5s (code 1)
+[09:56:38] Alpha launch #5 (resuming ses_e9cf5802cffeNwxclHRg1cGnks)
+[09:56:43] Alpha exited after 5s (code 1)
+[09:56:43] Alpha resume keeps failing; starting a fresh conversation
+[09:56:43] Alpha gave up after 4 fast failures; check agent-Alpha-*.jsonl.err
+[09:56:48] timelapse: E:\runebench\runs\20261022-095456-r051-2x-opencode-unique-sol-clean\timelapse-team.mp4
+[09:57:17] SCORE 1.10 | 1 enemies (level sum 2): Man 2 | unique by agent Alpha 1, Bravo 0 | overlap 0 | kills 1 (0 non-scoring) | cost $0.0808

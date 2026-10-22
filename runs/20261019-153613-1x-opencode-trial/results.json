@@ -1,0 +1,95 @@
+{
+  "runDir": "E:\\runebench\\runs\\20261019-153613-1x-opencode-trial",
+  "backend": "opencode",
+  "model": "openrouter/deepseek/deepseek-v4.1-flash",
+  "nAgents": 1,
+  "minutes": 5,
+  "team": [
+    "tff2nrca"
+  ],
+  "startedAt": "2026-10-19T15:36:21.062Z",
+  "endedAt": "2026-10-19T15:41:21.062Z",
+  "score": 0.6493506493506495,
+  "bestKill": {
+    "ts": "2026-10-19T15:40:20.798Z",
+    "tick": 10977,
+    "npcId": 101,
+    "npcName": "goblin_armed",
+    "combatLevel": 5,
+    "maxHp": 12,
+    "ttkTicks": 134,
+    "killer": "tff2nrca",
+    "contributors": [
+      {
+        "username": "tff2nrca",
+        "damage": 13
+      }
+    ],
+    "x": 3169,
+    "z": 3205,
+    "level": 0,
+    "value": 0.6493506493506495,
+    "ttkSeconds": 80.39999999999999,
+    "dps": 0.1492537313432836,
+    "minutesIn": 3.9956
+  },
+  "altScores": {
+    "combatLevel": 5,
+    "levelPlusHalfHp": 11,
+    "levelTimeOnly": 2.2727272727272725
+  },
+  "totalKills": 8,
+  "killsByAgent": {
+    "tff2nrca": 8
+  },
+  "distinctNpcs": [
+    {
+      "npcName": "goblin_armed",
+      "combatLevel": 5,
+      "maxHp": 12,
+      "count": 6,
+      "fastestTtkSeconds": 80.39999999999999
+    },
+    {
+      "npcName": "giantrat",
+      "combatLevel": 3,
+      "maxHp": 5,
+      "count": 2,
+      "fastestTtkSeconds": 19.2
+    }
+  ],
+  "bestOverTime": [
+    {
+      "minute": 1,
+      "best": 0
+    },
+    {
+      "minute": 2,
+      "best": 0
+    },
+    {
+      "minute": 3,
+      "best": 0.5813953488372093
+    },
+    {
+      "minute": 4,
+      "best": 0.6493506493506495
+    },
+    {
+      "minute": 5,
+      "best": 0.6493506493506495
+    }
+  ],
+  "costUsd": 0.024326903999999996,
+  "agents": [
+    {
+      "name": "tff2nrca",
+      "launches": 1,
+      "costUsd": 0.024326903999999996,
+      "inputTokens": 39616,
+      "cachedTokens": 1296768,
+      "outputTokens": 24157,
+      "steps": 35
+    }
+  ]
+}

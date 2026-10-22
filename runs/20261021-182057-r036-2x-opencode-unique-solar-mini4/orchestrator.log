@@ -1,0 +1,12 @@
+[18:20:57] run E:\runebench\runs\20261021-182057-r036-2x-opencode-unique-solar-mini4
+[18:20:57] team Alpha, Bravo | backend opencode | model openrouter/upstage/solar-mini4 | 15 min | mode unique
+[18:21:13] Alpha ready at 3222,3222 (fresh, combat 3)
+[18:21:30] Bravo ready at 3222,3222 (fresh, combat 3)
+[18:21:30] live view: E:\runebench\runs\20261021-182057-r036-2x-opencode-unique-solar-mini4\live.html
+[18:21:30] start; deadline 2026-10-21T18:36:30.113Z
+[18:21:30] Alpha launch #1
+[18:21:33] Bravo launch #1
+[18:36:30] Bravo exited after 897s (code 1)
+[18:36:30] Alpha exited after 900s (code 1)
+[18:36:40] timelapse: E:\runebench\runs\20261021-182057-r036-2x-opencode-unique-solar-mini4\timelapse-team.mp4
+[18:37:05] SCORE 0.00 | 0 enemies (level sum 0): - | unique by agent Alpha 0, Bravo 0 | overlap 0 | kills 0 (0 non-scoring) | cost $0.3439

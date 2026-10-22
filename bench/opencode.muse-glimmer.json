@@ -1,0 +1,42 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "provider": {
+    "openrouter": {
+      "options": {
+        "timeout": 180000,
+        "apiKey": "{file:~/.runebench/openrouter.key}"
+      },
+      "models": {
+        "meta/muse-glimmer-30b": {
+          "options": {
+            "provider": {
+              "quantizations": [
+                "bf16"
+              ],
+              "require_parameters": true
+            }
+          },
+          "limit": {
+            "context": 131072,
+            "output": 16384
+          }
+        }
+      }
+    }
+  },
+  "model": "openrouter/meta/muse-glimmer-30b",
+  "permission": {
+    "*": "allow",
+    "external_directory": "deny",
+    "bash": {
+      "*": "allow",
+      "*.env*": "deny",
+      "*.runebench*": "deny",
+      "*openrouter*": "deny",
+      "*OPENROUTER*": "deny"
+    }
+  },
+  "experimental": {
+    "mcp_timeout": 300000
+  }
+}

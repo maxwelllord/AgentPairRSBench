@@ -1,0 +1,17 @@
+[15:36:13] run E:\runebench\runs\20261019-153613-1x-opencode-trial
+[15:36:13] team tff2nrca | backend opencode | model openrouter/deepseek/deepseek-v4.1-flash | 5 min
+[15:36:21] tff2nrca ready at 3222,3222
+[15:36:21] live view: E:\runebench\runs\20261019-153613-1x-opencode-trial\live.html
+[15:36:21] start; deadline 2026-10-19T15:41:21.062Z
+[15:36:21] tff2nrca launch #1
+[15:39:19] kill: tff2nrca -> goblin_armed (lvl 5, hp 12, ttk 152 ticks)
+[15:39:55] kill: tff2nrca -> goblin_armed (lvl 5, hp 12, ttk 168 ticks)
+[15:40:07] kill: tff2nrca -> goblin_armed (lvl 5, hp 12, ttk 222 ticks)
+[15:40:15] kill: tff2nrca -> goblin_armed (lvl 5, hp 12, ttk 138 ticks)
+[15:40:21] kill: tff2nrca -> goblin_armed (lvl 5, hp 12, ttk 134 ticks)
+[15:40:41] kill: tff2nrca -> goblin_armed (lvl 5, hp 12, ttk 372 ticks)
+[15:40:47] kill: tff2nrca -> giantrat (lvl 3, hp 5, ttk 32 ticks)
+[15:40:51] kill: tff2nrca -> giantrat (lvl 3, hp 5, ttk 80 ticks)
+[15:41:21] tff2nrca exited after 300s (code 1)
+[15:41:25] timelapse: E:\runebench\runs\20261019-153613-1x-opencode-trial\timelapse-tff2nrca.mp4
+[15:41:25] SCORE 0.65 | best goblin_armed (lvl 5, hp 12, ttk 80.4s, 0.15 dps) by tff2nrca | kills 8 | cost $0.0243

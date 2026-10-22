@@ -1,0 +1,38 @@
+Positives of this benchmark:
+
+Score increases when models can balance speed, planning and execution.
+Agents that can split tasks between them perform better than agents that don't coordinate
+Very high upper bound for an optimal run
+
+Differences from rs-sdk/rune-bench
+Level up message no longer blocks agent activity until they dismiss the message
+Al-kharid gate no longer requires dialogue+10gp
+
+Limitations:
+
+
+
+RUNS
+
+r047B
+-attempts to use the shortbow on a duck, but has no arrows
+
+r049A
+-says 'Gg' in its final message before the trial ends
+
+r053A
+-sells its shortbow, buys kebabs, eats them whilst killing a red spider (does it get the kill?)
+-gets healed by monastery monks
+r053B
+-picks up cabbages to use as food
+-eats them whilst killing a white knight, but dies
+r054A
+-also sells its shortbow for kebabs
+r054B
+-also sells its shortbow for kebabs (this seems to be a pattern)
+r055A
+-kills duck with magic
+-sells some starting equipment for kebabs
+r055B
+-gets stuck at port sarim for a bit, trying to kill the unreachable jailed enemies
+-picks some cabbages and eats them

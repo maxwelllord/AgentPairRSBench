@@ -1,0 +1,17 @@
+moved leftover DB checkpoints for Alpha, Bravo, Charlie -> runs/orphaned/20261019-181436
+moved leftover E:\runebench\rs-sdk\server\engine\data\players\main\alpha.sav -> E:\runebench\runs\orphaned\20261019-181436
+moved leftover E:\runebench\rs-sdk\bots\Alpha -> E:\runebench\runs\orphaned\20261019-181436
+moved leftover E:\runebench\rs-sdk\server\engine\data\players\main\bravo.sav -> E:\runebench\runs\orphaned\20261019-181436
+moved leftover E:\runebench\rs-sdk\bots\Bravo -> E:\runebench\runs\orphaned\20261019-181436
+moved leftover E:\runebench\rs-sdk\bots\Charlie -> E:\runebench\runs\orphaned\20261019-181436
+moved leftover E:\runebench\rs-sdk\bots\_team -> E:\runebench\runs\orphaned\20261019-181436
+[18:14:36] run E:\runebench\runs\20261019-181436-r011-3x-opencode-team30c
+[18:14:36] team Alpha, Bravo, Charlie | backend opencode | model openrouter/deepseek/deepseek-v4.1-flash | 30 min
+[18:14:44] Alpha ready at 3222,3222 (fresh, combat 3)
+[18:14:53] Bravo ready at 3222,3222 (fresh, combat 3)
+[18:14:59] Charlie ready at 3094,3106 (fresh, combat 3)
+[18:14:59] live view: E:\runebench\runs\20261019-181436-r011-3x-opencode-team30c\live.html
+[18:14:59] start; deadline 2026-10-19T18:44:59.895Z
+[18:14:59] Alpha launch #1
+[18:15:02] Bravo launch #1
+[18:15:05] Charlie launch #1
