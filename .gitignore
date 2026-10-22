@@ -16,8 +16,8 @@ runs/*.out
 *.mp4
 *.png
 *.jpg
-!site/media/*.mp4
-!site/media/*.jpg
+!docs/media/*.mp4
+!docs/media/*.jpg
 
 # Run artefacts: keep results, kills, positions, transcripts and the orchestrator log.
 # Drop screenshots, account saves and the live view's working files.
