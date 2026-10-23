@@ -34,6 +34,7 @@ const OPENCODE_CONFIGS: Record<string, string> = {
     'openrouter/z-ai/glm-5.3': 'opencode.glm.json',
     'openrouter/z-ai/glm-5.3-flash': 'opencode.glm-flash.json',
     'openrouter/moonshotai/kimi-k3': 'opencode.kimi-k3.json',
+    'openrouter/moonshotai/kimi-k3.1-pro': 'opencode.kimi-k31-pro.json',
     'openrouter/anthropic/claude-haiku-5.5': 'opencode.haiku.json',
     'openrouter/anthropic/claude-opus-5.5': 'opencode.opus.json',
     'openrouter/google/gemini-3.8-flash': 'opencode.gemini-flash.json',

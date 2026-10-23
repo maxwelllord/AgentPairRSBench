@@ -59,7 +59,7 @@ figcaption { font-size: .88rem; color: var(--muted); margin-top: .6em; }
 .tabs button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .videos figure { margin: 0; }
 .videos figcaption { font-size: 1rem; color: var(--ink-2); margin: .8em 0 0; }
-.videos .runs { max-width: 760px; margin-top: 1.2em; }
+.videos .runs { margin-top: 1.2em; }
 .videos h3 { margin-top: 1.4em; }
 .chart { position: relative; background: var(--surface); border: 1px solid var(--rule); border-radius: 10px; padding: 12px 8px 4px; }
 .chart .scroll { overflow-x: auto; }
@@ -96,6 +96,9 @@ td.dim { color: var(--muted); }
 tr.mean td { font-weight: 600; color: var(--ink); background: var(--code-bg); }
 .summary td:nth-child(2) { font-weight: 600; color: var(--ink); }
 .dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 8px; vertical-align: -1px; background: var(--c); }
+/* Diamond marker: a model sharing another's colour (same family), e.g. Kimi K3.1 Pro beside Kimi K3. */
+.dot.diamond, .legend i.diamond { width: 8px; height: 8px; border-radius: 1px; transform: rotate(45deg); }
+.dot.diamond { margin: 0 9px 0 1px; }
 details { margin: 1em 0; }
 summary { cursor: pointer; color: var(--accent); font-size: .92rem; }
 video { width: 100%; height: auto; border-radius: 10px; background: #000; display: block; }
@@ -135,6 +138,7 @@ one hard one. Repeat kills are worth zero.</p>
   <div class="tabbar">
     <div class="tabs" role="tablist" aria-label="Model">
       <button role="tab" id="tab-sol" aria-controls="panel-sol" aria-selected="true">GPT-6.1 Sol</button>
+      <button role="tab" id="tab-kimi31" aria-controls="panel-kimi31" aria-selected="false" tabindex="-1">Kimi K3.1 Pro</button>
       <button role="tab" id="tab-deepseek" aria-controls="panel-deepseek" aria-selected="false" tabindex="-1">DeepSeek V4.1 Flash</button>
       <button role="tab" id="tab-hy4" aria-controls="panel-hy4" aria-selected="false" tabindex="-1">HY4 Preview</button>
       <button role="tab" id="tab-kimi" aria-controls="panel-kimi" aria-selected="false" tabindex="-1">Kimi K3</button>
@@ -168,6 +172,24 @@ one hard one. Repeat kills are worth zero.</p>
       <dd>Killed a duck with magic, and sold some of its starting equipment for kebabs.</dd>
       <dt>r055 Bravo</dt>
       <dd>Got stuck at Port Sarim for a while trying to kill the jailed enemies it couldn't reach, then picked cabbages and ate them.</dd>
+    </dl>
+  </div>
+  <div role="tabpanel" id="panel-kimi31" aria-labelledby="tab-kimi31" hidden>
+    <figure>
+      <video controls muted playsinline preload="metadata" poster="media/kimi31-pro-poster.jpg" src="media/kimi31-pro-timelapse.mp4"></video>
+      <figcaption>The Kimi K3.1 Pro team splits up: Alpha works Lumbridge, Al Kharid and Draynor Manor, while Bravo ranges
+        from Varrock and the Al Kharid mine to Falador and the Black Knights' Fortress.</figcaption>
+    </figure>
+    <h3>Run notes</h3>
+    <dl class="runs">
+      <dt>n = 1</dt>
+      <dd>This is a single run (r076)</dd>
+      <dt>Less for more</dt>
+      <dd>Bravo scored 19 of the team's 24 enemy types, and made only 12 game calls, each for a long script and cost ~$0.80</dd>
+      <dd>Alpha made 37 short calls and cost ~$1.46.</dd>
+      <dt>Dark wizards</dt>
+      <dd>Bravo killed a level-20 Dark wizard at the stone circle south of Varrock twice, and died within seconds of
+        each kill. Four of its seven deaths were at or near the circle.</dd>
     </dl>
   </div>
   <div role="tabpanel" id="panel-deepseek" aria-labelledby="tab-deepseek" hidden>
@@ -288,7 +310,8 @@ one hard one. Repeat kills are worth zero.</p>
 <h2 id="limits">Limitations</h2>
 <ul>
   <li><strong>Small samples.</strong> The <a href="#appendix">screening runs</a> are one run per model, and in the <a href="#results">main results</a> three runs of the same team ranged from
-    86 to 113 (Sol), 19 to 38 (DeepSeek), 14 to 41 (HY4 Preview), 19 to 28 (Kimi K3), 12 to 24 (Qwen), 9 to 18 (Haiku) and 11 to 13 (GLM-5.3 Flash).</li>
+    86 to 113 (Sol), 19 to 38 (DeepSeek), 14 to 41 (HY4 Preview), 19 to 28 (Kimi K3), 12 to 24 (Qwen), 9 to 18 (Haiku) and 11 to 13 (GLM-5.3 Flash).
+    Kimi K3.1 Pro has a single run.</li>
   <li><strong>One harness.</strong> Every model played through OpenCode with the same prompt and tools. Some models may do
     much better with a harness built for them.</li>
   <li><strong>The screening runs aren't directly comparable with the main results.</strong> The patches and prompt changed in between.</li>
@@ -299,11 +322,11 @@ one hard one. Repeat kills are worth zero.</p>
 <h2 id="results">Results</h2>
 <figure class="wide">
   <div class="chart" id="main-chart">
-    <div class="legend"><span data-m="GPT-6.1 Sol"><i style="background:var(--m-sol)"></i>GPT-6.1 Sol</span><span data-m="DeepSeek V4.1 Flash"><i style="background:var(--m-deepseek)"></i>DeepSeek V4.1 Flash</span><span data-m="HY4 Preview"><i style="background:var(--m-hy4)"></i>HY4 Preview</span><span data-m="Kimi K3"><i style="background:var(--m-kimi)"></i>Kimi K3</span><span data-m="Qwen3.8 Flash"><i style="background:var(--m-qwen)"></i>Qwen3.8 Flash</span><span data-m="Haiku 5.5"><i style="background:var(--m-haiku)"></i>Haiku 5.5</span><span data-m="GLM-5.3 Flash"><i style="background:var(--m-glm)"></i>GLM-5.3 Flash</span></div>
-    <div class="scroll"><svg viewBox="0 0 900 400" role="img" aria-label="Score against cost per run for GPT-6.1 Sol, DeepSeek V4.1 Flash, HY4 Preview, Kimi K3, Qwen3.8 Flash, Haiku 5.5 and GLM-5.3 Flash, three runs each"></svg></div>
+    <div class="legend"><span data-m="GPT-6.1 Sol"><i style="background:var(--m-sol)"></i>GPT-6.1 Sol</span><span data-m="Kimi K3.1 Pro"><i class="diamond" style="background:var(--m-kimi)"></i>Kimi K3.1 Pro (1 run)</span><span data-m="DeepSeek V4.1 Flash"><i style="background:var(--m-deepseek)"></i>DeepSeek V4.1 Flash</span><span data-m="HY4 Preview"><i style="background:var(--m-hy4)"></i>HY4 Preview</span><span data-m="Kimi K3"><i style="background:var(--m-kimi)"></i>Kimi K3</span><span data-m="Qwen3.8 Flash"><i style="background:var(--m-qwen)"></i>Qwen3.8 Flash</span><span data-m="Haiku 5.5"><i style="background:var(--m-haiku)"></i>Haiku 5.5</span><span data-m="GLM-5.3 Flash"><i style="background:var(--m-glm)"></i>GLM-5.3 Flash</span></div>
+    <div class="scroll"><svg viewBox="0 0 900 400" role="img" aria-label="Score against cost per run for GPT-6.1 Sol, Kimi K3.1 Pro, DeepSeek V4.1 Flash, HY4 Preview, Kimi K3, Qwen3.8 Flash, Haiku 5.5 and GLM-5.3 Flash, three runs each except Kimi K3.1 Pro's one"></svg></div>
     <div class="tip"></div>
   </div>
-  <figcaption>Each dot is a model's mean of three runs, with cost on a log scale. Hover a dot or a legend entry to show
+  <figcaption>Each dot is a model's mean of three runs, except Kimi K3.1 Pro's diamond, which is one run. Cost is on a log scale. Hover a dot or a legend entry to show
     that model's runs; every run is also in the table below.</figcaption>
 </figure>
 <div class="tablewrap">
@@ -311,6 +334,7 @@ one hard one. Repeat kills are worth zero.</p>
     <thead><tr><th>Model</th><th>Score</th><th>Runs</th><th>Cost / run</th><th>Enemy types</th><th>Deaths / run</th></tr></thead>
     <tbody>
       <tr><td><span class="dot" style="--c:var(--m-sol)"></span>GPT-6.1 Sol</td><td>97.75 ± 14.0</td><td class="dim">113.25 · 93.91 · 86.10</td><td>$1.56</td><td>40</td><td>14.0</td></tr>
+      <tr><td><span class="dot diamond" style="--c:var(--m-kimi)"></span>Kimi K3.1 Pro</td><td>47.61</td><td class="dim">47.61 (1 run)</td><td>$2.26</td><td>24</td><td>8.0</td></tr>
       <tr><td><span class="dot" style="--c:var(--m-deepseek)"></span>DeepSeek V4.1 Flash</td><td>31.35 ± 10.6</td><td class="dim">19.11 · 36.66 · 38.28</td><td>$0.13</td><td>20</td><td>10.3</td></tr>
       <tr><td><span class="dot" style="--c:var(--m-hy4)"></span>HY4 Preview</td><td>26.17 ± 13.4</td><td class="dim">14.08 · 40.62 · 23.80</td><td>$0.45</td><td>17</td><td>6.7</td></tr>
       <tr><td><span class="dot" style="--c:var(--m-kimi)"></span>Kimi K3</td><td>23.29 ± 4.5</td><td class="dim">22.54 · 28.11 · 19.21</td><td>$2.45</td><td>15</td><td>9.7</td></tr>
@@ -321,7 +345,7 @@ one hard one. Repeat kills are worth zero.</p>
   </table>
 </div>
 <details>
-  <summary>Table: all 21 runs</summary>
+  <summary>Table: all 22 runs</summary>
   <div class="tablewrap">
     <table>
       <thead><tr><th>Model</th><th>Run</th><th>Score</th><th>Cost</th><th>Enemy types</th><th>Deaths (A + B)</th></tr></thead>
@@ -329,6 +353,7 @@ one hard one. Repeat kills are worth zero.</p>
         <tr><td>GPT-6.1 Sol</td><td class="dim">r053</td><td>113.25</td><td>$1.48</td><td>44</td><td>5 + 8</td></tr>
         <tr><td>GPT-6.1 Sol</td><td class="dim">r054</td><td>93.91</td><td>$1.42</td><td>39</td><td>8 + 7</td></tr>
         <tr><td>GPT-6.1 Sol</td><td class="dim">r055</td><td>86.10</td><td>$1.80</td><td>37</td><td>7 + 7</td></tr>
+        <tr><td>Kimi K3.1 Pro</td><td class="dim">r076</td><td>47.61</td><td>$2.26</td><td>24</td><td>1 + 7</td></tr>
         <tr><td>DeepSeek V4.1 Flash</td><td class="dim">r047</td><td>19.11</td><td>$0.14</td><td>15</td><td>4 + 5</td></tr>
         <tr><td>DeepSeek V4.1 Flash</td><td class="dim">r048</td><td>36.66</td><td>$0.15</td><td>21</td><td>4 + 7</td></tr>
         <tr><td>DeepSeek V4.1 Flash</td><td class="dim">r049</td><td>38.28</td><td>$0.10</td><td>23</td><td>3 + 8</td></tr>
@@ -351,7 +376,8 @@ one hard one. Repeat kills are worth zero.</p>
     </table>
   </div>
 </details>
-<p class="note">Score is the mean of three runs; ± is the sample standard deviation.</p>
+<p class="note">Score is the mean of three runs; ± is the sample standard deviation. Kimi K3.1 Pro has one run, so no ±.
+  Kimi costs are the actual OpenRouter charges; the rest are token counts at list prices.</p>
 
 <h2 id="changes">Changes from rs-sdk and rs-bench</h2>
 <p>The main results (r047 onward) have all of these. The screening runs in the appendix had only the dialogue text and the kill ledger.</p>
@@ -472,13 +498,16 @@ for (const [m, run, cost, score, en, share, spt, cpm, rng] of R1) {
     'DeepSeek V4.1 Flash': [['r047', 0.1421, 19.11, 15], ['r048', 0.1507, 36.66, 21], ['r049', 0.0970, 38.28, 23]],
     'HY4 Preview': [['r070', 0.3194, 14.08, 12], ['r071', 0.5832, 40.62, 23], ['r072', 0.4623, 23.80, 17]],
     'Kimi K3': [['r073', 2.4326, 22.54, 14], ['r074', 2.8383, 28.11, 18], ['r075', 2.0759, 19.21, 14]],
+    'Kimi K3.1 Pro': [['r076', 2.2593, 47.61, 24]],
     'Qwen3.8 Flash': [['r064', 0.1081, 20.35, 15], ['r065', 0.1134, 23.66, 16], ['r066', 0.0925, 12.00, 10]],
     'Haiku 5.5': [['r060', 0.0618, 17.84, 13], ['r061', 0.1532, 11.60, 10], ['r062', 0.0248, 8.83, 7]],
     'GLM-5.3 Flash': [['r067', 0.0543, 11.73, 10], ['r068', 0.1336, 10.90, 10], ['r069', 0.0323, 12.70, 11]],
   };
-  const COLOR = { 'GPT-6.1 Sol': 'var(--m-sol)', 'DeepSeek V4.1 Flash': 'var(--m-deepseek)', 'Qwen3.8 Flash': 'var(--m-qwen)', 'Haiku 5.5': 'var(--m-haiku)', 'GLM-5.3 Flash': 'var(--m-glm)', 'HY4 Preview': 'var(--m-hy4)', 'Kimi K3': 'var(--m-kimi)' };
+  const COLOR = { 'GPT-6.1 Sol': 'var(--m-sol)', 'DeepSeek V4.1 Flash': 'var(--m-deepseek)', 'Qwen3.8 Flash': 'var(--m-qwen)', 'Haiku 5.5': 'var(--m-haiku)', 'GLM-5.3 Flash': 'var(--m-glm)', 'HY4 Preview': 'var(--m-hy4)', 'Kimi K3': 'var(--m-kimi)', 'Kimi K3.1 Pro': 'var(--m-kimi)' };
+  // Models sharing a colour with their family get a diamond instead of a circle.
+  const DIAMOND = new Set(['Kimi K3.1 Pro']);
   // Label offsets [dx, dy, anchor] for the means.
-  const off = { 'GPT-6.1 Sol': [-12, 4, 'end'], 'DeepSeek V4.1 Flash': [12, 4, 'start'], 'Qwen3.8 Flash': [12, 4, 'start'], 'Haiku 5.5': [4, -13, 'middle'], 'GLM-5.3 Flash': [-4, 22, 'middle'], 'HY4 Preview': [12, 4, 'start'], 'Kimi K3': [-12, 4, 'end'] };
+  const off = { 'GPT-6.1 Sol': [-12, 4, 'end'], 'DeepSeek V4.1 Flash': [12, 4, 'start'], 'Qwen3.8 Flash': [12, 4, 'start'], 'Haiku 5.5': [4, -13, 'middle'], 'GLM-5.3 Flash': [-4, 22, 'middle'], 'HY4 Preview': [12, 4, 'start'], 'Kimi K3': [-12, 4, 'end'], 'Kimi K3.1 Pro': [-13, 4, 'end'] };
   const box = document.getElementById('main-chart'), svg = box.querySelector('svg'), tip = box.querySelector('.tip');
   const W = 900, H = 400, L = 56, R = 24, T = 16, B = 46;
   const x0 = Math.log(0.02), x1 = Math.log(3.5), yMax = 120;
@@ -524,8 +553,12 @@ for (const [m, run, cost, score, en, share, spt, cpm, rng] of R1) {
     const grp = groups[m] = g(svg, { class: 'model' });
     const rg = g(grp, { class: 'runs' });
     for (const [, rc, rs] of runs) add(rg, 'line', { x1: cx, y1: cy, x2: X(rc), y2: Y(rs), stroke: COLOR[m], 'stroke-opacity': .45, 'stroke-width': 1.5 });
-    for (const [, rc, rs] of runs) add(rg, 'circle', { cx: X(rc), cy: Y(rs), r: 4.5, fill: COLOR[m], stroke: 'var(--surface)', 'stroke-width': 1.5 });
-    add(grp, 'circle', { cx, cy, r: 7, fill: COLOR[m], stroke: 'var(--surface)', 'stroke-width': 2 });
+    // A single run is its own mean, so only the mean is drawn.
+    const mark = (parent, x, y, r, w) => DIAMOND.has(m)
+      ? add(parent, 'path', { d: `M${x} ${y - r * 1.3}L${x + r * 1.3} ${y}L${x} ${y + r * 1.3}L${x - r * 1.3} ${y}Z`, fill: COLOR[m], stroke: 'var(--surface)', 'stroke-width': w, 'stroke-linejoin': 'round' })
+      : add(parent, 'circle', { cx: x, cy: y, r, fill: COLOR[m], stroke: 'var(--surface)', 'stroke-width': w });
+    if (runs.length > 1) for (const [, rc, rs] of runs) mark(rg, X(rc), Y(rs), 4.5, 1.5);
+    mark(grp, cx, cy, 7, 2);
     const [dx, dy, anchor] = off[m];
     add(grp, 'text', { x: cx + dx, y: cy + dy, 'text-anchor': anchor, class: 'lbl on', stroke: 'var(--surface)', 'stroke-width': 4, 'paint-order': 'stroke' }).textContent = m;
   }
@@ -547,7 +580,7 @@ for (const [m, run, cost, score, en, share, spt, cpm, rng] of R1) {
   for (const [m, runs] of Object.entries(RUNS)) {
     const [cx, cy] = centres[m];
     const hl = hitLayers[m] = g(svg, { class: 'hits' });
-    for (const [run, rc, rs, en] of runs) {
+    for (const [run, rc, rs, en] of runs.length > 1 ? runs : []) {
       const spoke = add(hl, 'line', { class: 'run-hit', x1: cx, y1: cy, x2: X(rc), y2: Y(rs), stroke: 'transparent', 'stroke-width': 18 });
       const hit = add(hl, 'circle', { class: 'run-hit', cx: X(rc), cy: Y(rs), r: 10, fill: 'transparent' });
       for (const e of [spoke, hit]) {
@@ -564,7 +597,7 @@ for (const [m, run, cost, score, en, share, spt, cpm, rng] of R1) {
   const meanHits = g(svg, {});
   for (const [m, [cx, cy, cost, score, en]] of Object.entries(centres)) {
     const hit = add(meanHits, 'circle', { cx, cy, r: 12, fill: 'transparent' });
-    hit.addEventListener('pointerenter', () => { setActive(m); showTip(cx, cy, `<b>${m}</b> · mean of 3 runs<br>Score ${score.toFixed(2)} · ${usd(cost)}<br>${Math.round(en)} enemy types`); });
+    hit.addEventListener('pointerenter', () => { setActive(m); showTip(cx, cy, `<b>${m}</b> · ${RUNS[m].length > 1 ? `mean of ${RUNS[m].length} runs` : `1 run (${RUNS[m][0][0]})`}<br>Score ${score.toFixed(2)} · ${usd(cost)}<br>${Math.round(en)} enemy types`); });
     hit.addEventListener('pointerleave', () => { hideTip(); release(); });
   }
   for (const span of box.querySelectorAll('.legend span[data-m]')) {

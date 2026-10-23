@@ -7,7 +7,8 @@ comparable with the existing ones. The **clean series** is every run from **r047
 starts a new series, with its own name and run range, and existing results are never mixed with it.
 
 Run labels so far: `ds-clean` (DeepSeek V4.1 Flash), `sol-clean` (GPT-6.1 Sol), `qwen-clean`,
-`haiku-clean`, `glm-flash-clean`, `hy4-clean` (HY4 Preview), `kimi-clean` (Kimi K3).
+`haiku-clean`, `glm-flash-clean`, `hy4-clean` (HY4 Preview), `kimi-clean` (Kimi K3), `kimi31-pro-clean`
+(Kimi K3.1 Pro, one run only: r076).
 
 ## Fixed conditions
 
@@ -50,6 +51,8 @@ Run labels so far: `ds-clean` (DeepSeek V4.1 Flash), `sol-clean` (GPT-6.1 Sol), 
 - Open-weight models are pinned to `"quantizations": ["fp8", "bf16"]` with `"require_parameters": true`.
 - Exception: when the model's own first-party host serves a lower format, allow that format too, so the
   first party is a candidate. Kimi K3 allows `["mxfp4", "fp8", "bf16"]`, because Moonshot serves mxfp4.
+- Priority or "highspeed" endpoints are excluded: a faster endpoint scores better in a timed bench. Pin the
+  standard endpoint by its tag with `"only"` (Kimi K3.1 Pro: `"only": ["moonshotai/mxfp4"]`).
 - Closed models (OpenAI, Anthropic, Google) are not pinned.
 - New models not yet known to OpenCode also get a `"limit": {"context": ..., "output": 32768}` block.
 - Before the first run, list the hosts and record which ones the pin allows:
@@ -156,7 +159,11 @@ Models appear in order of mean score everywhere: tabs, legend, summary table, al
    - a new `--m-<slug>` token, with a dark-mode value in both dark blocks;
    - validate the full palette with the dataviz skill's validator, `--pairs all`: `--mode light --surface
      "#ffffff"`, then `--mode dark --surface "#1b1f24"`;
-   - seven colours is about the limit; an eighth model needs a marker shape or a redesign.
+   - seven colours is the limit. A newer model of a family already on the chart reuses the family's colour with a
+     diamond marker (`DIAMOND` in the chart code, `class="diamond"` on its legend and table dots), as Kimi K3.1 Pro
+     does beside Kimi K3. Otherwise an eighth model needs a redesign.
+   - a model with fewer than three runs says so in its run notes (`n = 1`), its legend entry, the chart caption
+     and the table note, and shows no ±.
 4. **Tables:** a row in the summary table (mean score ± sd, the three run scores, cost, enemy types, deaths per
    run) and three rows in the "all runs" table.
 5. **Text:**
