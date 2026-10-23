@@ -1,0 +1,185 @@
+# Protocol: Agent Pair Unique Enemies Killed, clean series
+
+**Agent Pair Unique Enemies Killed** is this benchmark's internal name (the results page is titled "Agent Pair
+Scaping"). How to run and publish the benchmark on the results page (`docs/index.html`) so that a new run is
+comparable with the existing ones. The **clean series** is every run from **r047** on with the label
+`<model>-clean`. Nothing listed under "Fixed conditions" may change within the series. A change there
+starts a new series, with its own name and run range, and existing results are never mixed with it.
+
+Run labels so far: `ds-clean` (DeepSeek V4.1 Flash), `sol-clean` (GPT-6.1 Sol), `qwen-clean`,
+`haiku-clean`, `glm-flash-clean`, `hy4-clean` (HY4 Preview), `kimi-clean` (Kimi K3).
+
+## Fixed conditions
+
+**Game**
+- rs-sdk at commit `55fa26ccaad35417c4fe828000e5d832512186c1` plus `patches/rs-sdk.patch`, set up as in
+  `patches/README.md`. The patch contents are listed under "Local patches to rs-sdk" in `bench/README.md`.
+- Engine started exactly as in `bench/README.md`, "Start the engine":
+  - 8× speed (`NODE_TICKRATE=50`);
+  - friend server on, so PMs work;
+  - chat filter off;
+  - no live reload;
+  - kill ledger at `ledger/kill_ledger.jsonl`.
+- Random events off (the default). The server's 25× XP rate is not disclosed to agents.
+
+**Team and task**
+- 2 agents, always named Alpha and Bravo.
+- 15 minutes of real time.
+- Unique-enemies scoring: `score = Σ ln(1 + highest level killed)` over distinct NPC names, via `scoreUnique` in
+  `bench/score.ts`.
+- Every account is fresh (combat 3). `run.ts` refuses to start otherwise.
+- `run.ts` starts a fresh gateway for every run.
+
+**Prompt**
+- `uniquePrompt()` in `bench/run.ts`, in its r047 form, with the scoring examples given as bare levels.
+- No `--strategy` file, no strategy hints, no kill reporting or scoreboard.
+
+**Harness**
+- OpenCode **1.19.3** (`opencode --version`). Never let it auto-update mid-series.
+- One OpenCode config per model in `bench/opencode.<model>.json`. Copy an existing one for a new model.
+  Everything except the model block stays as it is:
+  - `"timeout": 180000`;
+  - `experimental.mcp_timeout: 300000`;
+  - the `external_directory` deny;
+  - the bash deny list;
+  - the key as `{file:~/.runebench/openrouter.key}`.
+- All models go through OpenRouter, at the model's **default reasoning effort**: set no `reasoning` or
+  effort option.
+
+**Host routing**
+- Open-weight models are pinned to `"quantizations": ["fp8", "bf16"]` with `"require_parameters": true`.
+- Exception: when the model's own first-party host serves a lower format, allow that format too, so the
+  first party is a candidate. Kimi K3 allows `["mxfp4", "fp8", "bf16"]`, because Moonshot serves mxfp4.
+- Closed models (OpenAI, Anthropic, Google) are not pinned.
+- New models not yet known to OpenCode also get a `"limit": {"context": ..., "output": 32768}` block.
+- Before the first run, list the hosts and record which ones the pin allows:
+  `curl -s https://openrouter.ai/api/v1/models/<id>/endpoints`.
+
+## Adding a model
+
+1. Write `bench/opencode.<model>.json`, following the rules above.
+2. Add it to `OPENCODE_CONFIGS` in `bench/run.ts`.
+3. Add a `PRICING` entry in `bench/pricing.ts`, in $ per token, with a comment giving the host price range.
+   - If the first party is among the allowed hosts, use its list price.
+   - Otherwise use the dearest allowed host, so the budget cap errs high.
+   - GLM-5.3 Flash uses Z.AI's list price, as GLM-5.3 does.
+4. Smoke-check through run 1 itself; a separate smoke run would use up a run number. Within the first two
+   minutes:
+   - both transcripts (`agent-*.jsonl`) have `step_finish` events;
+   - `rs-agent_execute_code` tool calls complete;
+   - cache reads appear in the tokens;
+   - there are no `"type":"error"` events.
+
+   Abort and fix the config if any of these fail.
+
+## Running a series (three runs)
+
+Before each run:
+- The engine is up: `http://localhost:8888` answers.
+- No gateway is on port 7780, and no other run is in flight. Runs always go one at a time, since two runs
+  would share the bot names.
+
+Each run, from `E:\runebench`:
+
+```sh
+bun bench/run.ts --agents 2 --minutes 15 --mode unique --model openrouter/<id> --record --budget <usd> --label <slug>-clean
+```
+
+- `--budget` is a safety cap and must not bind:
+  - set it comfortably above the expected cost: $1 for cheap models, $3–5 for Sol- or Kimi-priced ones;
+  - if the estimate approaches the cap, raise it for the next run;
+  - `run.ts` also refuses to start if the account or key has less credit than the budget.
+- Open the live view (`runs/<run>/live.html`) with `Start-Process`.
+- Run the three runs back to back.
+
+After each run, check `runs/<run>/orchestrator.log` (or the captured stdout):
+- the `SCORE` line;
+- relaunches (`launch #2`): normal near the deadline, suspicious early on;
+- `BUDGET reached`;
+- `OUT OF CREDITS`;
+- API errors in the transcripts (`grep '"type":"error"' runs/<run>/agent-*.jsonl`). A `The operation timed out.`
+  error is a provider stall past the 3-minute timeout; record it in the run notes.
+
+Record actual spend, too. Read the key's `usage` before and after each run:
+
+```sh
+curl -s https://openrouter.ai/api/v1/key -H "Authorization: Bearer $(cat ~/.runebench/openrouter.key)"
+```
+
+Print only the usage numbers, never the key. So far only Kimi K3's actual charges are known.
+
+## Valid runs
+
+A run is **excluded** (but kept in `runs/`) when any of these happened:
+- OpenRouter ran out of credit during it: `results.json` has `invalid`. r051 and r052 are suffixed
+  `-NOCREDITS`; r050 lost its model 8 minutes in for the same reason and is excluded too.
+- An agent lost its game tool (r042, before the MCP fix).
+- The budget cap stopped it well before the deadline.
+
+A cap or relaunch in the last seconds is kept, with a note: r073 was capped 14 s early.
+
+Excluded runs are rerun under the same conditions, and the page says which runs were excluded and why.
+
+## Numbers for the results page
+
+- **Score, enemy types, kills:** from `results.json`. To rescore a run, use `bun bench/score.ts runs/<run>`.
+- **Mean and ±:** the mean of the three runs and the sample standard deviation.
+- **Cost:** `costUsd` in `results.json`, which is the token counts × `PRICING`. The exception is a model
+  whose costs are actual charges (Kimi K3), which the note under the table says.
+- **Deaths:** `python -I bench/deaths.py runs/<a> runs/<b> runs/<c>`, giving Alpha + Bravo per run.
+- **Per-agent kills:** the ledger lines in `runs/<run>/kills.jsonl` (`killer`). Use these to check run-note
+  claims, for example against `final-state/team/notes.md`.
+
+## Timelapse
+
+```sh
+python -I bench/map-timelapse-multi.py --zoom 3 --out runs/compare/<slug>-clean-zoom --title "<Model> · 3 runs" runs/<a> runs/<b> runs/<c>
+ffmpeg -y -loglevel error -i runs/compare/<slug>-clean-zoom/map-timelapse.mp4 -c:v libx264 -crf 27 -preset slow -pix_fmt yuv420p -movflags +faststart runs/compare/<slug>-clean-zoom/map-timelapse-web.mp4
+cp runs/compare/<slug>-clean-zoom/map-timelapse-web.mp4 docs/media/<slug>-timelapse.mp4
+ffmpeg -y -loglevel error -sseof -0.5 -i runs/compare/<slug>-clean-zoom/map-timelapse.mp4 -frames:v 1 -q:v 4 docs/media/<slug>-poster.jpg
+```
+
+The engine must be up, because the map base is rendered from it.
+
+## Updating the page (`docs/index.html`)
+
+Models appear in order of mean score everywhere: tabs, legend, summary table, all-runs table.
+
+1. **Timelapse tab and panel:** video, poster and a one-line caption saying where the teams went. Then the
+   run notes: specific, checked against the ledger and transcripts, in past tense.
+2. **Chart** (`#main-chart`):
+   - add a `RUNS` entry with exact costs to 4 decimal places;
+   - add `COLOR`, a label offset in `off`, a legend `<span data-m>`, and the model name in the SVG's
+     `aria-label`;
+   - widen the x range if a cost falls outside it.
+3. **Colour:**
+   - a new `--m-<slug>` token, with a dark-mode value in both dark blocks;
+   - validate the full palette with the dataviz skill's validator, `--pairs all`: `--mode light --surface
+     "#ffffff"`, then `--mode dark --surface "#1b1f24"`;
+   - seven colours is about the limit; an eighth model needs a marker shape or a redesign.
+4. **Tables:** a row in the summary table (mean score ± sd, the three run scores, cost, enemy types, deaths per
+   run) and three rows in the "all runs" table.
+5. **Text:**
+   - the score range in Limitations;
+   - one comparative sentence in the results paragraph;
+   - the cost note, if the model's costs aren't priced the usual way.
+6. **Check:** look at screenshots of the chart and tables in light mode, dark mode and at 375 px wide, and make
+   sure there are no console errors.
+
+## Accounts
+
+`run.ts` archives each bot's save and bot folder into `runs/<run>/final-state/` at teardown. Leftovers from a crashed
+run go to `runs/orphaned/`.
+
+To reset an account by hand (for example a human-baseline account):
+1. Wait until it is offline in `/playerpositions`.
+2. Move `rs-sdk/server/engine/data/players/main/<name>.sav` and its bots folder out.
+3. Archive and delete its row in `rs-sdk/server/engine/data/market.sqlite` (table `accounts`, owner
+   lowercase). Check `offers` too.
+
+## Never
+
+- Print the OpenRouter key, put it under `E:\runebench`, or put it in agent environment variables.
+- Run two runs at once.
+- Change a fixed condition mid-series.
+- Delete run data. Move or rename it instead.

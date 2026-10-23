@@ -1,0 +1,38 @@
+[15:40:16] run E:\runebench\runs\20261023-154016-r073-2x-opencode-unique-kimi-clean
+[15:40:16] team Alpha, Bravo | backend opencode | model openrouter/moonshotai/kimi-k3 | 15 min | mode unique
+[15:40:33] Alpha ready at 3222,3222 (fresh, combat 3)
+[15:40:49] Bravo ready at 3222,3222 (fresh, combat 3)
+[15:40:49] live view: E:\runebench\runs\20261023-154016-r073-2x-opencode-unique-kimi-clean\live.html
+[15:40:49] start; deadline 2026-10-23T15:55:49.970Z
+[15:40:49] Alpha launch #1
+[15:40:52] Bravo launch #1
+[15:42:32] kill: bravo -> rat (lvl 1, hp 2, ttk 24 ticks)
+[15:42:42] kill: bravo -> man3 (lvl 2, hp 7, ttk 84 ticks)
+[15:42:52] kill: bravo -> woman (lvl 2, hp 7, ttk 56 ticks)
+[15:43:08] kill: alpha -> giantspider1 (lvl 2, hp 5, ttk 56 ticks)
+[15:43:32] kill: alpha -> chicken (lvl 1, hp 3, ttk 44 ticks)
+[15:43:56] kill: alpha -> cow (lvl 2, hp 8, ttk 80 ticks)
+[15:44:16] kill: bravo -> giantrat1 (lvl 6, hp 10, ttk 79 ticks)
+[15:44:26] kill: bravo -> giantrat1 (lvl 6, hp 10, ttk 111 ticks)
+[15:44:32] kill: alpha -> farmer1 (lvl 7, hp 12, ttk 108 ticks)
+[15:44:32] kill: bravo -> giantrat1 (lvl 6, hp 10, ttk 88 ticks)
+[15:44:46] kill: bravo -> spider (lvl 1, hp 2, ttk 16 ticks)
+[15:45:04] kill: bravo -> farmer1 (lvl 7, hp 12, ttk 156 ticks)
+[15:47:54] kill: bravo -> goblin (lvl 2, hp 5, ttk 52 ticks)
+[15:48:16] kill: alpha -> chicken (lvl 1, hp 3, ttk 34 ticks)
+[15:48:18] kill: alpha -> chicken (lvl 1, hp 3, ttk 14 ticks)
+[15:48:20] kill: alpha -> chicken (lvl 1, hp 3, ttk 10 ticks)
+[15:48:22] kill: alpha -> chicken (lvl 1, hp 3, ttk 16 ticks)
+[15:48:46] kill: alpha -> unicorn (lvl 15, hp 19, ttk 88 ticks)
+[15:49:26] kill: alpha -> wizard (lvl 9, hp 14, ttk 28 ticks)
+[15:50:40] kill: alpha -> brownbear (lvl 21, hp 27, ttk 76 ticks)
+[15:51:17] kill: alpha -> young_dark_wizard (lvl 7, hp 12, ttk 24 ticks)
+[15:53:31] kill: alpha -> goblin_armed (lvl 5, hp 12, ttk 24 ticks)
+[15:53:33] kill: bravo -> goblin_armed (lvl 5, hp 12, ttk 104 ticks)
+[15:55:14] Bravo exited after 862s (code 0)
+[15:55:14] Bravo launch #2 (resuming ses_e9693e51fffeiFlxfz1CClC7e7)
+[15:55:35] BUDGET reached ($3.31 >= $3); stopping all agents
+[15:55:35] Alpha exited after 885s (code 1)
+[15:55:35] Bravo exited after 21s (code 1)
+[15:55:43] timelapse: E:\runebench\runs\20261023-154016-r073-2x-opencode-unique-kimi-clean\timelapse-team.mp4
+[15:56:09] SCORE 22.54 | 14 enemies (level sum 81): Bear 21, Unicorn 15, Wizard 9, Farmer 7, Dark wizard 7, Giant rat 6, Goblin 5, Man 2, Woman 2, Giant spider 2, Cow 2, Rat 1, Chicken 1, Spider 1 | unique by agent Alpha 9, Bravo 7 | overlap 2 | kills 23 (8 non-scoring) | cost $3.3054

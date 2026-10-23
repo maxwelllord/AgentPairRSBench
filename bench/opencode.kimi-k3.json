@@ -1,0 +1,44 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "provider": {
+    "openrouter": {
+      "options": {
+        "timeout": 180000,
+        "apiKey": "{file:~/.runebench/openrouter.key}"
+      },
+      "models": {
+        "moonshotai/kimi-k3": {
+          "options": {
+            "provider": {
+              "quantizations": [
+                "mxfp4",
+                "fp8",
+                "bf16"
+              ],
+              "require_parameters": true
+            }
+          },
+          "limit": {
+            "context": 1048576,
+            "output": 32768
+          }
+        }
+      }
+    }
+  },
+  "model": "openrouter/moonshotai/kimi-k3",
+  "permission": {
+    "*": "allow",
+    "external_directory": "deny",
+    "bash": {
+      "*": "allow",
+      "*.env*": "deny",
+      "*.runebench*": "deny",
+      "*openrouter*": "deny",
+      "*OPENROUTER*": "deny"
+    }
+  },
+  "experimental": {
+    "mcp_timeout": 300000
+  }
+}

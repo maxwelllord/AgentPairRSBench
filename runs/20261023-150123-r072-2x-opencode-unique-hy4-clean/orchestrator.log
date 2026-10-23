@@ -1,0 +1,46 @@
+[15:01:24] run E:\runebench\runs\20261023-150123-r072-2x-opencode-unique-hy4-clean
+[15:01:24] team Alpha, Bravo | backend opencode | model openrouter/tencent/hy4-preview | 15 min | mode unique
+[15:01:40] Alpha ready at 3222,3222 (fresh, combat 3)
+[15:01:56] Bravo ready at 3222,3222 (fresh, combat 3)
+[15:01:56] live view: E:\runebench\runs\20261023-150123-r072-2x-opencode-unique-hy4-clean\live.html
+[15:01:56] start; deadline 2026-10-23T15:16:56.212Z
+[15:01:56] Alpha launch #1
+[15:01:59] Bravo launch #1
+[15:03:20] kill: bravo -> rat (lvl 1, hp 2, ttk 8 ticks)
+[15:03:26] kill: alpha -> rat (lvl 1, hp 2, ttk 20 ticks)
+[15:03:28] kill: bravo -> man3 (lvl 2, hp 7, ttk 60 ticks)
+[15:03:32] kill: alpha -> man2 (lvl 2, hp 7, ttk 104 ticks)
+[15:04:28] kill: alpha -> chicken (lvl 1, hp 3, ttk 22 ticks)
+[15:04:38] kill: alpha -> cow (lvl 2, hp 8, ttk 128 ticks)
+[15:05:12] kill: bravo -> giantspider1 (lvl 2, hp 5, ttk 36 ticks)
+[15:05:20] kill: alpha -> goblin (lvl 2, hp 5, ttk 44 ticks)
+[15:05:22] kill: alpha -> goblin (lvl 2, hp 5, ttk 32 ticks)
+[15:05:36] kill: bravo -> goblin (lvl 2, hp 5, ttk 40 ticks)
+[15:05:44] kill: alpha -> giantspider1 (lvl 2, hp 5, ttk 72 ticks)
+[15:05:52] kill: alpha -> woman (lvl 2, hp 7, ttk 36 ticks)
+[15:06:40] kill: alpha -> giantrat (lvl 3, hp 5, ttk 28 ticks)
+[15:06:54] kill: bravo -> mugger (lvl 6, hp 8, ttk 80 ticks)
+[15:07:04] kill: bravo -> mugger (lvl 6, hp 8, ttk 64 ticks)
+[15:07:06] kill: bravo -> spider (lvl 1, hp 2, ttk 8 ticks)
+[15:09:18] kill: bravo -> thief1 (lvl 16, hp 17, ttk 192 ticks)
+[15:09:42] kill: alpha -> imp (lvl 2, hp 8, ttk 60 ticks)
+[15:10:32] kill: bravo -> thief1 (lvl 16, hp 17, ttk 152 ticks)
+[15:11:08] kill: bravo -> jonny_the_beard (lvl 2, hp 8, ttk 64 ticks)
+[15:11:18] kill: bravo -> tramp (lvl 2, hp 7, ttk 96 ticks)
+[15:11:30] kill: bravo -> barbarian_woman (lvl 8, hp 14, ttk 124 ticks)
+[15:13:08] kill: bravo -> thief1 (lvl 16, hp 17, ttk 164 ticks)
+[15:13:26] kill: alpha -> goblin_armed (lvl 5, hp 12, ttk 160 ticks)
+[15:14:52] kill: alpha -> highwayman (lvl 5, hp 13, ttk 204 ticks)
+[15:15:04] kill: bravo -> farmer1 (lvl 7, hp 12, ttk 116 ticks)
+[15:15:38] Bravo exited after 819s (code 0)
+[15:15:38] Bravo launch #2 (resuming ses_e96b781a6ffejSaFVhSW5x7Hg2)
+[15:15:38] Alpha exited after 823s (code 0)
+[15:15:38] Alpha launch #2 (resuming ses_e96b78dbfffe54uBX1cvwtMscY)
+[15:16:12] Bravo exited after 34s (code 0)
+[15:16:12] Bravo launch #3 (resuming ses_e96b781a6ffejSaFVhSW5x7Hg2)
+[15:16:25] Alpha exited after 47s (code 0)
+[15:16:25] Alpha launch #3 (resuming ses_e96b78dbfffe54uBX1cvwtMscY)
+[15:16:35] Bravo exited after 22s (code 0)
+[15:16:47] Alpha exited after 22s (code 0)
+[15:16:56] timelapse: E:\runebench\runs\20261023-150123-r072-2x-opencode-unique-hy4-clean\timelapse-team.mp4
+[15:17:20] SCORE 23.80 | 17 enemies (level sum 67): Thief 16, Barbarian woman 8, Farmer 7, Mugger 6, Goblin 5, Highwayman 5, Giant rat 3, Man 2, Cow 2, Giant spider 2, Woman 2, Imp 2, Jonny the beard 2, Tramp 2, Rat 1, Chicken 1, Spider 1 | unique by agent Alpha 10, Bravo 11 | overlap 4 | kills 26 (8 non-scoring) | cost $0.4623

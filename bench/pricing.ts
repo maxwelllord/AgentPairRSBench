@@ -10,6 +10,10 @@ export const PRICING: Record<string, { input: number; cachedInput: number; outpu
     'openrouter/anthropic/claude-sonnet-5.5': { input: 2e-6, cachedInput: 0.1e-6, output: 10e-6, cacheWrite: 2.5e-6 },
     // fp8 hosts range $0.19-2.10 in; Z.AI's own list price, so the budget cap errs high
     'openrouter/z-ai/glm-5.3': { input: 1.4e-6, cachedInput: 0.26e-6, output: 4.4e-6 },
+    // fp8 hosts range $0.075-0.18 in; Z.AI's own list price, as for GLM-5.3
+    'openrouter/z-ai/glm-5.3-flash': { input: 0.15e-6, cachedInput: 0.03e-6, output: 0.5e-6 },
+    // mxfp4/fp8 hosts range $0.36-3.00 in; Moonshot's own list price, so the budget cap errs high
+    'openrouter/moonshotai/kimi-k3': { input: 3e-6, cachedInput: 0.3e-6, output: 15e-6 },
     'openrouter/anthropic/claude-haiku-5.5': { input: 0.1e-6, cachedInput: 0.01e-6, output: 0.5e-6, cacheWrite: 0.125e-6 },
     'openrouter/anthropic/claude-opus-5.5': { input: 4e-6, cachedInput: 0.2e-6, output: 20e-6, cacheWrite: 5e-6 },
     'openrouter/google/gemini-3.8-flash': { input: 0.825e-6, cachedInput: 0.0825e-6, output: 4.125e-6, cacheWrite: 0.0417e-6 },

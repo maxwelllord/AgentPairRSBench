@@ -1,11 +1,9 @@
 # Combat benchmark harness
 
-Kill value = combat level × HP / (HP + seconds to kill), i.e. combat level scaled by DPS
-against that NPC (1 HP/s keeps 50%). Score = best NPC type, where a type is worth the mean
-of the team's 3 best kills of it (missing kills count 0), so one lucky kill is worth a third. Time is in game
-seconds (0.6s/tick), so it doesn't depend on server speed. Tunables live in `score.ts`.
-Kills come from the engine's kill ledger (credit = highest damage dealer, the
-engine's own loot rule), tailed live into `runs/<run>/kills.jsonl`.
+The benchmark on the results page is unique-enemies mode (`--mode unique`, below), in the clean
+series (r047 on). [`PROTOCOL.md`](PROTOCOL.md) has the exact conditions, how to add a model and run a series,
+and how results reach the page. Kills come from the engine's kill ledger (credit = highest damage
+dealer, the engine's own loot rule), tailed live into `runs/<run>/kills.jsonl`.
 
 ### Unique-enemies mode (`--mode unique`)
 
@@ -18,6 +16,13 @@ plain level sum, distinct enemies per agent, overlap (enemies more than one agen
 non-scoring kills, and when the final score was reached (tiebreak). Agents get no tally; tracking
 what the team has killed is part of the task. Random events must stay off (`NODE_RANDOM_EVENTS`,
 default false): their monsters scale to the player and would be free uniques.
+
+### Strongest mode (`--mode strongest`, the default; runs before r019)
+
+Kill value = combat level × HP / (HP + seconds to kill), i.e. combat level scaled by DPS
+against that NPC (1 HP/s keeps 50%). Score = best NPC type, where a type is worth the mean
+of the team's 3 best kills of it (missing kills count 0), so one lucky kill is worth a third. Time is in game
+seconds (0.6s/tick), so it doesn't depend on server speed. Tunables live in `score.ts`.
 
 ## Start the engine (leave running)
 

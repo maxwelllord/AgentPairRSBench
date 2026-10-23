@@ -10,7 +10,7 @@
   --bg: #fcfcfb; --surface: #ffffff; --ink: #1f2328; --ink-2: #4b535c; --muted: #6e7781;
   --rule: #e3e6ea; --grid: #eceef1; --accent: #2f6fde; --off: #838c96; --code-bg: #f3f4f6;
   --red: #d64545; --blue: #3c82ff; --green: #28a85a;
-  --m-sol: #2a78d6; --m-deepseek: #eda100; --m-qwen: #e87ba4; --m-haiku: #008300;
+  --m-sol: #2a78d6; --m-deepseek: #eda100; --m-qwen: #e87ba4; --m-haiku: #008300; --m-glm: #861cb4; --m-hy4: #813937; --m-kimi: #2dbed7;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
@@ -24,9 +24,9 @@
 }
 /* Model colours for the results chart, stepped for the dark surface. */
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) { --m-sol: #3987e5; --m-deepseek: #c98500; --m-qwen: #d55181; }
+  :root:not([data-theme="light"]) { --m-sol: #6d86ff; --m-deepseek: #c98500; --m-qwen: #d55181; --m-glm: #8a3abe; --m-hy4: #953c46; --m-kimi: #33a3b4; }
 }
-:root[data-theme="dark"] { --m-sol: #3987e5; --m-deepseek: #c98500; --m-qwen: #d55181; }
+:root[data-theme="dark"] { --m-sol: #6d86ff; --m-deepseek: #c98500; --m-qwen: #d55181; --m-glm: #8a3abe; --m-hy4: #953c46; --m-kimi: #33a3b4; }
 * { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
 body {
@@ -67,6 +67,16 @@ figcaption { font-size: .88rem; color: var(--muted); margin-top: .6em; }
 .chart text { font: 12px system-ui, sans-serif; fill: var(--muted); }
 .chart .lbl { fill: var(--ink-2); }
 .chart .lbl.on { fill: var(--ink); font-weight: 600; }
+/* Results chart: means only; a model's runs appear while its mean or legend entry is hovered. */
+#main-chart text { font-size: 10px; }
+#main-chart .legend { font-size: calc(.85rem - 2px); }
+#main-chart .legend span[data-m] { cursor: default; }
+#main-chart .model { transition: opacity .15s; }
+#main-chart .model.dim { opacity: .25; }
+#main-chart .runs { opacity: 0; transition: opacity .15s; }
+#main-chart .model.on .runs { opacity: 1; }
+#main-chart .hits .run-hit { pointer-events: none; }
+#main-chart .hits.on .run-hit { pointer-events: auto; }
 .tip {
   position: absolute; pointer-events: none; background: var(--ink); color: var(--bg);
   font-size: .82rem; line-height: 1.4; padding: 8px 10px; border-radius: 6px; white-space: nowrap;
@@ -84,6 +94,8 @@ th:first-child, td:first-child { text-align: left; }
 tr:last-child td { border-bottom: none; }
 td.dim { color: var(--muted); }
 tr.mean td { font-weight: 600; color: var(--ink); background: var(--code-bg); }
+.summary td:nth-child(2) { font-weight: 600; color: var(--ink); }
+.dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 8px; vertical-align: -1px; background: var(--c); }
 details { margin: 1em 0; }
 summary { cursor: pointer; color: var(--accent); font-size: .92rem; }
 video { width: 100%; height: auto; border-radius: 10px; background: #000; display: block; }
@@ -124,8 +136,11 @@ one hard one. Repeat kills are worth zero.</p>
     <div class="tabs" role="tablist" aria-label="Model">
       <button role="tab" id="tab-sol" aria-controls="panel-sol" aria-selected="true">GPT-6.1 Sol</button>
       <button role="tab" id="tab-deepseek" aria-controls="panel-deepseek" aria-selected="false" tabindex="-1">DeepSeek V4.1 Flash</button>
+      <button role="tab" id="tab-hy4" aria-controls="panel-hy4" aria-selected="false" tabindex="-1">HY4 Preview</button>
+      <button role="tab" id="tab-kimi" aria-controls="panel-kimi" aria-selected="false" tabindex="-1">Kimi K3</button>
       <button role="tab" id="tab-qwen" aria-controls="panel-qwen" aria-selected="false" tabindex="-1">Qwen3.8 Flash</button>
       <button role="tab" id="tab-haiku" aria-controls="panel-haiku" aria-selected="false" tabindex="-1">Haiku 5.5</button>
+      <button role="tab" id="tab-glm" aria-controls="panel-glm" aria-selected="false" tabindex="-1">GLM-5.3 Flash</button>
     </div>
     <div class="mapkey">
       <span><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M6 1 11 6 6 11 1 6Z"/></svg>Scored kill</span>
@@ -169,6 +184,44 @@ one hard one. Repeat kills are worth zero.</p>
       <dd>Signed off with "Gg" just before time ran out.</dd>
     </dl>
   </div>
+  <div role="tabpanel" id="panel-hy4" aria-labelledby="tab-hy4" hidden>
+    <figure>
+      <video controls muted playsinline preload="metadata" poster="media/hy4-poster.jpg" src="media/hy4-timelapse.mp4"></video>
+      <figcaption>HY4 agent teams performance is highly varied. Team r070 never leaves Lumbridge, whilst the other agents make it as far as Varrock, Falador, Port Sarim and Al Kharid.</figcaption>
+    </figure>
+    <h3>Run notes</h3>
+    <dl class="runs">
+      <dt>Spiky performance</dt>
+      <dd>In r071 agent Alpha solo score was better than the team score for r070 and r072.</dd>
+      <dt>Bookkeeping, Strategy and Coordination</dt>
+      <dd>All teams kept notes including a running scoreboard with each kill's value and who got it, a list of enemies still
+        wanted, and warnings for the partner ("Jail guard (26) and Witch (25) kill a 15-combat bronze-geared char. Bring
+        food."). The r072 notes marked kills it couldn't confirm as uncertain, and none of those were real.</dd>
+        <dd>The lists contained some errors: r071's misclaimed five kills, including Delrith and a White Knight.</dd>
+    </dl>
+  </div>
+  <div role="tabpanel" id="panel-kimi" aria-labelledby="tab-kimi" hidden>
+    <figure>
+      <video controls muted playsinline preload="metadata" poster="media/kimi-poster.jpg" src="media/kimi-timelapse.mp4"></video>
+      <figcaption>Kimi teams work between Lumbridge, Draynor and south Varrock, with a few trips to the Wizards' Tower
+        and Al Kharid. Most of their deaths are between Draynor and Lumbridge.</figcaption>
+    </figure>
+    <h3>Run notes</h3>
+    <dl class="runs">
+      <dt>r075 Alpha</dt>
+      <dd>Tracked its targets by NPC <code>id</code>, which every NPC of a type shares, instead of the per-spawn
+        <code>index</code>. It never saw its kills land, so it kept fighting the same spiders and rats: 72 of the team's
+        87 kills were repeats. It found the bug itself with six minutes left: "I was actually slaughtering camps the
+        whole time."</dd>
+      <dt>r075 Bravo</dt>
+      <dd>Its final notes listed 18 kills worth about 32, including a Jail guard, a Bear, a Unicorn and a Scorpion, with
+        "server records stand". The ledger credits it with 12, worth 16.6.</dd>
+      <dt>Wizards' Tower</dt>
+      <dd>Bravo died there twice in r073 and Alpha once in r074.</dd>
+      <dt>r073</dt>
+      <dd>Hit the budget cap 14 seconds before time ran out.</dd>
+    </dl>
+  </div>
   <div role="tabpanel" id="panel-qwen" aria-labelledby="tab-qwen" hidden>
     <figure>
       <video controls muted playsinline preload="metadata" poster="media/qwen-poster.jpg" src="media/qwen-timelapse.mp4"></video>
@@ -199,6 +252,26 @@ one hard one. Repeat kills are worth zero.</p>
       <dd>250 of the team's 258 kills were repeats that added nothing to the score.</dd>
     </dl>
   </div>
+  <div role="tabpanel" id="panel-glm" aria-labelledby="tab-glm" hidden>
+    <figure>
+      <video controls muted playsinline preload="metadata" poster="media/glm-flash-poster.jpg" src="media/glm-flash-timelapse.mp4"></video>
+      <figcaption>GLM-5.3 Flash teams work around Lumbridge, Draynor and Lumbridge Swamp, with a few trips to
+        Port Sarim, the Wizards' Tower and Varrock.</figcaption>
+    </figure>
+    <h3>Run notes</h3>
+    <dl class="runs">
+      <dt>Best kill</dt>
+      <dd>Farmer (level 7), in r067.</dd>
+      <dt>Wizards' Tower</dt>
+      <dd>Alpha died there in both r067 and r069, without killing a wizard.</dd>
+      <dt>r069</dt>
+      <dd>96 of the team's 108 kills were repeats, 40 of them rats killed by Alpha.</dd>
+      <dt>Timeouts</dt>
+      <dd>Three model requests ran past OpenCode's 3-minute timeout (one in r068, two in r069). The harness resumed
+        each session, but each cost that agent about 3 minutes, so these results may be skewed. No other model in any
+        run hit the timeout, which points to the hosts serving GLM-5.3 Flash rather than the model itself.</dd>
+    </dl>
+  </div>
 </div>
 
 <h2 id="notes">Notes</h2>
@@ -215,7 +288,7 @@ one hard one. Repeat kills are worth zero.</p>
 <h2 id="limits">Limitations</h2>
 <ul>
   <li><strong>Small samples.</strong> The <a href="#appendix">screening runs</a> are one run per model, and in the <a href="#results">main results</a> three runs of the same team ranged from
-    86 to 113 (Sol), 19 to 38 (DeepSeek), 12 to 24 (Qwen) and 9 to 18 (Haiku).</li>
+    86 to 113 (Sol), 19 to 38 (DeepSeek), 14 to 41 (HY4 Preview), 19 to 28 (Kimi K3), 12 to 24 (Qwen), 9 to 18 (Haiku) and 11 to 13 (GLM-5.3 Flash).</li>
   <li><strong>One harness.</strong> Every model played through OpenCode with the same prompt and tools. Some models may do
     much better with a harness built for them.</li>
   <li><strong>The screening runs aren't directly comparable with the main results.</strong> The patches and prompt changed in between.</li>
@@ -226,41 +299,59 @@ one hard one. Repeat kills are worth zero.</p>
 <h2 id="results">Results</h2>
 <figure class="wide">
   <div class="chart" id="main-chart">
-    <div class="legend"><span><i style="background:var(--m-sol)"></i>GPT-6.1 Sol</span><span><i style="background:var(--m-deepseek)"></i>DeepSeek V4.1 Flash</span><span><i style="background:var(--m-qwen)"></i>Qwen3.8 Flash</span><span><i style="background:var(--m-haiku)"></i>Haiku 5.5</span><span>Large dot: mean of three runs · small: single run</span></div>
-    <div class="scroll"><svg viewBox="0 0 900 400" role="img" aria-label="Score against cost per run for GPT-6.1 Sol, DeepSeek V4.1 Flash, Qwen3.8 Flash and Haiku 5.5, three runs each"></svg></div>
+    <div class="legend"><span data-m="GPT-6.1 Sol"><i style="background:var(--m-sol)"></i>GPT-6.1 Sol</span><span data-m="DeepSeek V4.1 Flash"><i style="background:var(--m-deepseek)"></i>DeepSeek V4.1 Flash</span><span data-m="HY4 Preview"><i style="background:var(--m-hy4)"></i>HY4 Preview</span><span data-m="Kimi K3"><i style="background:var(--m-kimi)"></i>Kimi K3</span><span data-m="Qwen3.8 Flash"><i style="background:var(--m-qwen)"></i>Qwen3.8 Flash</span><span data-m="Haiku 5.5"><i style="background:var(--m-haiku)"></i>Haiku 5.5</span><span data-m="GLM-5.3 Flash"><i style="background:var(--m-glm)"></i>GLM-5.3 Flash</span></div>
+    <div class="scroll"><svg viewBox="0 0 900 400" role="img" aria-label="Score against cost per run for GPT-6.1 Sol, DeepSeek V4.1 Flash, HY4 Preview, Kimi K3, Qwen3.8 Flash, Haiku 5.5 and GLM-5.3 Flash, three runs each"></svg></div>
     <div class="tip"></div>
   </div>
-  <figcaption>Cost on a log scale. Hover a point for its numbers.</figcaption>
+  <figcaption>Each dot is a model's mean of three runs, with cost on a log scale. Hover a dot or a legend entry to show
+    that model's runs; every run is also in the table below.</figcaption>
 </figure>
 <div class="tablewrap">
-  <table>
-    <thead><tr><th>Model</th><th>Run</th><th>Score</th><th>Cost</th><th>Enemy types</th><th>Deaths (A + B)</th></tr></thead>
+  <table class="summary">
+    <thead><tr><th>Model</th><th>Score</th><th>Runs</th><th>Cost / run</th><th>Enemy types</th><th>Deaths / run</th></tr></thead>
     <tbody>
-      <tr><td>GPT-6.1 Sol</td><td>r053</td><td>113.25</td><td>$1.48</td><td>44</td><td>5 + 8</td></tr>
-      <tr><td>GPT-6.1 Sol</td><td>r054</td><td>93.91</td><td>$1.42</td><td>39</td><td>8 + 7</td></tr>
-      <tr><td>GPT-6.1 Sol</td><td>r055</td><td>86.10</td><td>$1.80</td><td>37</td><td>7 + 7</td></tr>
-      <tr class="mean"><td>Sol mean</td><td></td><td>97.75 ± 14.0</td><td>$1.56</td><td>40</td><td></td></tr>
-      <tr><td>DeepSeek V4.1 Flash</td><td>r047</td><td>19.11</td><td>$0.14</td><td>15</td><td>4 + 5</td></tr>
-      <tr><td>DeepSeek V4.1 Flash</td><td>r048</td><td>36.66</td><td>$0.15</td><td>21</td><td>4 + 7</td></tr>
-      <tr><td>DeepSeek V4.1 Flash</td><td>r049</td><td>38.28</td><td>$0.10</td><td>23</td><td>3 + 8</td></tr>
-      <tr class="mean"><td>DeepSeek mean</td><td></td><td>31.35 ± 10.6</td><td>$0.13</td><td>20</td><td></td></tr>
-      <tr><td>Qwen3.8 Flash</td><td>r064</td><td>20.35</td><td>$0.11</td><td>15</td><td>4 + 2</td></tr>
-      <tr><td>Qwen3.8 Flash</td><td>r065</td><td>23.66</td><td>$0.11</td><td>16</td><td>3 + 4</td></tr>
-      <tr><td>Qwen3.8 Flash</td><td>r066</td><td>12.00</td><td>$0.09</td><td>10</td><td>2 + 0</td></tr>
-      <tr class="mean"><td>Qwen mean</td><td></td><td>18.67 ± 6.0</td><td>$0.10</td><td>14</td><td></td></tr>
-      <tr><td>Haiku 5.5</td><td>r060</td><td>17.84</td><td>$0.06</td><td>13</td><td>4 + 9</td></tr>
-      <tr><td>Haiku 5.5</td><td>r061</td><td>11.60</td><td>$0.15</td><td>10</td><td>1 + 8</td></tr>
-      <tr><td>Haiku 5.5</td><td>r062</td><td>8.83</td><td>$0.02</td><td>7</td><td>7 + 4</td></tr>
-      <tr class="mean"><td>Haiku mean</td><td></td><td>12.76 ± 4.6</td><td>$0.08</td><td>10</td><td></td></tr>
+      <tr><td><span class="dot" style="--c:var(--m-sol)"></span>GPT-6.1 Sol</td><td>97.75 ± 14.0</td><td class="dim">113.25 · 93.91 · 86.10</td><td>$1.56</td><td>40</td><td>14.0</td></tr>
+      <tr><td><span class="dot" style="--c:var(--m-deepseek)"></span>DeepSeek V4.1 Flash</td><td>31.35 ± 10.6</td><td class="dim">19.11 · 36.66 · 38.28</td><td>$0.13</td><td>20</td><td>10.3</td></tr>
+      <tr><td><span class="dot" style="--c:var(--m-hy4)"></span>HY4 Preview</td><td>26.17 ± 13.4</td><td class="dim">14.08 · 40.62 · 23.80</td><td>$0.45</td><td>17</td><td>6.7</td></tr>
+      <tr><td><span class="dot" style="--c:var(--m-kimi)"></span>Kimi K3</td><td>23.29 ± 4.5</td><td class="dim">22.54 · 28.11 · 19.21</td><td>$2.45</td><td>15</td><td>9.7</td></tr>
+      <tr><td><span class="dot" style="--c:var(--m-qwen)"></span>Qwen3.8 Flash</td><td>18.67 ± 6.0</td><td class="dim">20.35 · 23.66 · 12.00</td><td>$0.10</td><td>14</td><td>5.0</td></tr>
+      <tr><td><span class="dot" style="--c:var(--m-haiku)"></span>Haiku 5.5</td><td>12.76 ± 4.6</td><td class="dim">17.84 · 11.60 · 8.83</td><td>$0.08</td><td>10</td><td>11.0</td></tr>
+      <tr><td><span class="dot" style="--c:var(--m-glm)"></span>GLM-5.3 Flash</td><td>11.78 ± 0.9</td><td class="dim">11.73 · 10.90 · 12.70</td><td>$0.07</td><td>10</td><td>3.7</td></tr>
     </tbody>
   </table>
 </div>
-<p class="note">± is the sample standard deviation. Two more Sol runs (r051, r052) died within minutes when the
-OpenRouter account ran out of credit, and r050 (77.3) lost its model about 8 minutes in for the same reason;
-all three are excluded.</p>
-
-<p>Sol scores about three times as much as DeepSeek, at twelve times the price. DeepSeek scores about two and a half
-times as much as Haiku, for about 60% more, and Qwen3.8 Flash falls between them.</p>
+<details>
+  <summary>Table: all 21 runs</summary>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>Model</th><th>Run</th><th>Score</th><th>Cost</th><th>Enemy types</th><th>Deaths (A + B)</th></tr></thead>
+      <tbody>
+        <tr><td>GPT-6.1 Sol</td><td class="dim">r053</td><td>113.25</td><td>$1.48</td><td>44</td><td>5 + 8</td></tr>
+        <tr><td>GPT-6.1 Sol</td><td class="dim">r054</td><td>93.91</td><td>$1.42</td><td>39</td><td>8 + 7</td></tr>
+        <tr><td>GPT-6.1 Sol</td><td class="dim">r055</td><td>86.10</td><td>$1.80</td><td>37</td><td>7 + 7</td></tr>
+        <tr><td>DeepSeek V4.1 Flash</td><td class="dim">r047</td><td>19.11</td><td>$0.14</td><td>15</td><td>4 + 5</td></tr>
+        <tr><td>DeepSeek V4.1 Flash</td><td class="dim">r048</td><td>36.66</td><td>$0.15</td><td>21</td><td>4 + 7</td></tr>
+        <tr><td>DeepSeek V4.1 Flash</td><td class="dim">r049</td><td>38.28</td><td>$0.10</td><td>23</td><td>3 + 8</td></tr>
+        <tr><td>HY4 Preview</td><td class="dim">r070</td><td>14.08</td><td>$0.32</td><td>12</td><td>3 + 2</td></tr>
+        <tr><td>HY4 Preview</td><td class="dim">r071</td><td>40.62</td><td>$0.58</td><td>23</td><td>5 + 3</td></tr>
+        <tr><td>HY4 Preview</td><td class="dim">r072</td><td>23.80</td><td>$0.46</td><td>17</td><td>2 + 5</td></tr>
+        <tr><td>Kimi K3</td><td class="dim">r073</td><td>22.54</td><td>~$2.43</td><td>14</td><td>6 + 3</td></tr>
+        <tr><td>Kimi K3</td><td class="dim">r074</td><td>28.11</td><td>$2.84</td><td>18</td><td>3 + 5</td></tr>
+        <tr><td>Kimi K3</td><td class="dim">r075</td><td>19.21</td><td>$2.08</td><td>14</td><td>6 + 6</td></tr>
+        <tr><td>Qwen3.8 Flash</td><td class="dim">r064</td><td>20.35</td><td>$0.11</td><td>15</td><td>4 + 2</td></tr>
+        <tr><td>Qwen3.8 Flash</td><td class="dim">r065</td><td>23.66</td><td>$0.11</td><td>16</td><td>3 + 4</td></tr>
+        <tr><td>Qwen3.8 Flash</td><td class="dim">r066</td><td>12.00</td><td>$0.09</td><td>10</td><td>2 + 0</td></tr>
+        <tr><td>Haiku 5.5</td><td class="dim">r060</td><td>17.84</td><td>$0.06</td><td>13</td><td>4 + 9</td></tr>
+        <tr><td>Haiku 5.5</td><td class="dim">r061</td><td>11.60</td><td>$0.15</td><td>10</td><td>1 + 8</td></tr>
+        <tr><td>Haiku 5.5</td><td class="dim">r062</td><td>8.83</td><td>$0.02</td><td>7</td><td>7 + 4</td></tr>
+        <tr><td>GLM-5.3 Flash</td><td class="dim">r067</td><td>11.73</td><td>$0.05</td><td>10</td><td>2 + 1</td></tr>
+        <tr><td>GLM-5.3 Flash</td><td class="dim">r068</td><td>10.90</td><td>$0.13</td><td>10</td><td>2 + 0</td></tr>
+        <tr><td>GLM-5.3 Flash</td><td class="dim">r069</td><td>12.70</td><td>$0.03</td><td>11</td><td>2 + 4</td></tr>
+      </tbody>
+    </table>
+  </div>
+</details>
+<p class="note">Score is the mean of three runs; ± is the sample standard deviation.</p>
 
 <h2 id="changes">Changes from rs-sdk and rs-bench</h2>
 <p>The main results (r047 onward) have all of these. The screening runs in the appendix had only the dialogue text and the kill ledger.</p>
@@ -379,15 +470,18 @@ for (const [m, run, cost, score, en, share, spt, cpm, rng] of R1) {
   const RUNS = {
     'GPT-6.1 Sol': [['r053', 1.4761, 113.25, 44], ['r054', 1.4191, 93.91, 39], ['r055', 1.7976, 86.10, 37]],
     'DeepSeek V4.1 Flash': [['r047', 0.1421, 19.11, 15], ['r048', 0.1507, 36.66, 21], ['r049', 0.0970, 38.28, 23]],
+    'HY4 Preview': [['r070', 0.3194, 14.08, 12], ['r071', 0.5832, 40.62, 23], ['r072', 0.4623, 23.80, 17]],
+    'Kimi K3': [['r073', 2.4326, 22.54, 14], ['r074', 2.8383, 28.11, 18], ['r075', 2.0759, 19.21, 14]],
     'Qwen3.8 Flash': [['r064', 0.1081, 20.35, 15], ['r065', 0.1134, 23.66, 16], ['r066', 0.0925, 12.00, 10]],
     'Haiku 5.5': [['r060', 0.0618, 17.84, 13], ['r061', 0.1532, 11.60, 10], ['r062', 0.0248, 8.83, 7]],
+    'GLM-5.3 Flash': [['r067', 0.0543, 11.73, 10], ['r068', 0.1336, 10.90, 10], ['r069', 0.0323, 12.70, 11]],
   };
-  const COLOR = { 'GPT-6.1 Sol': 'var(--m-sol)', 'DeepSeek V4.1 Flash': 'var(--m-deepseek)', 'Qwen3.8 Flash': 'var(--m-qwen)', 'Haiku 5.5': 'var(--m-haiku)' };
+  const COLOR = { 'GPT-6.1 Sol': 'var(--m-sol)', 'DeepSeek V4.1 Flash': 'var(--m-deepseek)', 'Qwen3.8 Flash': 'var(--m-qwen)', 'Haiku 5.5': 'var(--m-haiku)', 'GLM-5.3 Flash': 'var(--m-glm)', 'HY4 Preview': 'var(--m-hy4)', 'Kimi K3': 'var(--m-kimi)' };
   // Label offsets [dx, dy, anchor] for the means.
-  const off = { 'GPT-6.1 Sol': [-12, 4, 'end'], 'DeepSeek V4.1 Flash': [12, 4, 'start'], 'Qwen3.8 Flash': [-10, -10, 'end'], 'Haiku 5.5': [-12, 4, 'end'] };
+  const off = { 'GPT-6.1 Sol': [-12, 4, 'end'], 'DeepSeek V4.1 Flash': [12, 4, 'start'], 'Qwen3.8 Flash': [12, 4, 'start'], 'Haiku 5.5': [4, -13, 'middle'], 'GLM-5.3 Flash': [-4, 22, 'middle'], 'HY4 Preview': [12, 4, 'start'], 'Kimi K3': [-12, 4, 'end'] };
   const box = document.getElementById('main-chart'), svg = box.querySelector('svg'), tip = box.querySelector('.tip');
   const W = 900, H = 400, L = 56, R = 24, T = 16, B = 46;
-  const x0 = Math.log(0.02), x1 = Math.log(2.5), yMax = 120;
+  const x0 = Math.log(0.02), x1 = Math.log(3.5), yMax = 120;
   const X = v => L + (Math.log(v) - x0) / (x1 - x0) * (W - L - R);
   const Y = v => T + (1 - v / yMax) * (H - T - B);
   const NS = 'http://www.w3.org/2000/svg';
@@ -401,7 +495,7 @@ for (const [m, run, cost, score, en, share, spt, cpm, rng] of R1) {
     el('line', { x1: L, x2: W - R, y1: Y(v), y2: Y(v), stroke: 'var(--grid)' });
     el('text', { x: L - 8, y: Y(v) + 4, 'text-anchor': 'end' }).textContent = v;
   }
-  for (const v of [0.02, 0.05, 0.1, 0.2, 0.5, 1, 2]) {
+  for (const v of [0.02, 0.05, 0.1, 0.2, 0.5, 1, 2, 3]) {
     el('line', { x1: X(v), x2: X(v), y1: T, y2: H - B, stroke: 'var(--grid)' });
     el('text', { x: X(v), y: H - B + 18, 'text-anchor': 'middle' }).textContent = '$' + v;
   }
@@ -409,42 +503,76 @@ for (const [m, run, cost, score, en, share, spt, cpm, rng] of R1) {
   el('text', { x: 14, y: (T + H - B) / 2, 'text-anchor': 'middle', transform: `rotate(-90 14 ${(T + H - B) / 2})` }).textContent = 'Score';
 
   const usd = v => '$' + (v < 0.1 ? v.toFixed(3) : v.toFixed(2));
-  const hover = (cx, cy, r, html) => {
-    const hit = el('circle', { cx, cy, r, fill: 'transparent', style: 'cursor:default' });
-    const show = () => {
-      tip.innerHTML = html;
-      const b = box.getBoundingClientRect(), s = svg.getBoundingClientRect(), k = s.width / W;
-      let left = s.left - b.left + cx * k + 12, top = s.top - b.top + cy * k - 12;
-      tip.style.opacity = 1;
-      if (left + tip.offsetWidth > b.width - 4) left -= tip.offsetWidth + 24;
-      tip.style.left = left + 'px'; tip.style.top = Math.max(4, top - tip.offsetHeight / 2) + 'px';
-    };
-    hit.addEventListener('mouseenter', show);
-    hit.addEventListener('touchstart', show, { passive: true });
-    hit.addEventListener('mouseleave', () => { tip.style.opacity = 0; });
+  const g = (parent, attrs) => { const e = el('g', attrs); parent.appendChild(e); return e; };
+  const add = (parent, name, attrs) => { const e = el(name, attrs); parent.appendChild(e); return e; };
+  const showTip = (cx, cy, html) => {
+    tip.innerHTML = html;
+    const b = box.getBoundingClientRect(), s = svg.getBoundingClientRect(), k = s.width / W;
+    let left = s.left - b.left + cx * k + 12, top = s.top - b.top + cy * k - 12;
+    tip.style.opacity = 1;
+    if (left + tip.offsetWidth > b.width - 4) left -= tip.offsetWidth + 24;
+    tip.style.left = left + 'px'; tip.style.top = Math.max(4, top - tip.offsetHeight / 2) + 'px';
   };
-  const means = [];
+  const hideTip = () => { tip.style.opacity = 0; };
+
+  // One group of marks per model (spokes and runs hidden until active), then a layer of hit targets on top.
+  const groups = {}, hitLayers = {}, centres = {};
   for (const [m, runs] of Object.entries(RUNS)) {
-    for (const [run, cost, score] of runs) {
-      el('circle', { cx: X(cost), cy: Y(score), r: 4.5, fill: COLOR[m], 'fill-opacity': .7, stroke: 'var(--surface)', 'stroke-width': 1.5 });
-    }
     const avg = i => runs.reduce((a, r) => a + r[i], 0) / runs.length;
-    means.push([m, avg(1), avg(2), avg(3)]);
-  }
-  for (const [m, cost, score, en] of means) {
-    el('circle', { cx: X(cost), cy: Y(score), r: 7, fill: COLOR[m], stroke: 'var(--surface)', 'stroke-width': 2 });
+    const [cost, score, en] = [avg(1), avg(2), avg(3)], cx = X(cost), cy = Y(score);
+    centres[m] = [cx, cy, cost, score, en];
+    const grp = groups[m] = g(svg, { class: 'model' });
+    const rg = g(grp, { class: 'runs' });
+    for (const [, rc, rs] of runs) add(rg, 'line', { x1: cx, y1: cy, x2: X(rc), y2: Y(rs), stroke: COLOR[m], 'stroke-opacity': .45, 'stroke-width': 1.5 });
+    for (const [, rc, rs] of runs) add(rg, 'circle', { cx: X(rc), cy: Y(rs), r: 4.5, fill: COLOR[m], stroke: 'var(--surface)', 'stroke-width': 1.5 });
+    add(grp, 'circle', { cx, cy, r: 7, fill: COLOR[m], stroke: 'var(--surface)', 'stroke-width': 2 });
     const [dx, dy, anchor] = off[m];
-    el('text', { x: X(cost) + dx, y: Y(score) + dy, 'text-anchor': anchor, class: 'lbl on', stroke: 'var(--surface)', 'stroke-width': 4, 'paint-order': 'stroke' }).textContent = m;
+    add(grp, 'text', { x: cx + dx, y: cy + dy, 'text-anchor': anchor, class: 'lbl on', stroke: 'var(--surface)', 'stroke-width': 4, 'paint-order': 'stroke' }).textContent = m;
   }
-  // Hit targets last, so they sit above every mark; runs before means so a mean wins where they overlap.
+
+  let active = null, timer = 0;
+  const setActive = m => {
+    clearTimeout(timer);
+    if (m === active) return;
+    active = m;
+    for (const k in groups) {
+      groups[k].classList.toggle('on', k === m);
+      groups[k].classList.toggle('dim', m !== null && k !== m);
+      hitLayers[k].classList.toggle('on', k === m);
+    }
+  };
+  const release = () => { clearTimeout(timer); timer = setTimeout(() => { setActive(null); hideTip(); }, 300); };
+
+  // Runs' hit targets, with fat spokes to follow out to them; live only while their model is active.
   for (const [m, runs] of Object.entries(RUNS)) {
-    for (const [run, cost, score, en] of runs) {
-      hover(X(cost), Y(score), 10, `<b>${m}</b> · ${run}<br>Score ${score.toFixed(2)} · ${usd(cost)}<br>${en} enemy types`);
+    const [cx, cy] = centres[m];
+    const hl = hitLayers[m] = g(svg, { class: 'hits' });
+    for (const [run, rc, rs, en] of runs) {
+      const spoke = add(hl, 'line', { class: 'run-hit', x1: cx, y1: cy, x2: X(rc), y2: Y(rs), stroke: 'transparent', 'stroke-width': 18 });
+      const hit = add(hl, 'circle', { class: 'run-hit', cx: X(rc), cy: Y(rs), r: 10, fill: 'transparent' });
+      for (const e of [spoke, hit]) {
+        e.addEventListener('pointerenter', () => setActive(m));
+        e.addEventListener('pointerleave', release);
+      }
+      const show = () => { setActive(m); showTip(X(rc), Y(rs), `<b>${m}</b> · ${run}<br>Score ${rs.toFixed(2)} · ${usd(rc)}<br>${en} enemy types`); };
+      hit.addEventListener('pointerenter', show);
+      hit.addEventListener('pointerleave', hideTip);
     }
   }
-  for (const [m, cost, score, en] of means) {
-    hover(X(cost), Y(score), 12, `<b>${m}</b> · mean of 3 runs<br>Score ${score.toFixed(2)} · ${usd(cost)}<br>${Math.round(en)} enemy types`);
+  // Means' hit targets above everything, so another model's spokes never cover a mean.
+  for (const m in hitLayers) svg.appendChild(hitLayers[m]);
+  const meanHits = g(svg, {});
+  for (const [m, [cx, cy, cost, score, en]] of Object.entries(centres)) {
+    const hit = add(meanHits, 'circle', { cx, cy, r: 12, fill: 'transparent' });
+    hit.addEventListener('pointerenter', () => { setActive(m); showTip(cx, cy, `<b>${m}</b> · mean of 3 runs<br>Score ${score.toFixed(2)} · ${usd(cost)}<br>${Math.round(en)} enemy types`); });
+    hit.addEventListener('pointerleave', () => { hideTip(); release(); });
   }
+  for (const span of box.querySelectorAll('.legend span[data-m]')) {
+    span.addEventListener('pointerenter', () => setActive(span.dataset.m));
+    span.addEventListener('pointerleave', release);
+  }
+  // Touch: tapping empty chart space clears the selection.
+  svg.addEventListener('pointerdown', e => { if (e.target === svg) { setActive(null); hideTip(); } });
 })();
 
 // Pareto chart: log-x cost, linear score.

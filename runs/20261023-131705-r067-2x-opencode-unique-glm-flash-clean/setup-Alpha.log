@@ -1,0 +1,18 @@
+Pathfinding initialized in 680ms (136704 zones + 297 mainland fill, 1268350 tiles, 2691 doors masked, 5 one-way doors blocked)
+[BotSDK] Waiting for game state to be ready...
+[BotSDK] Game state ready!
+[BotSDK] Connected and game state ready
+READY 3222,3222 cb=3 hp=10
+
+── State ──
+Pos (3222, 3222) | HP 10/10
+XP: none gained
+Inv 18/28: Bronze axe, Tinderbox, Small fishing net, Shrimps, Bucket, Pot, Bread, Bronze pickaxe, +10 more
+NPCs: Man x6 (4t), Butterfly (8t), Rat x5 (8t), Hans (11t), Cook (13t) +1 more
+Objs: Bookcase x2 (1t), Closed chest (2t), Potted plant x5 (2t), Painting x2 (3t), Flower x11 (3t) +31 more
+Ground: Jug (10t), Pot (12t)
+> Welcome to RuneScape.
+[Runner] Connecting to bot "Alpha"...
+[Runner] Connected to bot "Alpha"
+[Runner] Disconnecting bot "Alpha"...
+[LOGOUT DEBUG] SDK WebSocket closed - autoReconnect=true, intentionalDisconnect=true
