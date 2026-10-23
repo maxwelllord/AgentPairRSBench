@@ -3,6 +3,8 @@
 # label for every kill that raised that team's score. Same drawing as map-timelapse.py.
 #   python bench/map-timelapse-multi.py --out runs/compare/<name> --title "..." runs/<a> runs/<b> ...
 #   ->  <out>/map-timelapse.mp4   (1 game second per frame; needs the engine up for the map base)
+# --zoom 3 renders the map 3x larger and follows the explored area instead: the camera starts close
+# in and eases out as the agents spread, never closer than the base's own resolution, never back in.
 import argparse, json, math, os, subprocess, sys
 from datetime import datetime
 from PIL import Image, ImageDraw, ImageFont
@@ -21,6 +23,7 @@ ap = argparse.ArgumentParser()
 ap.add_argument('runs', nargs='+')
 ap.add_argument('--out', required=True)
 ap.add_argument('--title', default='')
+ap.add_argument('--zoom', type=float, default=0, help='map resolution multiple for the following camera (e.g. 3); 0 = fixed full view')
 args = ap.parse_args()
 runs = [r.rstrip('/\\') for r in args.runs]
 here = os.path.dirname(os.path.abspath(__file__))
@@ -39,9 +42,11 @@ def tint(c, k):  # mix towards white by k
 with open(os.path.join(args.out, 'positions.jsonl'), 'w', encoding='utf-8') as fh:
     for r in runs:
         fh.write(open(os.path.join(r, 'positions.jsonl'), encoding='utf-8').read())
-subprocess.run(['bun', os.path.join(here, 'map-base.ts'), args.out], check=True)
+OW, OH = 1920, 1080  # video size
+size = [str(int(OW * args.zoom)), str(int(OH * args.zoom))] if args.zoom else []
+subprocess.run(['bun', os.path.join(here, 'map-base.ts'), args.out, *size], check=True)
 view = json.load(open(os.path.join(args.out, 'map-base.json')))
-W, H = view['width'], view['height']
+W, H = view['width'], view['height']  # map base size; equals the video size without --zoom
 
 
 def remap_z(z):
@@ -90,10 +95,10 @@ font_path = 'C:/Windows/Fonts/arialbd.ttf'
 big = ImageFont.truetype(font_path, 30)
 small = ImageFont.truetype(font_path, 20)
 tiny = ImageFont.truetype(font_path, 16)
-base = Image.alpha_composite(Image.open(os.path.join(args.out, 'map-base.png')).convert('RGBA'), Image.new('RGBA', (W, H), (0, 0, 0, 60)))
+base = Image.alpha_composite(Image.open(os.path.join(args.out, 'map-base.png')).convert('RGBA'), Image.new('RGBA', (W, H), (0, 0, 0, 60))).convert('RGB')
 
 out = os.path.join(args.out, 'map-timelapse.mp4')
-ff = subprocess.Popen(['ffmpeg', '-y', '-loglevel', 'error', '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-s', f'{W}x{H}', '-r', str(FPS), '-i', '-',
+ff = subprocess.Popen(['ffmpeg', '-y', '-loglevel', 'error', '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-s', f'{OW}x{OH}', '-r', str(FPS), '-i', '-',
                        '-c:v', 'libx264', '-pix_fmt', 'yuv420p', '-crf', '20', out], stdin=subprocess.PIPE)
 
 
@@ -109,22 +114,64 @@ def draw_x(d, p, color):
         d.line([(p[0] - s, p[1] + s), (p[0] + s, p[1] - s)], fill=c, width=w)
 
 
+# Camera (--zoom): centre and width in map-base pixels, easing towards a box around everything
+# seen so far. Without --zoom it is the whole base, 1:1.
+seen = [math.inf, math.inf, -math.inf, -math.inf]
+cam = [W / 2, H / 2, W]
+EASE = 0.06  # fraction of the remaining distance the camera covers per frame
+
+
+def see(x, z):
+    if p := to_px(x, z):
+        seen[:] = [min(seen[0], p[0]), min(seen[1], p[1]), max(seen[2], p[0]), max(seen[3], p[1])]
+
+
+def aim():
+    x0, y0, x1, y1 = seen
+    pad = 0.15 * max(x1 - x0, (y1 - y0) * OW / OH) + 80 * args.zoom
+    w = min(W, max(x1 - x0 + 2 * pad, (y1 - y0 + 2 * pad) * OW / OH, OW))
+    return (x0 + x1) / 2, (y0 + y1) / 2, w
+
+
+def px(x, z):  # world tile -> video pixel
+    p = to_px(x, z)
+    if p is None:
+        return None
+    k = OW / cam[2]
+    return ((p[0] - cam[0]) * k + OW / 2, (p[1] - cam[1]) * k + OH / 2)
+
+
+for T in teams:
+    for n in T['names']:
+        see(*T['tracks'][n][0][1:3])
+if args.zoom:
+    cam[:] = aim()
+
 frame_t = 0.0
 while frame_t <= t_end + 1:
-    layer = Image.new('RGBA', (W, H), (0, 0, 0, 0))
+    layer = Image.new('RGBA', (OW, OH), (0, 0, 0, 0))
     d = ImageDraw.Draw(layer)
     for T in teams:
         for n in T['names']:
             tr = T['tracks'][n]
             while T['cursor'][n] + 1 < len(tr) and tr[T['cursor'][n] + 1][0] <= frame_t:
                 T['cursor'][n] += 1
+                see(*tr[T['cursor'][n]][1:3])
+    if args.zoom:
+        tx, ty, tw = aim()
+        cam[2] = max(cam[2], cam[2] + (tw - cam[2]) * EASE)  # only ever zooms out
+        cam[0] += (tx - cam[0]) * EASE
+        cam[1] += (ty - cam[1]) * EASE
+        ch = cam[2] * OH / OW  # keep the view inside the base
+        cam[0] = min(max(cam[0], cam[2] / 2), W - cam[2] / 2)
+        cam[1] = min(max(cam[1], ch / 2), H - ch / 2)
     for T in teams:  # kill markers and deaths stay on the map
         for k in T['scoring']:
-            if k['t'] <= frame_t and (p := to_px(k['x'], k['z'])):
+            if k['t'] <= frame_t and (p := px(k['x'], k['z'])):
                 draw_diamond(d, p, T['color'])
         for n in T['names']:
             for j in T['deaths'][n]:
-                if T['tracks'][n][j][0] <= frame_t and (p := to_px(*T['tracks'][n][j - 1][1:3])):
+                if T['tracks'][n][j][0] <= frame_t and (p := px(*T['tracks'][n][j - 1][1:3])):
                     draw_x(d, p, T['color'])
     for T in teams:  # fading trails
         for n in T['names']:
@@ -132,7 +179,7 @@ while frame_t <= t_end + 1:
             j = T['cursor'][n]
             while j > 0 and tr[j][0] > frame_t - TRAIL * 1000:
                 a, b = tr[j - 1], tr[j]
-                if j not in dead and a[3] == b[3] and math.dist(a[1:3], b[1:3]) <= JUMP and (pa := to_px(*a[1:3])) and (pb := to_px(*b[1:3])):
+                if j not in dead and a[3] == b[3] and math.dist(a[1:3], b[1:3]) <= JUMP and (pa := px(*a[1:3])) and (pb := px(*b[1:3])):
                     fade = max(0.0, 1 - (frame_t - b[0]) / (TRAIL * 1000))
                     d.line([pa, pb], fill=(0, 0, 0, int(140 * fade)), width=7)
                     d.line([pa, pb], fill=color + (int(255 * fade),), width=4)
@@ -141,7 +188,7 @@ while frame_t <= t_end + 1:
     for T in teams:  # agent dots, labelled "r047 A"
         for n in T['names']:
             cur = T['tracks'][n][T['cursor'][n]]
-            if cur[0] <= frame_t and (p := to_px(*cur[1:3])):
+            if cur[0] <= frame_t and (p := px(*cur[1:3])):
                 if cur[2] >= 6400:  # underground: hollow dot
                     d.ellipse([p[0] - 8, p[1] - 8, p[0] + 8, p[1] + 8], fill=(0, 0, 0, 255), outline=T['shade'][n] + (255,), width=4)
                 else:
@@ -155,7 +202,7 @@ while frame_t <= t_end + 1:
     for T in teams:  # rising labels for recent scoring kills
         for k in T['scoring']:
             age = (frame_t - k['t']) / 1000
-            if 0 <= age < POPUP and (p := to_px(k['x'], k['z'])):
+            if 0 <= age < POPUP and (p := px(k['x'], k['z'])):
                 fade = 1 - max(0.0, age - POPUP * 0.6) / (POPUP * 0.4)
                 y = p[1] - 22 - 30 * age / POPUP
                 while any(abs(p[0] - x) < 160 and abs(y - py) < 24 for x, py in popups):
@@ -179,7 +226,10 @@ while frame_t <= t_end + 1:
         d.text((62, y), f"{T['tag']}", font=small, fill=(255, 255, 255, 255))
         d.text((130, y), f'{score:6.2f}', font=small, fill=(255, 230, 120, 255))
         d.text((230, y), f'{n_dead} death{"" if n_dead == 1 else "s"}', font=small, fill=(200, 200, 200, 255))
-    ff.stdin.write(Image.alpha_composite(base, layer).convert('RGB').tobytes())
+    ch = cam[2] * OH / OW
+    frame = base.resize((OW, OH), Image.BILINEAR, box=(cam[0] - cam[2] / 2, cam[1] - ch / 2, cam[0] + cam[2] / 2, cam[1] + ch / 2))
+    frame.paste(layer, (0, 0), layer)
+    ff.stdin.write(frame.tobytes())
     frame_t += STEP * 1000
 
 ff.stdin.close()
