@@ -4,6 +4,7 @@
 //   bun bench/run.ts --agents 3 --minutes 30
 //   bun bench/run.ts --agents 1 --minutes 5 --backend claude --model haiku   # smoke test
 //   bun bench/run.ts --agents 2 --minutes 30 --mode unique   # score distinct enemies killed instead
+//   bun bench/run.ts --agents 1 --characters 3 --minutes 15 --mode unique   # one agent driving three characters
 //
 // Assumes the engine (with KILL_LEDGER_FILE) is already running; starts its own gateway per run.
 // Each run: fresh bots -> identical start (tutorial skipped, Lumbridge) ->
@@ -57,6 +58,12 @@ function arg(name: string, fallback: string): string {
     return i >= 0 && args[i + 1] ? args[i + 1] : fallback;
 }
 const nAgents = parseInt(arg('agents', '1'));
+/** Characters per agent. Above 1, a single agent controls them all through one MCP server. */
+const characters = parseInt(arg('characters', '1'));
+if (characters > 1 && nAgents !== 1) {
+    console.error('--characters above 1 needs --agents 1 (one agent controls every character)');
+    process.exit(1);
+}
 const minutes = parseFloat(arg('minutes', '30'));
 /** human: a person plays the one account in their own browser (a human baseline); no agents, no model. */
 const backend = arg('backend', 'opencode') as 'opencode' | 'claude' | 'human';
@@ -64,7 +71,7 @@ const human = backend === 'human';
 const model = human ? 'human' : arg('model', backend === 'opencode' ? 'openrouter/deepseek/deepseek-v4.1-flash' : 'haiku');
 const label = arg('label', '');
 const record = args.includes('--record');
-if (human && (nAgents !== 1 || record)) {
+if (human && (nAgents !== 1 || characters !== 1 || record)) {
     console.error('--backend human plays one account (--agents 1) and records positions only (no --record)');
     process.exit(1);
 }
@@ -72,6 +79,10 @@ if (human && (nAgents !== 1 || record)) {
 const mode = arg('mode', 'strongest') as 'strongest' | 'unique';
 if (mode !== 'strongest' && mode !== 'unique') {
     console.error(`--mode must be strongest or unique`);
+    process.exit(1);
+}
+if (characters > 1 && mode !== 'unique') {
+    console.error('--characters above 1 only has a prompt for --mode unique');
     process.exit(1);
 }
 /** Stop all agents once live model spend reaches this many dollars (0 = no cap). */
@@ -105,8 +116,11 @@ const stamp = Date.now().toString(36).slice(-6);
 // Fixed call-sign names, reset every run: the previous run's save and bot folder
 // are archived into its run dir at teardown, so each run starts from a fresh account.
 const CALL_SIGNS = ['Alpha', 'Bravo', 'Charlie', 'Delta', 'Echo', 'Foxtrot', 'Golf', 'Hotel'];
-if (nAgents > CALL_SIGNS.length) throw new Error(`at most ${CALL_SIGNS.length} agents`);
-const team = human ? ['Human'] : CALL_SIGNS.slice(0, nAgents);
+if (nAgents * characters > CALL_SIGNS.length) throw new Error(`at most ${CALL_SIGNS.length} characters`);
+// team: the characters (scored, archived, tracked). agents: the model sessions; with one character
+// each they share its name, otherwise the one agent is "Solo" and controls the whole team.
+const team = human ? ['Human'] : CALL_SIGNS.slice(0, nAgents * characters);
+const agents = characters > 1 ? ['Solo'] : team;
 // Refuse to start without enough OpenRouter credit: when the account runs dry every request fails
 // with a 402, and the agents' relaunch loop would just produce an empty, zero-score run. Both the
 // account balance and the key's own limit count. The key is only sent to OpenRouter.
@@ -134,7 +148,7 @@ writeFileSync(counterFile, String(runNo));
 const runTag = String(runNo).padStart(3, '0');
 const SAVES = join(RS_SDK, 'server', 'engine', 'data', 'players', 'main');
 const saveFile = (name: string) => join(SAVES, `${name.toLowerCase()}.sav`);
-const runDir = join(ROOT, 'runs', `${runId}-r${runTag}-${nAgents}x-${backend}${mode === 'unique' ? '-unique' : ''}${label ? '-' + label : ''}`);
+const runDir = join(ROOT, 'runs', `${runId}-r${runTag}-${nAgents}x${characters > 1 ? characters + 'c' : ''}-${backend}${mode === 'unique' ? '-unique' : ''}${label ? '-' + label : ''}`);
 mkdirSync(runDir, { recursive: true });
 const notesRel = 'bots/_team/notes.md';
 if (strategy) writeFileSync(join(runDir, 'strategy.txt'), strategy + '\n');
@@ -257,7 +271,7 @@ if (nAgents > 1) {
     writeFileSync(join(RS_SDK, notesRel), `# Team notes (${team.join(', ')})\n\n`);
 }
 log(`run ${runDir}`);
-log(`team ${team.join(', ')} | backend ${backend} | model ${model} | ${minutes} min | mode ${mode}`);
+log(`team ${team.join(', ')}${characters > 1 ? ` (all controlled by ${agents[0]})` : ''} | backend ${backend} | model ${model} | ${minutes} min | mode ${mode}`);
 
 // ---------- 2. headless clients + identical start ----------
 async function waitForText(file: string, re: RegExp, timeoutMs: number): Promise<boolean> {
@@ -307,6 +321,7 @@ for (const name of team) {
 if (record) {
     const html = readFileSync(join(import.meta.dir, 'live-template.html'), 'utf-8')
         .replace('{{TEAM_JSON}}', JSON.stringify(team))
+        .replace('{{AGENT_OF_JSON}}', JSON.stringify(Object.fromEntries(team.map(t => [t, characters > 1 ? agents[0] : t]))))
         .replace('{{INTERVAL}}', String(Math.max(1000, parseFloat(frameInterval) * 1000)));
     writeFileSync(join(runDir, 'live.html'), html);
     // Agent feed for the page (agents.js): tails transcripts + team notes, exits after results.json.
@@ -392,7 +407,7 @@ const deadlineMs = startMs + minutes * 60_000;
 const deadlineIso = new Date(deadlineMs).toISOString();
 
 function prompt(name: string): string {
-    if (mode === 'unique') return uniquePrompt(name);
+    if (mode === 'unique') return characters > 1 ? soloPrompt() : uniquePrompt(name);
     const others = team.filter(t => t !== name);
     const teamPart = others.length
         ? `\nYou are on a team of ${team.length}. Teammates (each controlled by another AI agent): ${others.join(', ')}.
@@ -456,8 +471,41 @@ RULES:
 REFERENCES: CLAUDE.md, sdk/API.md, learnings/, wiki/ (wiki/npcs/ lists enemy levels and locations).${strategy ? '\n\n' + strategy : ''}`;
 }
 
+/**
+ * uniquePrompt for one agent controlling the whole team (--characters above 1; soloagentdualboxuniquekills).
+ * Kept line for line as close to uniquePrompt as it can be without misleading: plural bots, no
+ * teammate agents, and no shared notes file or chat line, since there is no one to coordinate with.
+ */
+function soloPrompt(): string {
+    const list = (xs: string[]) => xs.slice(0, -1).join(', ') + ' and ' + xs[xs.length - 1];
+    const quoted = team.map(t => `"${t}"`);
+    return `You control the bots ${list(quoted)} in a 2004-era RuneScape server, through the rs-agent MCP tool execute_code
+(bot_name: ${quoted.slice(0, -1).join(', ')} or ${quoted[quoted.length - 1]}). Each is a fresh level-3 character in Lumbridge, tutorial done.
+
+TEAM: ${list(team)}, ${team.length === 2 ? 'both' : 'all'} controlled by you. They share one score.
+Split the work however you like, and trade or give items and coins between them if useful.
+
+GOAL: kill as many different enemies as possible before the deadline.
+- An enemy is its in-game NPC name: every "Goblin" is one enemy, whatever its level or location.
+- Score = sum, over distinct enemies the team killed, of ln(1 + highest combat level killed).
+  For example, a level 1 enemy is worth 0.69, level 5 is 1.79, level 21 is 3.09, level 82 is 4.42.
+- Repeat kills add nothing, but training on easy enemies is fine.
+- A kill counts for whoever dealt the most damage. The server records kills, but there is no
+  scoreboard: tracking what the team has killed is up to you.
+
+DEADLINE: ${deadlineIso} (${minutes} minutes from now; Date.now() in execute_code gives the time).
+Keep working until then; don't stop to write a summary.
+
+RULES:
+- Control only your own bots, ${list(team)}.
+- Create or edit files only under ${list(team.map(t => `bots/${t}/`))}. Don't read or list anything outside this repository.
+- Don't modify or restart the game server, gateway, SDK or MCP code.
+
+REFERENCES: CLAUDE.md, sdk/API.md, learnings/, wiki/ (wiki/npcs/ lists enemy levels and locations).${strategy ? '\n\n' + strategy : ''}`;
+}
+
 type AgentStats = { name: string; launches: number; costUsd: number; inputTokens: number; cachedTokens: number; outputTokens: number; steps: number };
-const stats: Record<string, AgentStats> = Object.fromEntries(team.map(n => [n, { name: n, launches: 0, costUsd: 0, inputTokens: 0, cachedTokens: 0, outputTokens: 0, steps: 0 }]));
+const stats: Record<string, AgentStats> = Object.fromEntries(agents.map(n => [n, { name: n, launches: 0, costUsd: 0, inputTokens: 0, cachedTokens: 0, outputTokens: 0, steps: 0 }]));
 
 /** Pull the conversation id out of an agent transcript so a relaunch can resume it. */
 function sessionIdFrom(out: string): string | null {
@@ -620,7 +668,7 @@ if (human) {
     log(`TIME'S UP; kills from now on don't count. Log out of the game so the save can be archived.`);
 } else {
     // Stagger launches: simultaneous OpenCode starts collide on its shared database ("database is locked").
-    await Promise.all(team.map(async (name, i) => {
+    await Promise.all(agents.map(async (name, i) => {
         await sleep(i * 3000);
         await agentLoop(name);
     }));
@@ -663,6 +711,8 @@ const runInfo = {
     backend,
     model,
     nAgents,
+    characters,
+    agents,
     minutes,
     team,
     startedAt: new Date(startMs).toISOString(),

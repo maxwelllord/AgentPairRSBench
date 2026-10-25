@@ -28,7 +28,7 @@ function oneLine(s: unknown, max: number): string {
     return String(s ?? '').replace(/\s+/g, ' ').trim().slice(0, max);
 }
 
-type FeedEvent = { t: string; kind: 'think' | 'tool' | 'error'; text: string; ok?: boolean };
+type FeedEvent = { t: string; kind: 'think' | 'tool' | 'error'; text: string; ok?: boolean; bot?: string };
 
 function summarize(path: string): FeedEvent[] {
     const events: FeedEvent[] = [];
@@ -44,7 +44,7 @@ function summarize(path: string): FeedEvent[] {
             const input = s.input ?? {};
             const what = input.code ?? input.command ?? input.filePath ?? input.pattern ?? JSON.stringify(input);
             const result = s.status === 'error' ? s.error : s.output;
-            events.push({ t, kind: 'tool', ok: s.status !== 'error', text: `${e.part.tool}: ${oneLine(what, 160)}  ->  ${oneLine(result, 160)}` });
+            events.push({ t, kind: 'tool', ok: s.status !== 'error', text: `${e.part.tool}: ${oneLine(what, 160)}  ->  ${oneLine(result, 160)}`, bot: input.bot_name });
         } else if (e.type === 'error') {
             events.push({ t, kind: 'error', text: oneLine(e.error?.data?.message ?? e.error?.name, 200) });
         }

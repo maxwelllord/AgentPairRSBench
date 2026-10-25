@@ -67,13 +67,15 @@ figcaption { font-size: .88rem; color: var(--muted); margin-top: .6em; }
 .chart text { font: 12px system-ui, sans-serif; fill: var(--muted); }
 .chart .lbl { fill: var(--ink-2); }
 .chart .lbl.on { fill: var(--ink); font-weight: 600; }
-/* Results chart: means only; a model's runs appear while its mean or legend entry is hovered. */
+/* Results chart: run dots at half strength; a model's spokes appear while its mean or legend entry is hovered. */
 #main-chart text { font-size: 10px; }
 #main-chart .legend { font-size: calc(.85rem - 2px); }
 #main-chart .legend span[data-m] { cursor: default; }
 #main-chart .model { transition: opacity .15s; }
 #main-chart .model.dim { opacity: .25; }
-#main-chart .runs { opacity: 0; transition: opacity .15s; }
+#main-chart .runs { opacity: .5; transition: opacity .15s; }
+#main-chart .runs line { opacity: 0; transition: opacity .15s; }
+#main-chart .model.on .runs line { opacity: 1; }
 #main-chart .model.on .runs { opacity: 1; }
 #main-chart .hits .run-hit { pointer-events: none; }
 #main-chart .hits.on .run-hit { pointer-events: auto; }
@@ -87,6 +89,7 @@ figcaption { font-size: .88rem; color: var(--muted); margin-top: .6em; }
 .legend i { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; vertical-align: -1px; }
 .legend i.line { width: 18px; height: 2px; border-radius: 1px; vertical-align: 3px; }
 .tablewrap { overflow-x: auto; margin: 1em 0; border: 1px solid var(--rule); border-radius: 10px; background: var(--surface); }
+.tablewrap.wide { margin-left: calc(50% - min(550px, 50vw - 16px)); }
 table { border-collapse: collapse; width: 100%; font-size: .9rem; font-variant-numeric: tabular-nums; }
 th, td { padding: 7px 10px; text-align: right; white-space: nowrap; border-bottom: 1px solid var(--rule); }
 th { color: var(--muted); font-weight: 600; font-size: .8rem; }
@@ -99,6 +102,18 @@ tr.mean td { font-weight: 600; color: var(--ink); background: var(--code-bg); }
 /* Diamond marker: a model sharing another's colour (same family), e.g. Kimi K3.1 Pro beside Kimi K3. */
 .dot.diamond, .legend i.diamond { width: 8px; height: 8px; border-radius: 1px; transform: rotate(45deg); }
 .dot.diamond { margin: 0 9px 0 1px; }
+/* Hollow marker: the same model run as one agent controlling both characters (solo). */
+.legend i.hollow { background: none !important; border: 2px solid var(--muted); width: 10px; height: 10px; }
+.legend i.filled { background: var(--muted); }
+.legend .setups { margin-left: auto; display: flex; gap: 18px; }
+.keybar { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 24px; margin: 0 0 14px; }
+/* Only tabs with solo runs use the switch; elsewhere it keeps its space so the key doesn't move. */
+.keybar .setup.off { visibility: hidden; }
+.setup { display: inline-flex; gap: 0; margin: 0; border: 1px solid var(--rule); border-radius: 999px; overflow: hidden; }
+.setup button { font: inherit; font-size: .88rem; cursor: pointer; padding: 4px 14px; border: 0; background: var(--surface); color: var(--ink-2); }
+.setup button + button { border-left: 1px solid var(--rule); }
+.setup button[aria-pressed="true"] { background: var(--ink-2); color: var(--bg); }
+.setup button:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
 details { margin: 1em 0; }
 summary { cursor: pointer; color: var(--accent); font-size: .92rem; }
 video { width: 100%; height: auto; border-radius: 10px; background: #000; display: block; }
@@ -128,7 +143,8 @@ footer { margin-top: 4em; padding-top: 1.2em; border-top: 1px solid var(--rule);
 <p>A bench inspired by Max's <a href="https://maxbittker.github.io/runebench/">RuneBench</a> and <a href="https://github.com/MaxBittker/rs-sdk">rs-sdk</a>.</p>
 
 <h2 id="task">The task</h2>
-<p>2 agents on new characters must team up to kill as many unique enemies as they can within 15 minutes. Tougher enemies are worth more.</p>
+<p>2 agents on new characters must team up to kill as many unique enemies as they can within 15 minutes. Tougher enemies are worth more.
+  Some models also ran solo: one agent controlling both characters.</p>
 <p class="formula">score = Σ ln(1 + level)</p>
 <p>A level-2 Goblin is worth 1.10 and a level-5 Goblin 1.79, the stronger killed later adds the difference. Scoring by natural log rewards exploration: ten different easy monsters beat
 one hard one. Repeat kills are worth zero.</p>
@@ -146,12 +162,16 @@ one hard one. Repeat kills are worth zero.</p>
       <button role="tab" id="tab-haiku" aria-controls="panel-haiku" aria-selected="false" tabindex="-1">Haiku 5.5</button>
       <button role="tab" id="tab-glm" aria-controls="panel-glm" aria-selected="false" tabindex="-1">GLM-5.3 Flash</button>
     </div>
+  </div>
+  <div class="keybar">
+    <div class="setup" role="group" aria-label="Setup"><button type="button" data-setup="pair" aria-pressed="true">Two agents</button><button type="button" data-setup="solo" aria-pressed="false">Single agent multibox (solo)</button></div>
     <div class="mapkey">
       <span><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M6 1 11 6 6 11 1 6Z"/></svg>Scored kill</span>
       <span><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2 2 10 10M10 2 2 10" fill="none" stroke-width="2.2" stroke-linecap="round"/></svg>Agent death</span>
     </div>
   </div>
   <div role="tabpanel" id="panel-sol" aria-labelledby="tab-sol">
+    <div data-setup-panel="pair">
     <figure>
       <video controls muted playsinline preload="metadata" poster="media/sol-poster.jpg" src="media/sol-timelapse.mp4"></video>
       <figcaption>Sol teams cover a lot of ground, getting as far as the Frozen Plateau, White Wolf mountain, Taverly Dungeon and Varrock Sewers.</figcaption>
@@ -173,6 +193,27 @@ one hard one. Repeat kills are worth zero.</p>
       <dt>r055 Bravo</dt>
       <dd>Got stuck at Port Sarim for a while trying to kill the jailed enemies it couldn't reach, then picked cabbages and ate them.</dd>
     </dl>
+    </div>
+    <div data-setup-panel="solo" hidden>
+    <figure>
+      <video controls muted playsinline preload="none" poster="media/sol-solo-poster.jpg" src="media/sol-solo-timelapse.mp4"></video>
+      <figcaption>Solo Sol ranges as widely as the two-agent teams: into the Wilderness, to White Wolf
+        Mountain and, in r081, as far west as Ardougne.</figcaption>
+    </figure>
+    <h3>Run notes</h3>
+    <dl class="runs">
+      <dt>Both characters, every turn</dt>
+      <dd>In all 91 of its game turns across the three runs, Sol sent a call to each character at once.</dd>
+      <dt>Half the cost</dt>
+      <dd>The solo runs cost $0.61–0.69 each, against $1.42–1.80 for the two-agent runs.</dd>
+      <dt>r083</dt>
+      <dd>46 enemy types, the most of any run, with both characters scoring widely (Alpha 25 types, Bravo 27, six of
+        them killed by both).
+        Bravo bought nine kebabs in Al Kharid with its starting coins, then killed a level-19 Ghost.</dd>
+      <dt>r081 Bravo</dt>
+      <dd>Walked all the way to Ardougne to steal cakes, died to a guard.</dd>
+    </dl>
+    </div>
   </div>
   <div role="tabpanel" id="panel-kimi31" aria-labelledby="tab-kimi31" hidden>
     <figure>
@@ -193,6 +234,7 @@ one hard one. Repeat kills are worth zero.</p>
     </dl>
   </div>
   <div role="tabpanel" id="panel-deepseek" aria-labelledby="tab-deepseek" hidden>
+    <div data-setup-panel="pair">
     <figure>
       <video controls muted playsinline preload="metadata" poster="media/deepseek-poster.jpg" src="media/deepseek-timelapse.mp4"></video>
       <figcaption>DeepSeek teams mostly work the area between
@@ -205,6 +247,23 @@ one hard one. Repeat kills are worth zero.</p>
       <dt>r049 Alpha</dt>
       <dd>Signed off with "Gg" just before time ran out.</dd>
     </dl>
+    </div>
+    <div data-setup-panel="solo" hidden>
+    <figure>
+      <video controls muted playsinline preload="none" poster="media/deepseek-solo-poster.jpg" src="media/deepseek-solo-timelapse.mp4"></video>
+      <figcaption>Solo DeepSeek mostly works around Lumbridge, Draynor and Varrock;
+        in r080 both characters also go north into the Wilderness.</figcaption>
+    </figure>
+    <h3>Run notes</h3>
+    <dl class="runs">
+      <dt>One at a time</dt>
+      <dd>DeepSeek sent calls to both characters in 42 of its 68 game turns. In the rest it drove one character while the
+        other stood idle.</dd>
+      <dt>r080 in the Wilderness</dt>
+      <dd>Alpha killed a level-28 Hobgoblin and two Zombies (levels 18 and 24) there, the run's highest and third-highest
+        enemies. Four of the run's 13 deaths were in the Wilderness, two for each character.</dd>
+    </dl>
+    </div>
   </div>
   <div role="tabpanel" id="panel-hy4" aria-labelledby="tab-hy4" hidden>
     <figure>
@@ -214,7 +273,7 @@ one hard one. Repeat kills are worth zero.</p>
     <h3>Run notes</h3>
     <dl class="runs">
       <dt>Spiky performance</dt>
-      <dd>In r071 agent Alpha solo score was better than the team score for r070 and r072.</dd>
+      <dd>In r071 agent Alpha's own score was better than the team score for r070 and r072.</dd>
       <dt>Bookkeeping, Strategy and Coordination</dt>
       <dd>All teams kept notes including a running scoreboard with each kill's value and who got it, a list of enemies still
         wanted, and warnings for the partner ("Jail guard (26) and Witch (25) kill a 15-combat bronze-geared char. Bring
@@ -307,12 +366,19 @@ one hard one. Repeat kills are worth zero.</p>
     world state that comes back.</li>
 </ul>
 
+<h2 id="stumbling">Common stumbling blocks</h2>
+<ul>
+  <li><strong>Enemies in fenced off areas</strong> sometimes these are completely inaccessible, sometimes they required Ranged/Magic to hit</li>
+  <li><strong>Non-attackable NPCs</strong> that share names with attackable NPCs (e.g. Monk)</li>
+  <li><strong>Dark wizards</strong> and other powerful enemies</li>
+</ul>
+
 <h2 id="limits">Limitations</h2>
 <ul>
   <li><strong>Small samples.</strong> The <a href="#appendix">screening runs</a> are one run per model, and in the <a href="#results">main results</a> three runs of the same team ranged from
     86 to 113 (Sol), 19 to 38 (DeepSeek), 14 to 41 (HY4 Preview), 19 to 28 (Kimi K3), 12 to 24 (Qwen), 9 to 18 (Haiku) and 11 to 13 (GLM-5.3 Flash).
-    Kimi K3.1 Pro has a single run.</li>
-  <li><strong>One harness.</strong> Every model played through OpenCode with the same prompt and tools. Some models may do
+    Solo ranged from 73 to 109 (Sol) and 23 to 44 (DeepSeek). Kimi K3.1 Pro has a single run.</li>
+  <li><strong>One harness.</strong> Every model played through OpenCode with the same prompt (adapted for solo) and tools. Some models may do
     much better with a harness built for them.</li>
   <li><strong>The screening runs aren't directly comparable with the main results.</strong> The patches and prompt changed in between.</li>
   <li><strong>Cost depends on routing.</strong> OpenRouter picks a provider per request, and prices differ between them.</li>
@@ -322,30 +388,29 @@ one hard one. Repeat kills are worth zero.</p>
 <h2 id="results">Results</h2>
 <figure class="wide">
   <div class="chart" id="main-chart">
-    <div class="legend"><span data-m="GPT-6.1 Sol"><i style="background:var(--m-sol)"></i>GPT-6.1 Sol</span><span data-m="Kimi K3.1 Pro"><i class="diamond" style="background:var(--m-kimi)"></i>Kimi K3.1 Pro (1 run)</span><span data-m="DeepSeek V4.1 Flash"><i style="background:var(--m-deepseek)"></i>DeepSeek V4.1 Flash</span><span data-m="HY4 Preview"><i style="background:var(--m-hy4)"></i>HY4 Preview</span><span data-m="Kimi K3"><i style="background:var(--m-kimi)"></i>Kimi K3</span><span data-m="Qwen3.8 Flash"><i style="background:var(--m-qwen)"></i>Qwen3.8 Flash</span><span data-m="Haiku 5.5"><i style="background:var(--m-haiku)"></i>Haiku 5.5</span><span data-m="GLM-5.3 Flash"><i style="background:var(--m-glm)"></i>GLM-5.3 Flash</span></div>
-    <div class="scroll"><svg viewBox="0 0 900 400" role="img" aria-label="Score against cost per run for GPT-6.1 Sol, Kimi K3.1 Pro, DeepSeek V4.1 Flash, HY4 Preview, Kimi K3, Qwen3.8 Flash, Haiku 5.5 and GLM-5.3 Flash, three runs each except Kimi K3.1 Pro's one"></svg></div>
+    <div class="legend"><span data-m="GPT-6.1 Sol"><i style="background:var(--m-sol)"></i>GPT-6.1 Sol</span><span data-m="Kimi K3.1 Pro"><i class="diamond" style="background:var(--m-kimi)"></i>Kimi K3.1 Pro (1 run)</span><span data-m="DeepSeek V4.1 Flash"><i style="background:var(--m-deepseek)"></i>DeepSeek V4.1 Flash</span><span data-m="HY4 Preview"><i style="background:var(--m-hy4)"></i>HY4 Preview</span><span data-m="Kimi K3"><i style="background:var(--m-kimi)"></i>Kimi K3</span><span data-m="Qwen3.8 Flash"><i style="background:var(--m-qwen)"></i>Qwen3.8 Flash</span><span data-m="Haiku 5.5"><i style="background:var(--m-haiku)"></i>Haiku 5.5</span><span data-m="GLM-5.3 Flash"><i style="background:var(--m-glm)"></i>GLM-5.3 Flash</span><span class="setups"><span><i class="filled"></i>Two agents</span><span><i class="hollow"></i>Solo</span></span></div>
+    <div class="scroll"><svg viewBox="0 0 900 400" role="img" aria-label="Score against cost per run for GPT-6.1 Sol, Kimi K3.1 Pro, DeepSeek V4.1 Flash, HY4 Preview, Kimi K3, Qwen3.8 Flash, Haiku 5.5 and GLM-5.3 Flash, three runs each except Kimi K3.1 Pro's one, with GPT-6.1 Sol and DeepSeek V4.1 Flash also run solo"></svg></div>
     <div class="tip"></div>
   </div>
-  <figcaption>Each dot is a model's mean of three runs, except Kimi K3.1 Pro's diamond, which is one run. Cost is on a log scale. Hover a dot or a legend entry to show
-    that model's runs; every run is also in the table below.</figcaption>
+  <figcaption>Hover for details</figcaption>
 </figure>
-<div class="tablewrap">
+<div class="tablewrap wide">
   <table class="summary">
-    <thead><tr><th>Model</th><th>Score</th><th>Runs</th><th>Cost / run</th><th>Enemy types</th><th>Deaths / run</th></tr></thead>
+    <thead><tr><th>Model</th><th>Score</th><th>Runs</th><th>Cost / run</th><th>Enemy types</th><th>Deaths / run</th><th>Solo score</th><th>Solo cost / run</th></tr></thead>
     <tbody>
-      <tr><td><span class="dot" style="--c:var(--m-sol)"></span>GPT-6.1 Sol</td><td>97.75 ± 14.0</td><td class="dim">113.25 · 93.91 · 86.10</td><td>$1.56</td><td>40</td><td>14.0</td></tr>
-      <tr><td><span class="dot diamond" style="--c:var(--m-kimi)"></span>Kimi K3.1 Pro</td><td>47.61</td><td class="dim">47.61 (1 run)</td><td>$2.26</td><td>24</td><td>8.0</td></tr>
-      <tr><td><span class="dot" style="--c:var(--m-deepseek)"></span>DeepSeek V4.1 Flash</td><td>31.35 ± 10.6</td><td class="dim">19.11 · 36.66 · 38.28</td><td>$0.13</td><td>20</td><td>10.3</td></tr>
-      <tr><td><span class="dot" style="--c:var(--m-hy4)"></span>HY4 Preview</td><td>26.17 ± 13.4</td><td class="dim">14.08 · 40.62 · 23.80</td><td>$0.45</td><td>17</td><td>6.7</td></tr>
-      <tr><td><span class="dot" style="--c:var(--m-kimi)"></span>Kimi K3</td><td>23.29 ± 4.5</td><td class="dim">22.54 · 28.11 · 19.21</td><td>$2.45</td><td>15</td><td>9.7</td></tr>
-      <tr><td><span class="dot" style="--c:var(--m-qwen)"></span>Qwen3.8 Flash</td><td>18.67 ± 6.0</td><td class="dim">20.35 · 23.66 · 12.00</td><td>$0.10</td><td>14</td><td>5.0</td></tr>
-      <tr><td><span class="dot" style="--c:var(--m-haiku)"></span>Haiku 5.5</td><td>12.76 ± 4.6</td><td class="dim">17.84 · 11.60 · 8.83</td><td>$0.08</td><td>10</td><td>11.0</td></tr>
-      <tr><td><span class="dot" style="--c:var(--m-glm)"></span>GLM-5.3 Flash</td><td>11.78 ± 0.9</td><td class="dim">11.73 · 10.90 · 12.70</td><td>$0.07</td><td>10</td><td>3.7</td></tr>
+      <tr><td><span class="dot" style="--c:var(--m-sol)"></span>GPT-6.1 Sol</td><td>97.75 ± 14.0</td><td class="dim">113.25 · 93.91 · 86.10</td><td>$1.56</td><td>40</td><td>14.0</td><td>88.42 ± 18.4</td><td>$0.66</td></tr>
+      <tr><td><span class="dot diamond" style="--c:var(--m-kimi)"></span>Kimi K3.1 Pro</td><td>47.61</td><td class="dim">47.61 (1 run)</td><td>$2.26</td><td>24</td><td>8.0</td><td class="dim">–</td><td class="dim">–</td></tr>
+      <tr><td><span class="dot" style="--c:var(--m-deepseek)"></span>DeepSeek V4.1 Flash</td><td>31.35 ± 10.6</td><td class="dim">19.11 · 36.66 · 38.28</td><td>$0.13</td><td>20</td><td>10.3</td><td>30.19 ± 12.2</td><td>$0.06</td></tr>
+      <tr><td><span class="dot" style="--c:var(--m-hy4)"></span>HY4 Preview</td><td>26.17 ± 13.4</td><td class="dim">14.08 · 40.62 · 23.80</td><td>$0.45</td><td>17</td><td>6.7</td><td class="dim">–</td><td class="dim">–</td></tr>
+      <tr><td><span class="dot" style="--c:var(--m-kimi)"></span>Kimi K3</td><td>23.29 ± 4.5</td><td class="dim">22.54 · 28.11 · 19.21</td><td>$2.45</td><td>15</td><td>9.7</td><td class="dim">–</td><td class="dim">–</td></tr>
+      <tr><td><span class="dot" style="--c:var(--m-qwen)"></span>Qwen3.8 Flash</td><td>18.67 ± 6.0</td><td class="dim">20.35 · 23.66 · 12.00</td><td>$0.10</td><td>14</td><td>5.0</td><td class="dim">–</td><td class="dim">–</td></tr>
+      <tr><td><span class="dot" style="--c:var(--m-haiku)"></span>Haiku 5.5</td><td>12.76 ± 4.6</td><td class="dim">17.84 · 11.60 · 8.83</td><td>$0.08</td><td>10</td><td>11.0</td><td class="dim">–</td><td class="dim">–</td></tr>
+      <tr><td><span class="dot" style="--c:var(--m-glm)"></span>GLM-5.3 Flash</td><td>11.78 ± 0.9</td><td class="dim">11.73 · 10.90 · 12.70</td><td>$0.07</td><td>10</td><td>3.7</td><td class="dim">–</td><td class="dim">–</td></tr>
     </tbody>
   </table>
 </div>
 <details>
-  <summary>Table: all 22 runs</summary>
+  <summary>Table: all 28 runs</summary>
   <div class="tablewrap">
     <table>
       <thead><tr><th>Model</th><th>Run</th><th>Score</th><th>Cost</th><th>Enemy types</th><th>Deaths (A + B)</th></tr></thead>
@@ -353,10 +418,16 @@ one hard one. Repeat kills are worth zero.</p>
         <tr><td>GPT-6.1 Sol</td><td class="dim">r053</td><td>113.25</td><td>$1.48</td><td>44</td><td>5 + 8</td></tr>
         <tr><td>GPT-6.1 Sol</td><td class="dim">r054</td><td>93.91</td><td>$1.42</td><td>39</td><td>8 + 7</td></tr>
         <tr><td>GPT-6.1 Sol</td><td class="dim">r055</td><td>86.10</td><td>$1.80</td><td>37</td><td>7 + 7</td></tr>
+        <tr><td>GPT-6.1 Sol · solo</td><td class="dim">r081</td><td>72.93</td><td>$0.61</td><td>33</td><td>6 + 6</td></tr>
+        <tr><td>GPT-6.1 Sol · solo</td><td class="dim">r082</td><td>83.56</td><td>$0.69</td><td>36</td><td>4 + 6</td></tr>
+        <tr><td>GPT-6.1 Sol · solo</td><td class="dim">r083</td><td>108.77</td><td>$0.67</td><td>46</td><td>5 + 7</td></tr>
         <tr><td>Kimi K3.1 Pro</td><td class="dim">r076</td><td>47.61</td><td>$2.26</td><td>24</td><td>1 + 7</td></tr>
         <tr><td>DeepSeek V4.1 Flash</td><td class="dim">r047</td><td>19.11</td><td>$0.14</td><td>15</td><td>4 + 5</td></tr>
         <tr><td>DeepSeek V4.1 Flash</td><td class="dim">r048</td><td>36.66</td><td>$0.15</td><td>21</td><td>4 + 7</td></tr>
         <tr><td>DeepSeek V4.1 Flash</td><td class="dim">r049</td><td>38.28</td><td>$0.10</td><td>23</td><td>3 + 8</td></tr>
+        <tr><td>DeepSeek V4.1 Flash · solo</td><td class="dim">r078</td><td>23.40</td><td>$0.07</td><td>16</td><td>5 + 6</td></tr>
+        <tr><td>DeepSeek V4.1 Flash · solo</td><td class="dim">r079</td><td>22.87</td><td>$0.06</td><td>16</td><td>2 + 5</td></tr>
+        <tr><td>DeepSeek V4.1 Flash · solo</td><td class="dim">r080</td><td>44.31</td><td>$0.06</td><td>22</td><td>8 + 5</td></tr>
         <tr><td>HY4 Preview</td><td class="dim">r070</td><td>14.08</td><td>$0.32</td><td>12</td><td>3 + 2</td></tr>
         <tr><td>HY4 Preview</td><td class="dim">r071</td><td>40.62</td><td>$0.58</td><td>23</td><td>5 + 3</td></tr>
         <tr><td>HY4 Preview</td><td class="dim">r072</td><td>23.80</td><td>$0.46</td><td>17</td><td>2 + 5</td></tr>
@@ -377,6 +448,7 @@ one hard one. Repeat kills are worth zero.</p>
   </div>
 </details>
 <p class="note">Score is the mean of three runs; ± is the sample standard deviation. Kimi K3.1 Pro has one run, so no ±.
+  Solo runs are never pooled with the two-agent runs.
   Kimi costs are the actual OpenRouter charges; the rest are token counts at list prices.</p>
 
 <h2 id="changes">Changes from rs-sdk and rs-bench</h2>
@@ -447,7 +519,7 @@ DeepSeek's only 8% above its screening score (29.0).</p>
       t.setAttribute('aria-selected', on);
       t.tabIndex = on ? 0 : -1;
       panel.hidden = !on;
-      if (!on) panel.querySelector('video')?.pause();
+      if (!on) panel.querySelectorAll('video').forEach(v => v.pause());
     }
   }
   tabs.forEach((t, i) => {
@@ -461,6 +533,26 @@ DeepSeek's only 8% above its screening score (29.0).</p>
     });
   });
 })();
+
+// Setup switch (two agents or one agent for both characters), shared by the tabs that have solo runs.
+const setupGroup = document.querySelector('.keybar .setup'), setupButtons = [...setupGroup.querySelectorAll('button')];
+let setup = 'pair';
+function applySetup() {
+  const panel = document.querySelector('.videos [role="tabpanel"]:not([hidden])'), parts = panel.querySelectorAll('[data-setup-panel]');
+  setupGroup.classList.toggle('off', !parts.length);
+  for (const p of parts) {
+    p.hidden = p.dataset.setupPanel !== setup;
+    if (p.hidden) p.querySelectorAll('video').forEach(v => v.pause());
+  }
+}
+for (const b of setupButtons) b.addEventListener('click', () => {
+  setup = b.dataset.setup;
+  for (const o of setupButtons) o.setAttribute('aria-pressed', o === b);
+  applySetup();
+});
+document.querySelectorAll('.tabs [role="tab"]').forEach(t => t.addEventListener('click', applySetup));
+document.querySelectorAll('.tabs [role="tab"]').forEach(t => t.addEventListener('keydown', () => setTimeout(applySetup)));
+applySetup();
 
 // Round 1: [model, run, cost $, score, enemy types, thinking share, median s/turn, game calls/min, cost range]
 const R1 = [
@@ -503,11 +595,16 @@ for (const [m, run, cost, score, en, share, spt, cpm, rng] of R1) {
     'Haiku 5.5': [['r060', 0.0618, 17.84, 13], ['r061', 0.1532, 11.60, 10], ['r062', 0.0248, 8.83, 7]],
     'GLM-5.3 Flash': [['r067', 0.0543, 11.73, 10], ['r068', 0.1336, 10.90, 10], ['r069', 0.0323, 12.70, 11]],
   };
+  // The same models with one agent controlling both characters (solo), drawn hollow and joined to the pair mean.
+  const SOLO = {
+    'GPT-6.1 Sol': [['r081', 0.6081, 72.93, 33], ['r082', 0.6911, 83.56, 36], ['r083', 0.6746, 108.77, 46]],
+    'DeepSeek V4.1 Flash': [['r078', 0.0673, 23.40, 16], ['r079', 0.0639, 22.87, 16], ['r080', 0.0560, 44.31, 22]],
+  };
   const COLOR = { 'GPT-6.1 Sol': 'var(--m-sol)', 'DeepSeek V4.1 Flash': 'var(--m-deepseek)', 'Qwen3.8 Flash': 'var(--m-qwen)', 'Haiku 5.5': 'var(--m-haiku)', 'GLM-5.3 Flash': 'var(--m-glm)', 'HY4 Preview': 'var(--m-hy4)', 'Kimi K3': 'var(--m-kimi)', 'Kimi K3.1 Pro': 'var(--m-kimi)' };
   // Models sharing a colour with their family get a diamond instead of a circle.
   const DIAMOND = new Set(['Kimi K3.1 Pro']);
   // Label offsets [dx, dy, anchor] for the means.
-  const off = { 'GPT-6.1 Sol': [-12, 4, 'end'], 'DeepSeek V4.1 Flash': [12, 4, 'start'], 'Qwen3.8 Flash': [12, 4, 'start'], 'Haiku 5.5': [4, -13, 'middle'], 'GLM-5.3 Flash': [-4, 22, 'middle'], 'HY4 Preview': [12, 4, 'start'], 'Kimi K3': [-12, 4, 'end'], 'Kimi K3.1 Pro': [-13, 4, 'end'] };
+  const off = { 'GPT-6.1 Sol': [12, 4, 'start'], 'DeepSeek V4.1 Flash': [12, 4, 'start'], 'Qwen3.8 Flash': [12, 4, 'start'], 'Haiku 5.5': [4, -13, 'middle'], 'GLM-5.3 Flash': [-4, 22, 'middle'], 'HY4 Preview': [12, 4, 'start'], 'Kimi K3': [-12, 4, 'end'], 'Kimi K3.1 Pro': [-13, 4, 'end'] };
   const box = document.getElementById('main-chart'), svg = box.querySelector('svg'), tip = box.querySelector('.tip');
   const W = 900, H = 400, L = 56, R = 24, T = 16, B = 46;
   const x0 = Math.log(0.02), x1 = Math.log(3.5), yMax = 120;
@@ -545,7 +642,7 @@ for (const [m, run, cost, score, en, share, spt, cpm, rng] of R1) {
   const hideTip = () => { tip.style.opacity = 0; };
 
   // One group of marks per model (spokes and runs hidden until active), then a layer of hit targets on top.
-  const groups = {}, hitLayers = {}, centres = {};
+  const groups = {}, hitLayers = {}, centres = {}, soloCentres = {};
   for (const [m, runs] of Object.entries(RUNS)) {
     const avg = i => runs.reduce((a, r) => a + r[i], 0) / runs.length;
     const [cost, score, en] = [avg(1), avg(2), avg(3)], cx = X(cost), cy = Y(score);
@@ -561,6 +658,18 @@ for (const [m, run, cost, score, en, share, spt, cpm, rng] of R1) {
     mark(grp, cx, cy, 7, 2);
     const [dx, dy, anchor] = off[m];
     add(grp, 'text', { x: cx + dx, y: cy + dy, 'text-anchor': anchor, class: 'lbl on', stroke: 'var(--surface)', 'stroke-width': 4, 'paint-order': 'stroke' }).textContent = m;
+    const solo = SOLO[m];
+    if (!solo) continue;
+    const savg = i => solo.reduce((a, r) => a + r[i], 0) / solo.length;
+    const [scost, sscore, sen] = [savg(1), savg(2), savg(3)], sx = X(scost), sy = Y(sscore);
+    soloCentres[m] = [sx, sy, scost, sscore, sen];
+    // Pair mean -> solo mean, under the marks.
+    grp.insertBefore(add(grp, 'line', { x1: cx, y1: cy, x2: sx, y2: sy, stroke: COLOR[m], 'stroke-width': 2, 'stroke-opacity': .7 }), grp.firstChild);
+    for (const [, rc, rs] of solo) {
+      add(rg, 'line', { x1: sx, y1: sy, x2: X(rc), y2: Y(rs), stroke: COLOR[m], 'stroke-opacity': .45, 'stroke-width': 1.5, 'stroke-dasharray': '3 3' });
+      add(rg, 'circle', { cx: X(rc), cy: Y(rs), r: 4, fill: 'var(--surface)', stroke: COLOR[m], 'stroke-width': 2 });
+    }
+    add(grp, 'circle', { cx: sx, cy: sy, r: 6, fill: 'var(--surface)', stroke: COLOR[m], 'stroke-width': 3 });
   }
 
   let active = null, timer = 0;
@@ -580,14 +689,16 @@ for (const [m, run, cost, score, en, share, spt, cpm, rng] of R1) {
   for (const [m, runs] of Object.entries(RUNS)) {
     const [cx, cy] = centres[m];
     const hl = hitLayers[m] = g(svg, { class: 'hits' });
-    for (const [run, rc, rs, en] of runs.length > 1 ? runs : []) {
+    const spokes = (runs.length > 1 ? runs : []).map(r => [r, cx, cy, ''])
+      .concat((SOLO[m] ?? []).map(r => [r, soloCentres[m][0], soloCentres[m][1], ' · solo']));
+    for (const [[run, rc, rs, en], cx, cy, setup] of spokes) {
       const spoke = add(hl, 'line', { class: 'run-hit', x1: cx, y1: cy, x2: X(rc), y2: Y(rs), stroke: 'transparent', 'stroke-width': 18 });
       const hit = add(hl, 'circle', { class: 'run-hit', cx: X(rc), cy: Y(rs), r: 10, fill: 'transparent' });
       for (const e of [spoke, hit]) {
         e.addEventListener('pointerenter', () => setActive(m));
         e.addEventListener('pointerleave', release);
       }
-      const show = () => { setActive(m); showTip(X(rc), Y(rs), `<b>${m}</b> · ${run}<br>Score ${rs.toFixed(2)} · ${usd(rc)}<br>${en} enemy types`); };
+      const show = () => { setActive(m); showTip(X(rc), Y(rs), `<b>${m}</b>${setup} · ${run}<br>Score ${rs.toFixed(2)} · ${usd(rc)}<br>${en} enemy types`); };
       hit.addEventListener('pointerenter', show);
       hit.addEventListener('pointerleave', hideTip);
     }
@@ -598,6 +709,11 @@ for (const [m, run, cost, score, en, share, spt, cpm, rng] of R1) {
   for (const [m, [cx, cy, cost, score, en]] of Object.entries(centres)) {
     const hit = add(meanHits, 'circle', { cx, cy, r: 12, fill: 'transparent' });
     hit.addEventListener('pointerenter', () => { setActive(m); showTip(cx, cy, `<b>${m}</b> · ${RUNS[m].length > 1 ? `mean of ${RUNS[m].length} runs` : `1 run (${RUNS[m][0][0]})`}<br>Score ${score.toFixed(2)} · ${usd(cost)}<br>${Math.round(en)} enemy types`); });
+    hit.addEventListener('pointerleave', () => { hideTip(); release(); });
+  }
+  for (const [m, [cx, cy, cost, score, en]] of Object.entries(soloCentres)) {
+    const hit = add(meanHits, 'circle', { cx, cy, r: 12, fill: 'transparent' });
+    hit.addEventListener('pointerenter', () => { setActive(m); showTip(cx, cy, `<b>${m}</b> · solo · mean of ${SOLO[m].length} runs<br>Score ${score.toFixed(2)} · ${usd(cost)}<br>${Math.round(en)} enemy types`); });
     hit.addEventListener('pointerleave', () => { hideTip(); release(); });
   }
   for (const span of box.querySelectorAll('.legend span[data-m]')) {

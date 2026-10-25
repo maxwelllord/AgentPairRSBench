@@ -55,7 +55,11 @@ bun bench/run.ts --agents 2 --minutes 30 --mode unique --record   # distinct-ene
 bun bench/run.ts --agents 1 --minutes 5 --record    # browser client + screenshots, live.html, timelapse mp4
 bun bench/run.ts --agents 1 --minutes 4 --backend claude --model haiku --label smoke
 bun bench/score.ts runs/<runDir>                    # rescore a finished run
+bun bench/run.ts --agents 1 --characters 2 --minutes 15 --mode unique --record   # one agent ("Solo") drives Alpha and Bravo
 ```
+
+`--characters N` gives a single agent N characters through one MCP server (unique mode only); see
+"Variant: soloagentdualboxuniquekills" in [`PROTOCOL.md`](PROTOCOL.md).
 
 `--strategy <file>` appends a human-written plan to every agent's prompt and copies it into the run
 dir as `strategy.txt`. To make one on the world map, run `bun bench/strategy-editor/server.ts` and open

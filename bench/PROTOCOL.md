@@ -184,6 +184,33 @@ To reset an account by hand (for example a human-baseline account):
 3. Archive and delete its row in `rs-sdk/server/engine/data/market.sqlite` (table `accounts`, owner
    lowercase). Check `offers` too.
 
+## Variant: soloagentdualboxuniquekills
+
+**soloagentdualboxuniquekills** is the same bench with **one agent controlling both characters** instead of
+one agent each. Everything under "Fixed conditions" applies unchanged except the team and the prompt:
+
+- **Team:** one OpenCode session (`Solo`, transcripts `agent-Solo-<n>.jsonl`) drives Alpha and Bravo through one
+  MCP server, choosing the bot per `execute_code` call. Calls to different bots run at the same time, and
+  the agent's next turn waits for all of them.
+- **Prompt:** `soloPrompt()` in `bench/run.ts`. It is `uniquePrompt()` line for line, changed only where the
+  pair wording would mislead: plural bots, "both controlled by you", and no shared notes file or chat line,
+  since there is no one to coordinate with. It doesn't explain how parallel calls behave; don't add hints.
+- **Run labels:** `<slug>-solo2`, using the same slugs as the clean series. Never mix these runs into the
+  clean series' tables or means.
+- **Models:** only models with three clean-series runs, with their unchanged OpenCode config and routing, so
+  each model has a pair-vs-solo comparison. Three runs each.
+
+```sh
+bun bench/run.ts --agents 1 --characters 2 --minutes 15 --mode unique --model openrouter/<id> --record --budget <usd> --label <slug>-solo2
+```
+
+A solo run costs about 40–50% of a pair run (Sol ~$0.65), so `--budget` can be set from the solo costs: Sol
+solo used $1.50 (r082–r083; r081 used $3). Valid runs, numbers, deaths and timelapses work as in the clean series. A stalled or timed-out request
+idles both characters; that is part of the condition, not grounds for exclusion. `results.json` has
+`characters: 2` and `agents: ["Solo"]`, and its per-agent cost and timing cover both characters.
+
+r077 (`smoke-solo3`, 3 characters, 4 minutes) was the harness smoke test and belongs to no series.
+
 ## Never
 
 - Print the OpenRouter key, put it under `E:\runebench`, or put it in agent environment variables.

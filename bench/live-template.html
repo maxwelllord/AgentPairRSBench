@@ -35,6 +35,8 @@
 </div>
 <script>
 const TEAM = {{TEAM_JSON}};
+// character -> the agent controlling it (itself, unless one agent runs the whole team)
+const AGENT_OF = {{AGENT_OF_JSON}};
 const INTERVAL = {{INTERVAL}};
 const bots = document.getElementById('bots');
 for (const n of TEAM) {
@@ -55,14 +57,16 @@ function renderAgents() {
   const A = window.AGENTS;
   if (!A) return;
   for (const n of TEAM) {
-    const a = A.agents[n];
+    const a = A.agents[AGENT_OF[n] ?? n];
+    // A shared agent's feed: its thinking, plus only the game calls made for this character.
+    const own = e => (AGENT_OF[n] ?? n) === n || e.kind !== 'tool' || !e.bot || e.bot.toLowerCase() === n.toLowerCase();
     const feed = document.getElementById('feed-' + n);
     const meta = document.getElementById('meta-' + n);
     if (!a) { meta.textContent = 'not started'; continue; }
     meta.textContent = 'launch #' + a.launch + ' · last output ' + a.idleSec + 's ago';
     meta.className = 'meta' + (a.idleSec > 120 ? ' stale' : '');
     const atBottom = feed.scrollHeight - feed.scrollTop - feed.clientHeight < 30;
-    feed.replaceChildren(...a.events.map(e => {
+    feed.replaceChildren(...a.events.filter(own).map(e => {
       const row = document.createElement('div');
       row.className = 'ev ' + e.kind + (e.kind === 'tool' && e.ok === false ? ' fail' : '');
       const t = document.createElement('span');

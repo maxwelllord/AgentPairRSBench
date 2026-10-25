@@ -1,0 +1,184 @@
+{
+  "runDir": "E:\\runebench\\runs\\20261024-220730-r077-1x3c-opencode-unique-smoke-solo3",
+  "mode": "unique",
+  "backend": "opencode",
+  "model": "openrouter/deepseek/deepseek-v4.1-flash",
+  "nAgents": 1,
+  "characters": 3,
+  "agents": [
+    {
+      "name": "Solo",
+      "launches": 1,
+      "costUsd": 0.008798292,
+      "inputTokens": 29758,
+      "cachedTokens": 78464,
+      "outputTokens": 6832,
+      "steps": 5
+    }
+  ],
+  "minutes": 4,
+  "team": [
+    "Alpha",
+    "Bravo",
+    "Charlie"
+  ],
+  "startedAt": "2026-10-24T22:08:29.711Z",
+  "endedAt": "2026-10-24T22:12:29.711Z",
+  "score": 4.836281906951478,
+  "levelSum": 11,
+  "enemies": [
+    {
+      "name": "Giant rat",
+      "level": 6,
+      "value": 1.9459101490553132,
+      "kills": 6,
+      "firstAt": "2026-10-24T22:09:57.559Z",
+      "firstBy": "Charlie",
+      "byAgent": {
+        "Charlie": 6
+      }
+    },
+    {
+      "name": "Cow",
+      "level": 2,
+      "value": 1.0986122886681098,
+      "kills": 25,
+      "firstAt": "2026-10-24T22:09:19.309Z",
+      "firstBy": "Bravo",
+      "byAgent": {
+        "Bravo": 25
+      }
+    },
+    {
+      "name": "Man",
+      "level": 2,
+      "value": 1.0986122886681098,
+      "kills": 12,
+      "firstAt": "2026-10-24T22:12:02.415Z",
+      "firstBy": "Charlie",
+      "byAgent": {
+        "Charlie": 6,
+        "Alpha": 6
+      }
+    },
+    {
+      "name": "Rat",
+      "level": 1,
+      "value": 0.6931471805599453,
+      "kills": 75,
+      "firstAt": "2026-10-24T22:09:10.812Z",
+      "firstBy": "Alpha",
+      "byAgent": {
+        "Alpha": 55,
+        "Charlie": 20
+      }
+    }
+  ],
+  "totalKills": 118,
+  "killsByAgent": {
+    "Alpha": 61,
+    "Bravo": 25,
+    "Charlie": 32
+  },
+  "uniqueByAgent": {
+    "Alpha": 2,
+    "Bravo": 1,
+    "Charlie": 3
+  },
+  "overlap": [
+    "Man",
+    "Rat"
+  ],
+  "nonScoringKills": 113,
+  "scoreOverTime": [
+    {
+      "minute": 1,
+      "score": 1.791759469228055
+    },
+    {
+      "minute": 2,
+      "score": 3.1780538303479453
+    },
+    {
+      "minute": 3,
+      "score": 3.737669618283368
+    },
+    {
+      "minute": 4,
+      "score": 4.836281906951478
+    }
+  ],
+  "finalScoreAt": "2026-10-24T22:12:02.415Z",
+  "scoringKills": [
+    {
+      "ts": "2026-10-24T22:09:10.812Z",
+      "agent": "Alpha",
+      "enemy": "Rat",
+      "level": 1,
+      "gain": 0.6931471805599453,
+      "x": 3230,
+      "z": 3224,
+      "plane": 0
+    },
+    {
+      "ts": "2026-10-24T22:09:19.309Z",
+      "agent": "Bravo",
+      "enemy": "Cow",
+      "level": 2,
+      "gain": 1.0986122886681098,
+      "x": 3256,
+      "z": 3257,
+      "plane": 0
+    },
+    {
+      "ts": "2026-10-24T22:09:57.559Z",
+      "agent": "Charlie",
+      "enemy": "Giant rat",
+      "level": 3,
+      "gain": 1.3862943611198906,
+      "x": 3197,
+      "z": 3199,
+      "plane": 0
+    },
+    {
+      "ts": "2026-10-24T22:10:36.860Z",
+      "agent": "Charlie",
+      "enemy": "Giant rat",
+      "level": 6,
+      "gain": 0.5596157879354227,
+      "x": 3212,
+      "z": 3197,
+      "plane": 0
+    },
+    {
+      "ts": "2026-10-24T22:12:02.415Z",
+      "agent": "Charlie",
+      "enemy": "Man",
+      "level": 2,
+      "gain": 1.0986122886681098,
+      "x": 3224,
+      "z": 3220,
+      "plane": 0
+    }
+  ],
+  "costUsd": 0.008798292,
+  "budgetUsd": 0.5,
+  "budgetStoppedAt": null,
+  "timing": {
+    "agents": [
+      {
+        "agent": "Solo",
+        "turns": 5,
+        "gameCalls": 9,
+        "modelSeconds": 27.8,
+        "toolSeconds": 159,
+        "gameToolSeconds": 158.2,
+        "medianModelSecondsPerTurn": 2.4,
+        "gameCallsPerMinute": 2.25
+      }
+    ],
+    "modelShare": 0.149,
+    "medianModelSecondsPerTurn": 2.4,
+    "gameCallsPerMinute": 2.25
+  }
+}

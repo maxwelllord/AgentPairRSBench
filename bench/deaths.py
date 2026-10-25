@@ -25,12 +25,18 @@ def find_deaths(run, name, track, t0=0.0):
     cands = [i for i in range(1, len(track)) if track[i][3] == 0 and abs(track[i][1] - RESPAWN[0]) <= 15
              and abs(track[i][2] - RESPAWN[1]) <= 15 and _jump(track[i - 1], track[i]) >= 16]
     calls = []  # (end ms - t0, respawns observed so far)
-    for f in glob.glob(os.path.join(run, f'agent-{name}-*.jsonl')):
+    # One agent per character, or one agent for the whole team (--characters): then its game calls are
+    # told apart by bot_name.
+    files = glob.glob(os.path.join(run, f'agent-{name}-*.jsonl'))
+    shared = not files
+    for f in files or glob.glob(os.path.join(run, 'agent-*.jsonl')):
         for line in open(f, encoding='utf-8'):
             if GAME_TOOL not in line or '"tool_use"' not in line:
                 continue
             j = json.loads(line)
             if j.get('type') == 'tool_use' and j['part'].get('tool') == GAME_TOOL:
+                if shared and str(j['part']['state'].get('input', {}).get('bot_name', '')).lower() != name.lower():
+                    continue
                 counts = re.findall(r'\((\d+) respawns? observed\)', j['part']['state'].get('output') or '')
                 calls.append((j['timestamp'] - t0, int(counts[-1]) if counts else None))
     calls.sort()
