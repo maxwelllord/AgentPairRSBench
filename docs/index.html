@@ -143,11 +143,11 @@ footer { margin-top: 4em; padding-top: 1.2em; border-top: 1px solid var(--rule);
 <p>A bench inspired by Max's <a href="https://maxbittker.github.io/runebench/">RuneBench</a> and <a href="https://github.com/MaxBittker/rs-sdk">rs-sdk</a>.</p>
 
 <h2 id="task">The task</h2>
-<p>2 agents on new characters must team up to kill as many unique enemies as they can within 15 minutes. Tougher enemies are worth more.
-  Some models also ran solo: one agent controlling both characters.</p>
+<p>2 agents on new characters must team up to kill as many unique enemies as they can within 15 minutes. Tougher enemies are worth more.</p>
 <p class="formula">score = Σ ln(1 + level)</p>
 <p>A level-2 Goblin is worth 1.10 and a level-5 Goblin 1.79, the stronger killed later adds the difference. Scoring by natural log rewards exploration: ten different easy monsters beat
 one hard one. Repeat kills are worth zero.</p>
+<p>Some models also ran solo: one agent controlling both characters.</p>
 
 <h2 id="maps">Timelapse</h2>
 <div class="videos wide">
