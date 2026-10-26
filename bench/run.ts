@@ -28,6 +28,7 @@ const OPENCODE_EXE = process.env.OPENCODE_EXE || join(process.env.APPDATA ?? '',
 const OPENCODE_CONFIGS: Record<string, string> = {
     'openrouter/deepseek/deepseek-v4.1-flash': 'opencode.deepseek.json',
     'openrouter/openai/gpt-6.1-sol': 'opencode.gpt-sol.json',
+    'openai/gpt-6.1-terra': 'opencode.gpt-terra.json',
     'openrouter/meta/muse-glimmer-30b': 'opencode.muse-glimmer.json',
     'openrouter/qwen/qwen3.8-flash': 'opencode.qwen-flash.json',
     'openrouter/deepseek/deepseek-v4.1-flash-1017': 'opencode.deepseek-1017.json',

@@ -3,6 +3,9 @@
 export const PRICING: Record<string, { input: number; cachedInput: number; output: number; cacheWrite?: number }> = {
     'openrouter/deepseek/deepseek-v4.1-flash': { input: 0.15e-6, cachedInput: 0.003e-6, output: 0.6e-6 },
     'openrouter/openai/gpt-6.1-sol': { input: 2e-6, cachedInput: 0.1e-6, output: 10e-6, cacheWrite: 2.5e-6 },
+    // gpt-6.1-terra direct from OpenAI: OpenRouter's list price for it ($1 in, $0.05 cached, $5 out per 1M;
+    // under 272k prompt tokens). r087 token-prices at $1.20 against $1.21 on the OpenAI dashboard.
+    'openai/gpt-6.1-terra': { input: 1e-6, cachedInput: 0.05e-6, output: 5e-6 },
     'openrouter/meta/muse-glimmer-30b': { input: 0.3e-6, cachedInput: 0.04e-6, output: 1.2e-6 },
     'openrouter/qwen/qwen3.8-flash': { input: 0.15e-6, cachedInput: 0.016e-6, output: 0.47e-6 },
     // fp8 hosts range $0.08-0.30 in; DeepSeek's own list price, so the budget cap errs high

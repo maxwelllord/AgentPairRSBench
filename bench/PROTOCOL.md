@@ -8,7 +8,8 @@ starts a new series, with its own name and run range, and existing results are n
 
 Run labels so far: `ds-clean` (DeepSeek V4.1 Flash), `sol-clean` (GPT-6.1 Sol), `qwen-clean`,
 `haiku-clean`, `glm-flash-clean`, `hy4-clean` (HY4 Preview), `kimi-clean` (Kimi K3), `kimi31-pro-clean`
-(Kimi K3.1 Pro, one run only: r076).
+(Kimi K3.1 Pro, one run only: r076),
+`terra-clean` (GPT-6.1 Terra, through OpenAI's API: see below).
 
 ## Fixed conditions
 
@@ -46,6 +47,9 @@ Run labels so far: `ds-clean` (DeepSeek V4.1 Flash), `sol-clean` (GPT-6.1 Sol), 
   - the key as `{file:~/.runebench/openrouter.key}`.
 - All models go through OpenRouter, at the model's **default reasoning effort**: set no `reasoning` or
   effort option.
+- Exception: GPT-6.1 Terra (r087–r089) went through OpenAI's API (`opencode.gpt-terra.json`, key in
+  `~/.runebench/openai.key`), since it wasn't on OpenRouter yet. Its cost is token counts at OpenRouter's
+  list price for it, within 1% of OpenAI's charge for r087.
 
 **Host routing**
 - Open-weight models are pinned to `"quantizations": ["fp8", "bf16"]` with `"require_parameters": true`.

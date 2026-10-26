@@ -154,6 +154,7 @@ one hard one. Repeat kills are worth zero.</p>
   <div class="tabbar">
     <div class="tabs" role="tablist" aria-label="Model">
       <button role="tab" id="tab-sol" aria-controls="panel-sol" aria-selected="true">GPT-6.1 Sol</button>
+      <button role="tab" id="tab-terra" aria-controls="panel-terra" aria-selected="false" tabindex="-1">GPT-6.1 Terra</button>
       <button role="tab" id="tab-kimi31" aria-controls="panel-kimi31" aria-selected="false" tabindex="-1">Kimi K3.1 Pro</button>
       <button role="tab" id="tab-deepseek" aria-controls="panel-deepseek" aria-selected="false" tabindex="-1">DeepSeek V4.1 Flash</button>
       <button role="tab" id="tab-hy4" aria-controls="panel-hy4" aria-selected="false" tabindex="-1">HY4 Preview</button>
@@ -214,6 +215,31 @@ one hard one. Repeat kills are worth zero.</p>
       <dd>Walked all the way to Ardougne to steal cakes, died to a guard.</dd>
     </dl>
     </div>
+  </div>
+  <div role="tabpanel" id="panel-terra" aria-labelledby="tab-terra" hidden>
+    <figure>
+      <video controls muted playsinline preload="metadata" poster="media/terra-poster.jpg" src="media/terra-timelapse.mp4"></video>
+      <figcaption>Terra teams split up early and ranges widely. With individual agents reaching south Ardougne, the Wilderness and the desert.</figcaption>
+    </figure>
+    <h3>Run notes</h3>
+    <dl class="runs">
+      <dt>Consistent</dt>
+      <dd>All three runs are both close in score and cost</dd>
+      <dt>Splitting up</dt>
+      <dd>In all three runs, both agents sent a private message 20 seconds in, each claiming Lumbridge and the west for itself and
+        sending the other east and north. One then gave way, and they kept a running list of kills in the team notes. Only 4–6
+        enemy types per run were killed by both.</dd>
+      <dt>Preparation</dt>
+      <dd>6.1 Terra consistently gathers food (usually cabbages or cooked meat) and uses it to good effect to kill tougher enemies.</dd>
+      <dd>Unlike most other models, 6.1 Terra frequently uses equipment it spots in the world, such as Leather Boots from the spawn in Al Kharid.</dd>
+      <dt>r088 Bravo</dt>
+      <dd>Walked to Ardougne, purchased arrows from the general store to kill a Monkey and Snake in the Zoo. Later it reports to Alpha that it "I reached the free cake stall" then goes on to steal cakes and eats them to stay alive whilst fighting a
+        Knight of Ardougne.</dd>
+      <dt>r087 Bravo</dt>
+      <dd>Purhcases a Shantay pass, slays a Desert Wolf, dies to desert heat. Re-enters the desert with a waterskin, but dies trying kill an Ugthanki.</dd>
+      <dt>Direct from OpenAI</dt>
+      <dd>Terra wasn't on OpenRouter yet, so these runs used OpenAI's API directly.</dd>
+    </dl>
   </div>
   <div role="tabpanel" id="panel-kimi31" aria-labelledby="tab-kimi31" hidden>
     <figure>
@@ -362,7 +388,7 @@ one hard one. Repeat kills are worth zero.</p>
     track of what the team has killed is part of the task.</li>
   <li><strong>The game runs at 8× speed</strong> with the server's 25× XP rate. Agents aren't told the XP rate.</li>
   <li><strong>Harness:</strong> each agent is an <a href="https://opencode.ai">OpenCode</a> 1.19.3 session using a model
-    through OpenRouter. It plays by writing TypeScript for rs-sdk's <code>execute_code</code> tool and reads the
+    through OpenRouter (GPT-6.1 Terra through OpenAI's API, before it reached OpenRouter). It plays by writing TypeScript for rs-sdk's <code>execute_code</code> tool and reads the
     world state that comes back.</li>
 </ul>
 
@@ -376,7 +402,7 @@ one hard one. Repeat kills are worth zero.</p>
 <h2 id="limits">Limitations</h2>
 <ul>
   <li><strong>Small samples.</strong> The <a href="#appendix">screening runs</a> are one run per model, and in the <a href="#results">main results</a> three runs of the same team ranged from
-    86 to 113 (Sol), 19 to 38 (DeepSeek), 14 to 41 (HY4 Preview), 19 to 28 (Kimi K3), 12 to 24 (Qwen), 9 to 18 (Haiku) and 11 to 13 (GLM-5.3 Flash).
+    86 to 113 (Sol), 75 to 82 (Terra), 19 to 38 (DeepSeek), 14 to 41 (HY4 Preview), 19 to 28 (Kimi K3), 12 to 24 (Qwen), 9 to 18 (Haiku) and 11 to 13 (GLM-5.3 Flash).
     Solo ranged from 73 to 109 (Sol) and 23 to 44 (DeepSeek). Kimi K3.1 Pro has a single run.</li>
   <li><strong>One harness.</strong> Every model played through OpenCode with the same prompt (adapted for solo) and tools. Some models may do
     much better with a harness built for them.</li>
@@ -388,8 +414,8 @@ one hard one. Repeat kills are worth zero.</p>
 <h2 id="results">Results</h2>
 <figure class="wide">
   <div class="chart" id="main-chart">
-    <div class="legend"><span data-m="GPT-6.1 Sol"><i style="background:var(--m-sol)"></i>GPT-6.1 Sol</span><span data-m="Kimi K3.1 Pro"><i class="diamond" style="background:var(--m-kimi)"></i>Kimi K3.1 Pro (1 run)</span><span data-m="DeepSeek V4.1 Flash"><i style="background:var(--m-deepseek)"></i>DeepSeek V4.1 Flash</span><span data-m="HY4 Preview"><i style="background:var(--m-hy4)"></i>HY4 Preview</span><span data-m="Kimi K3"><i style="background:var(--m-kimi)"></i>Kimi K3</span><span data-m="Qwen3.8 Flash"><i style="background:var(--m-qwen)"></i>Qwen3.8 Flash</span><span data-m="Haiku 5.5"><i style="background:var(--m-haiku)"></i>Haiku 5.5</span><span data-m="GLM-5.3 Flash"><i style="background:var(--m-glm)"></i>GLM-5.3 Flash</span><span class="setups"><span><i class="filled"></i>Two agents</span><span><i class="hollow"></i>Solo</span></span></div>
-    <div class="scroll"><svg viewBox="0 0 900 400" role="img" aria-label="Score against cost per run for GPT-6.1 Sol, Kimi K3.1 Pro, DeepSeek V4.1 Flash, HY4 Preview, Kimi K3, Qwen3.8 Flash, Haiku 5.5 and GLM-5.3 Flash, three runs each except Kimi K3.1 Pro's one, with GPT-6.1 Sol and DeepSeek V4.1 Flash also run solo"></svg></div>
+    <div class="legend"><span data-m="GPT-6.1 Sol"><i style="background:var(--m-sol)"></i>GPT-6.1 Sol</span><span data-m="GPT-6.1 Terra"><i style="background:var(--m-sol)"></i>GPT-6.1 Terra</span><span data-m="Kimi K3.1 Pro"><i class="diamond" style="background:var(--m-kimi)"></i>Kimi K3.1 Pro (1 run)</span><span data-m="DeepSeek V4.1 Flash"><i style="background:var(--m-deepseek)"></i>DeepSeek V4.1 Flash</span><span data-m="HY4 Preview"><i style="background:var(--m-hy4)"></i>HY4 Preview</span><span data-m="Kimi K3"><i style="background:var(--m-kimi)"></i>Kimi K3</span><span data-m="Qwen3.8 Flash"><i style="background:var(--m-qwen)"></i>Qwen3.8 Flash</span><span data-m="Haiku 5.5"><i style="background:var(--m-haiku)"></i>Haiku 5.5</span><span data-m="GLM-5.3 Flash"><i style="background:var(--m-glm)"></i>GLM-5.3 Flash</span><span class="setups"><span><i class="filled"></i>Two agents</span><span><i class="hollow"></i>Solo</span></span></div>
+    <div class="scroll"><svg viewBox="0 0 900 400" role="img" aria-label="Score against cost per run for GPT-6.1 Sol, GPT-6.1 Terra, Kimi K3.1 Pro, DeepSeek V4.1 Flash, HY4 Preview, Kimi K3, Qwen3.8 Flash, Haiku 5.5 and GLM-5.3 Flash, three runs each except Kimi K3.1 Pro's one, with GPT-6.1 Sol and DeepSeek V4.1 Flash also run solo"></svg></div>
     <div class="tip"></div>
   </div>
   <figcaption>Hover for details</figcaption>
@@ -399,6 +425,7 @@ one hard one. Repeat kills are worth zero.</p>
     <thead><tr><th>Model</th><th>Score</th><th>Runs</th><th>Cost / run</th><th>Enemy types</th><th>Deaths / run</th><th>Solo score</th><th>Solo cost / run</th></tr></thead>
     <tbody>
       <tr><td><span class="dot" style="--c:var(--m-sol)"></span>GPT-6.1 Sol</td><td>97.75 ± 14.0</td><td class="dim">113.25 · 93.91 · 86.10</td><td>$1.56</td><td>40</td><td>14.0</td><td>88.42 ± 18.4</td><td>$0.66</td></tr>
+      <tr><td><span class="dot" style="--c:var(--m-sol)"></span>GPT-6.1 Terra</td><td>79.67 ± 3.6</td><td class="dim">75.49 · 82.21 · 81.30</td><td>$1.18</td><td>37</td><td>8.3</td><td class="dim">–</td><td class="dim">–</td></tr>
       <tr><td><span class="dot diamond" style="--c:var(--m-kimi)"></span>Kimi K3.1 Pro</td><td>47.61</td><td class="dim">47.61 (1 run)</td><td>$2.26</td><td>24</td><td>8.0</td><td class="dim">–</td><td class="dim">–</td></tr>
       <tr><td><span class="dot" style="--c:var(--m-deepseek)"></span>DeepSeek V4.1 Flash</td><td>31.35 ± 10.6</td><td class="dim">19.11 · 36.66 · 38.28</td><td>$0.13</td><td>20</td><td>10.3</td><td>30.19 ± 12.2</td><td>$0.06</td></tr>
       <tr><td><span class="dot" style="--c:var(--m-hy4)"></span>HY4 Preview</td><td>26.17 ± 13.4</td><td class="dim">14.08 · 40.62 · 23.80</td><td>$0.45</td><td>17</td><td>6.7</td><td class="dim">–</td><td class="dim">–</td></tr>
@@ -410,7 +437,7 @@ one hard one. Repeat kills are worth zero.</p>
   </table>
 </div>
 <details>
-  <summary>Table: all 28 runs</summary>
+  <summary>Table: all 31 runs</summary>
   <div class="tablewrap">
     <table>
       <thead><tr><th>Model</th><th>Run</th><th>Score</th><th>Cost</th><th>Enemy types</th><th>Deaths (A + B)</th></tr></thead>
@@ -421,6 +448,9 @@ one hard one. Repeat kills are worth zero.</p>
         <tr><td>GPT-6.1 Sol · solo</td><td class="dim">r081</td><td>72.93</td><td>$0.61</td><td>33</td><td>6 + 6</td></tr>
         <tr><td>GPT-6.1 Sol · solo</td><td class="dim">r082</td><td>83.56</td><td>$0.69</td><td>36</td><td>4 + 6</td></tr>
         <tr><td>GPT-6.1 Sol · solo</td><td class="dim">r083</td><td>108.77</td><td>$0.67</td><td>46</td><td>5 + 7</td></tr>
+        <tr><td>GPT-6.1 Terra</td><td class="dim">r087</td><td>75.49</td><td>$1.20</td><td>35</td><td>4 + 5</td></tr>
+        <tr><td>GPT-6.1 Terra</td><td class="dim">r088</td><td>82.21</td><td>$1.16</td><td>38</td><td>2 + 5</td></tr>
+        <tr><td>GPT-6.1 Terra</td><td class="dim">r089</td><td>81.30</td><td>$1.19</td><td>37</td><td>5 + 4</td></tr>
         <tr><td>Kimi K3.1 Pro</td><td class="dim">r076</td><td>47.61</td><td>$2.26</td><td>24</td><td>1 + 7</td></tr>
         <tr><td>DeepSeek V4.1 Flash</td><td class="dim">r047</td><td>19.11</td><td>$0.14</td><td>15</td><td>4 + 5</td></tr>
         <tr><td>DeepSeek V4.1 Flash</td><td class="dim">r048</td><td>36.66</td><td>$0.15</td><td>21</td><td>4 + 7</td></tr>
@@ -449,7 +479,8 @@ one hard one. Repeat kills are worth zero.</p>
 </details>
 <p class="note">Score is the mean of three runs; ± is the sample standard deviation. Kimi K3.1 Pro has one run, so no ±.
   Solo runs are never pooled with the two-agent runs.
-  Kimi costs are the actual OpenRouter charges; the rest are token counts at list prices.</p>
+  Kimi costs are the actual OpenRouter charges; the rest are token counts at list prices. Terra ran through OpenAI's API
+  and is priced at OpenRouter's list price for it, which came within 1% of OpenAI's charge for r087.</p>
 
 <h2 id="changes">Changes from rs-sdk and rs-bench</h2>
 <p>The main results (r047 onward) have all of these. The screening runs in the appendix had only the dialogue text and the kill ledger.</p>
@@ -587,6 +618,7 @@ for (const [m, run, cost, score, en, share, spt, cpm, rng] of R1) {
 (function () {
   const RUNS = {
     'GPT-6.1 Sol': [['r053', 1.4761, 113.25, 44], ['r054', 1.4191, 93.91, 39], ['r055', 1.7976, 86.10, 37]],
+    'GPT-6.1 Terra': [['r087', 1.2010, 75.49, 35], ['r088', 1.1588, 82.21, 38], ['r089', 1.1898, 81.30, 37]],
     'DeepSeek V4.1 Flash': [['r047', 0.1421, 19.11, 15], ['r048', 0.1507, 36.66, 21], ['r049', 0.0970, 38.28, 23]],
     'HY4 Preview': [['r070', 0.3194, 14.08, 12], ['r071', 0.5832, 40.62, 23], ['r072', 0.4623, 23.80, 17]],
     'Kimi K3': [['r073', 2.4326, 22.54, 14], ['r074', 2.8383, 28.11, 18], ['r075', 2.0759, 19.21, 14]],
@@ -600,11 +632,11 @@ for (const [m, run, cost, score, en, share, spt, cpm, rng] of R1) {
     'GPT-6.1 Sol': [['r081', 0.6081, 72.93, 33], ['r082', 0.6911, 83.56, 36], ['r083', 0.6746, 108.77, 46]],
     'DeepSeek V4.1 Flash': [['r078', 0.0673, 23.40, 16], ['r079', 0.0639, 22.87, 16], ['r080', 0.0560, 44.31, 22]],
   };
-  const COLOR = { 'GPT-6.1 Sol': 'var(--m-sol)', 'DeepSeek V4.1 Flash': 'var(--m-deepseek)', 'Qwen3.8 Flash': 'var(--m-qwen)', 'Haiku 5.5': 'var(--m-haiku)', 'GLM-5.3 Flash': 'var(--m-glm)', 'HY4 Preview': 'var(--m-hy4)', 'Kimi K3': 'var(--m-kimi)', 'Kimi K3.1 Pro': 'var(--m-kimi)' };
+  const COLOR = { 'GPT-6.1 Sol': 'var(--m-sol)', 'GPT-6.1 Terra': 'var(--m-sol)','DeepSeek V4.1 Flash': 'var(--m-deepseek)', 'Qwen3.8 Flash': 'var(--m-qwen)', 'Haiku 5.5': 'var(--m-haiku)', 'GLM-5.3 Flash': 'var(--m-glm)', 'HY4 Preview': 'var(--m-hy4)', 'Kimi K3': 'var(--m-kimi)', 'Kimi K3.1 Pro': 'var(--m-kimi)' };
   // Models sharing a colour with their family get a diamond instead of a circle.
   const DIAMOND = new Set(['Kimi K3.1 Pro']);
   // Label offsets [dx, dy, anchor] for the means.
-  const off = { 'GPT-6.1 Sol': [12, 4, 'start'], 'DeepSeek V4.1 Flash': [12, 4, 'start'], 'Qwen3.8 Flash': [12, 4, 'start'], 'Haiku 5.5': [4, -13, 'middle'], 'GLM-5.3 Flash': [-4, 22, 'middle'], 'HY4 Preview': [12, 4, 'start'], 'Kimi K3': [-12, 4, 'end'], 'Kimi K3.1 Pro': [-13, 4, 'end'] };
+  const off = { 'GPT-6.1 Sol': [12, 4, 'start'], 'GPT-6.1 Terra': [12, 4, 'start'], 'DeepSeek V4.1 Flash': [12, 4, 'start'], 'Qwen3.8 Flash': [12, 4, 'start'], 'Haiku 5.5': [4, -13, 'middle'], 'GLM-5.3 Flash': [-4, 22, 'middle'], 'HY4 Preview': [12, 4, 'start'], 'Kimi K3': [-12, 4, 'end'], 'Kimi K3.1 Pro': [-13, 4, 'end'] };
   const box = document.getElementById('main-chart'), svg = box.querySelector('svg'), tip = box.querySelector('.tip');
   const W = 900, H = 400, L = 56, R = 24, T = 16, B = 46;
   const x0 = Math.log(0.02), x1 = Math.log(3.5), yMax = 120;
